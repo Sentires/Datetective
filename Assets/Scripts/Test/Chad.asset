@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5e1ba964acdb24ba0f1d502076f5ce, type: 3}
+  m_Name: Chad
+  m_EditorClassIdentifier: 
+  characterName: Greg
+  collection:
+    rowLabels:
+    - Neutral
+    - Happy
+    - Surprised
+    - Sad
+    - Angry
+    - Flustered
+    columnLabels:
+    - Default
+    columns:
+    - rows:
+      - image: {fileID: 2800000, guid: d03ffa328f7c83845802cb92fa7eddf7, type: 3}
+      - image: {fileID: 2800000, guid: 9f833b8a027235d4f8956eb2ada9cfec, type: 3}
+      - image: {fileID: 0}
+      - image: {fileID: 0}
+      - image: {fileID: 0}
+      - image: {fileID: 0}
+  CustomEmotionLabels: []
+  CustomAppearanceLabels: []
