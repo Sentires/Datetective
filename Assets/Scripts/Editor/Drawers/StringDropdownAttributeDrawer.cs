@@ -7,6 +7,7 @@ namespace TheDates.General
     [CustomPropertyDrawer(typeof(StringDropdownAttribute))]
     public class StringDropdownAttributeDrawer : PropertyDrawer
     {
+        // redundancies
         private string[] _options;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
