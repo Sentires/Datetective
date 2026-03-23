@@ -1,8 +1,9 @@
 using System.Reflection;
+using TheDates.Runtime.General;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheDates.General
+namespace TheDates.Editor
 {
     [CustomPropertyDrawer(typeof(StringDropdownAttribute))]
     public class StringDropdownAttributeDrawer : PropertyDrawer

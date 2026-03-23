@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TheDates.General
+namespace TheDates.Runtime.General
 {
     public class StringDropdownAttribute : PropertyAttribute
     {

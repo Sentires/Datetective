@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Linq;
+using TheDates.Runtime.General;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace TheDates
+namespace TheDates.Runtime
 {
-    [CreateAssetMenu(fileName = "NewCharacterProfile", menuName = Helpers.AssetCreationRoot + "Character Profile")]
+    [CreateAssetMenu(fileName = "NewCharacterProfile", menuName = GameHelpers.AssetCreationRoot + "Character Profile")]
     public class CharacterProfile : ScriptableObject, ISerializationCallbackReceiver
     {
         // TODO - clean up & refine. The basic idea is there.

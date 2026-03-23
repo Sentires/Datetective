@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 
-namespace TheDates
+namespace TheDates.Runtime.General
 {
     [Serializable]
     public class GridColumn<T>

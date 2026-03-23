@@ -1,7 +1,7 @@
 using System;
 
 
-namespace TheDates
+namespace TheDates.Runtime.General
 {
     // Simple inspector-compatible class for identifying a value with a key
     // IE, easily loop and add to a dictionary

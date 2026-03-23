@@ -1,7 +1,8 @@
+using TheDates.Runtime.General;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheDates
+namespace TheDates.Editor
 {
     [CustomPropertyDrawer(typeof(GridCollection<>))]
     public class GridDrawer : PropertyDrawer 

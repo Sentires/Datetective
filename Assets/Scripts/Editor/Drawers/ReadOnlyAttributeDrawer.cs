@@ -1,7 +1,8 @@
+using TheDates.Runtime.General;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheDates.General
+namespace TheDates.Editor
 {
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyAttributeDrawer : PropertyDrawer

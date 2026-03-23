@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TheDates
+namespace TheDates.Runtime.General
 {
     [Serializable]
     public class GridCollection<T> : ISerializationCallbackReceiver

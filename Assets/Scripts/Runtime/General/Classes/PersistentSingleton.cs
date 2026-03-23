@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TheDates
+namespace TheDates.Runtime.General
 {
     // Inherit to simplify singleton pattern objects
     public class PersistentSingleton<T> : MonoBehaviour where T : Component {
