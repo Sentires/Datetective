@@ -8,16 +8,17 @@ namespace TheDates.Runtime.General
 
         protected static T instance;
 
-        public static bool HasInstance => instance != null;
+        public static bool HasInstance => instance && Application.isPlaying;
+
         public static T TryGetInstance() => HasInstance ? instance : null;
 
         public static T Instance {
             get {
-                if (instance == null)
+                if (!instance)
                 {
                     instance = FindObjectOfType<T>();
                     //instance = FindAnyObjectByType<T>();
-                    if (instance == null) {
+                    if (!HasInstance) {
                         var go = new GameObject(typeof(T).Name + " Auto-Generated");
                         instance = go.AddComponent<T>();
                     }
@@ -48,6 +49,15 @@ namespace TheDates.Runtime.General
                     Destroy(gameObject);
                 }
             }
+        }
+
+        protected virtual void OnDisable() {
+            instance = null;
+        }
+        
+        // Ensure that this is destroyed when you exit runtime
+        protected virtual void OnApplicationQuit() {
+            Destroy(gameObject);
         }
     }
 }

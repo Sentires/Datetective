@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TheDates.Runtime
 {
-    [CreateAssetMenu(fileName = "NewCharacterProfile", menuName = GameHelpers.AssetCreationRoot + "Character Profile")]
+    [CreateAssetMenu(fileName = "NewCharacterProfile", menuName = GameExtensions.AssetCreationRoot + "Character Profile")]
     public class CharacterProfile : ScriptableObject, ISerializationCallbackReceiver
     {
         // TODO - clean up & refine. The basic idea is there.
