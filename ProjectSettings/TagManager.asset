@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - OverlayWorld
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Minigame
+    uniqueID: 121969965
+    locked: 0
+  - name: UI
+    uniqueID: 1775479495
     locked: 0
