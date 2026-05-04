@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using TheDates.Runtime.Dialogue;
 using TheDates.Runtime.General;
 using TheDates.Runtime.Input;
+using TheDates.Runtime.Quests;
 using UnityEngine;
 
 namespace TheDates.Runtime
@@ -10,12 +12,14 @@ namespace TheDates.Runtime
     {
         // Hard-coded events
         public InputEvents InputEvents;
+        public QuestEvents QuestEvents;
+        public DialogueEvents DialogueEvents;
         
         private Dictionary<Type, EventHandler> _eventHandlers;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void LazyInstance() {
-            if (!Instance) {
+            if (!TryCreateInstance()) {
                 Debug.LogWarning("Creating new GameEventsManager");
             }
         }
@@ -24,8 +28,10 @@ namespace TheDates.Runtime
             base.Awake();
             
             // Eventually I want to rely on the dictionary, as it could become more reusable without hard-coding the handlers in this class
-            CreateDictionary(new InputEvents());
+            CreateDictionary(new QuestEvents(), new DialogueEvents(), new InputEvents());
+            QuestEvents = GetHandler<QuestEvents>();
             InputEvents = GetHandler<InputEvents>();
+            DialogueEvents = GetHandler<DialogueEvents>();
             
             InputEvents.ChangeInputEventContext(InputEvents.Context.World);
         }
@@ -66,12 +72,9 @@ namespace TheDates.Runtime
     {
         // Actions are the main target, they inherit from MulticastDelegate apparently
         // These are here in case I need them later
-        //protected Dictionary<string, Delegate> _handlers;
 
-        public EventHandler()
-        {
-            //_handlers = new();
-        }
+        protected EventHandler()
+        { }
         
         /*
         public static T Subscribe<T>(T existingDelegate, T newHandler) where T : MulticastDelegate
@@ -84,5 +87,4 @@ namespace TheDates.Runtime
         }
         */
     }
-    
 }
