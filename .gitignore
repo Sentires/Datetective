@@ -100,4 +100,4 @@ InitTestScene*.unity*
 
 # ADDED, CUSTOM BY JACK
 # Ignore the Azure repo clone to prevent overlap :D
-/[Aa]ssets/Art/*
+#/[Aa]ssets/Art/*
