@@ -6,11 +6,6 @@ namespace TheDates.Runtime.Dialogue
 {
     public class DialogueEvents : EventHandler
     {
-        public DialogueEvents() : base()
-        {
-            _handlers.Add(nameof(onEnterDialogue), onEnterDialogue);
-        }
-        
         public DialogueManager currentManager { get; private set; }
         public void BindManager(DialogueManager dialogueManager) {
             currentManager = dialogueManager;

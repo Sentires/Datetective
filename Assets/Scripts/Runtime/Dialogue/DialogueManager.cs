@@ -33,7 +33,7 @@ namespace TheDates.Runtime.Dialogue
         }
 
         private void OnEnable() {
-            if (!GameEventsManager.HasInstance()) return;
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.DialogueEvents.BindManager(this);
             GameEventsManager.Instance.DialogueEvents.onEnterDialogue += EnterDialogue;
             GameEventsManager.Instance.DialogueEvents.onUpdateChoiceIndex += UpdateChoiceIndex;
@@ -42,7 +42,7 @@ namespace TheDates.Runtime.Dialogue
         }
 
         private void OnDisable() {
-            if (!GameEventsManager.HasInstance()) return;
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.DialogueEvents.UnbindManager(this);
             GameEventsManager.Instance.DialogueEvents.onEnterDialogue -= EnterDialogue;
             GameEventsManager.Instance.DialogueEvents.onUpdateChoiceIndex -= UpdateChoiceIndex;
