@@ -273,7 +273,7 @@ namespace TheDates.Runtime.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Point"",
+                    ""name"": ""Position"",
                     ""type"": ""PassThrough"",
                     ""id"": ""32b35790-4ed0-4e9a-aa41-69ac6d629449"",
                     ""expectedControlType"": ""Vector2"",
@@ -282,7 +282,7 @@ namespace TheDates.Runtime.Input
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""LeftClick"",
                     ""type"": ""PassThrough"",
                     ""id"": ""3c7022bf-7922-4f7c-a998-c437916075ad"",
                     ""expectedControlType"": ""Button"",
@@ -447,7 +447,7 @@ namespace TheDates.Runtime.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Point"",
+                    ""action"": ""Position"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -458,7 +458,7 @@ namespace TheDates.Runtime.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Click"",
+                    ""action"": ""LeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -574,8 +574,8 @@ namespace TheDates.Runtime.Input
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
             m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
             m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-            m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
-            m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+            m_UI_Position = m_UI.FindAction("Position", throwIfNotFound: true);
+            m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
@@ -714,8 +714,8 @@ namespace TheDates.Runtime.Input
         private readonly InputAction m_UI_Navigate;
         private readonly InputAction m_UI_Submit;
         private readonly InputAction m_UI_Cancel;
-        private readonly InputAction m_UI_Point;
-        private readonly InputAction m_UI_Click;
+        private readonly InputAction m_UI_Position;
+        private readonly InputAction m_UI_LeftClick;
         private readonly InputAction m_UI_ScrollWheel;
         private readonly InputAction m_UI_MiddleClick;
         private readonly InputAction m_UI_RightClick;
@@ -726,8 +726,8 @@ namespace TheDates.Runtime.Input
             public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
             public InputAction @Submit => m_Wrapper.m_UI_Submit;
             public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-            public InputAction @Point => m_Wrapper.m_UI_Point;
-            public InputAction @Click => m_Wrapper.m_UI_Click;
+            public InputAction @Position => m_Wrapper.m_UI_Position;
+            public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
             public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
             public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
             public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
@@ -749,12 +749,12 @@ namespace TheDates.Runtime.Input
                     @Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                    @Point.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    @Point.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    @Point.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    @Click.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
-                    @Click.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
-                    @Click.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
+                    @Position.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPosition;
+                    @Position.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPosition;
+                    @Position.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPosition;
+                    @LeftClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
+                    @LeftClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
                     @ScrollWheel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
                     @ScrollWheel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
                     @ScrollWheel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
@@ -777,12 +777,12 @@ namespace TheDates.Runtime.Input
                     @Cancel.started += instance.OnCancel;
                     @Cancel.performed += instance.OnCancel;
                     @Cancel.canceled += instance.OnCancel;
-                    @Point.started += instance.OnPoint;
-                    @Point.performed += instance.OnPoint;
-                    @Point.canceled += instance.OnPoint;
-                    @Click.started += instance.OnClick;
-                    @Click.performed += instance.OnClick;
-                    @Click.canceled += instance.OnClick;
+                    @Position.started += instance.OnPosition;
+                    @Position.performed += instance.OnPosition;
+                    @Position.canceled += instance.OnPosition;
+                    @LeftClick.started += instance.OnLeftClick;
+                    @LeftClick.performed += instance.OnLeftClick;
+                    @LeftClick.canceled += instance.OnLeftClick;
                     @ScrollWheel.started += instance.OnScrollWheel;
                     @ScrollWheel.performed += instance.OnScrollWheel;
                     @ScrollWheel.canceled += instance.OnScrollWheel;
@@ -855,8 +855,8 @@ namespace TheDates.Runtime.Input
             void OnNavigate(InputAction.CallbackContext context);
             void OnSubmit(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
-            void OnPoint(InputAction.CallbackContext context);
-            void OnClick(InputAction.CallbackContext context);
+            void OnPosition(InputAction.CallbackContext context);
+            void OnLeftClick(InputAction.CallbackContext context);
             void OnScrollWheel(InputAction.CallbackContext context);
             void OnMiddleClick(InputAction.CallbackContext context);
             void OnRightClick(InputAction.CallbackContext context);
