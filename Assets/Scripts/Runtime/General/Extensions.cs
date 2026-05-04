@@ -45,6 +45,42 @@ namespace TheDates
         }
     }
 
+    public static class Vector3Extensions
+    {
+        // Shorthand methods
+        public static Vector3 With(this Vector3 vector, float? x = null, float? y = null, float? z = null) {
+            return new Vector3(x ?? vector.x, y ?? vector.y, z ?? vector.z);
+        }
+        public static Vector3 Add(this Vector3 vector, float x = 0, float y = 0, float z = 0) {
+            return new Vector3(vector.x + x, vector.y + y, vector.z + z);
+        }
+        public static Vector3 Subtract(this Vector3 vector, float x = 0, float y = 0, float z = 0) {
+            return new Vector3(vector.x - x, vector.y - y, vector.z - z);
+        }
+        public static Vector3 Multiply(this Vector3 vector, float x = 0, float y = 0, float z = 0) {
+            return new Vector3(vector.x * x, vector.y * y, vector.z * z);
+        }
+        
+        public static Vector3 Divide(this Vector3 vector, float x = 0, float y = 0, float z = 0) {
+            return new Vector3(Divide(vector.x, x), Divide(vector.y, y), Divide(vector.z, z));
+        }
+        
+        // Avoid errors
+        private static float Divide(float dividend, float divisor) {
+            return dividend == 0 && divisor == 0 ? 0 : dividend / divisor;
+        }
+    }
+
+    //public static class Vector2Extensions
+    //{
+    //    
+    //}
+
+    public static class QuestExtensions {
+        public static bool AssertValidation(this QuestInfo quest, object sender, string bonusMessage = "") {
+            return quest.AssertNull(sender, "QuestInfo", bonusMessage);
+        }
+    }
     
     public static class CollectionExtensions
     {
