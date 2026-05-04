@@ -20,7 +20,7 @@ namespace TheDates.Runtime.PlayerCore
         private Direction _currentDirection;
         private Vector2 _currentMovementInput;
         private bool _isMoving;
-        private static bool canMove => GameEventsManager.Instance.InputEvents.inputEventContext == InputEvents.Context.World;
+        private static bool ignoreInputs => GameEventsManager.Instance.InputEvents.inputEventContext != InputEvents.Context.World;
         
         // Cache Animator Parameters
         private static readonly Vector2Int ParamFacingHash = new(Animator.StringToHash("FacingX"), Animator.StringToHash("FacingY"));
@@ -44,12 +44,14 @@ namespace TheDates.Runtime.PlayerCore
         }
 
         public void OnEnable() {
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.InputEvents.onMove += Move;
             //GameEventsManager.Instance.InputEvents.onClick += Click;
             //GameEventsManager.Instance.InputEvents.onPoint += Point;
         }
         
         public void OnDisable() {
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.InputEvents.onMove -= Move;
             //GameEventsManager.Instance.InputEvents.onClick -= Click;
             //GameEventsManager.Instance.InputEvents.onPoint -= Point;
@@ -58,14 +60,13 @@ namespace TheDates.Runtime.PlayerCore
         
 
         private void FixedUpdate() {
-            if (!canMove) return;
             UpdateDirection();
             SetVelocity();
             UpdateAnimator(_isMoving, _currentDirection);
         }
         
         private void Move(Vector2 input) {
-            _currentMovementInput = input;
+            _currentMovementInput = ignoreInputs ? Vector2.zero : input;
         }
         
         //private void Click(bool input) {

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1581636004, guid: 7a14d66e63b136745a6ade92e36d103b, type: 3}
+  m_Sprite: {fileID: 791092520, guid: 600eb050eaa091943bf136c3d1fb4732, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 8627943395560906721}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d8ab9ae83c52cc340929e5731e2af264, type: 2}
+  m_Controller: {fileID: 9100000, guid: 715fd88f63a796e4d864c18ef07be7bf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -116,8 +116,9 @@ GameObject:
   - component: {fileID: 8627943395675927062}
   - component: {fileID: 8627943395675927063}
   - component: {fileID: 8627943395675927056}
+  - component: {fileID: 1424906983}
   m_Layer: 0
-  m_Name: TestPlayer
+  m_Name: RPGPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8627943395675927056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +177,29 @@ MonoBehaviour:
   horizontalInputBias: 1.1
   rb: {fileID: 8627943395675927063}
   animator: {fileID: 8627943395560906732}
+--- !u!61 &1424906983
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627943395675927061}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.25}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.56, y: 0.42}
+  m_EdgeRadius: 0.03
