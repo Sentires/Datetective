@@ -8,94 +8,131 @@ using UnityEngine.Events;
 
 namespace TheDates
 {
-    public class WireGame : MonoBehaviour//, IMiniGame
+    public class WireGame : MiniGame
     {
+        [Header("Mechanic Config")]
         public List<WireIdentity> wires = new();
+
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
-        [field: SerializeField, ReadOnly] public bool isInitialised { get; private set; }
-        [field: SerializeField, ReadOnly] public MiniGameState gameState { get; private set; }
+        [SerializeField, ReadOnly] private bool initialised;
+        [SerializeField, ReadOnly] private GameObject prefab;
+        [SerializeField, ReadOnly] private MiniGameState state;
+        public override bool isInitialised => initialised;
+        public override GameObject source => prefab;
+        public override MiniGameState gameState => state;
         
-        private Dictionary<int, WireIdentity> _collidables = new();
+        private readonly Dictionary<int, WireIdentity> _collidables = new();
         private WireIdentity _currentWire;
         private int _score;
-
+        private int _maxScore;
         private Vector3 _movePosition;
-        // Start is called before the first frame update
-        void Start()
-        {
+        
+        public override void Init(GameObject gamePrefab) {
+            if (!MiniGameManager.HasInstance || MiniGameManager.Instance == miniGameManager) return;
+            miniGameManager = MiniGameManager.Instance;
+            prefab = gamePrefab;
             
-            foreach (var wire in wires)
-            {
+            _collidables.Clear();
+            foreach (var wire in wires) {
                 _collidables.Add(wire.clickPoint.GetInstanceID(), wire);
                 _collidables.Add(wire.goal.GetInstanceID(), wire);
-                wire.Init();
-                //wire.goal.transform.
                 Debug.Log($"Added Wire: {wire.clickPoint.GetInstanceID()}, {wire.goal.GetInstanceID()}");
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-        
-        private void OnEnabled()
-        {
-            miniGameManager.OnClickPosition += OnPointPosition;
-            miniGameManager.OnClickState += OnClickState;
-            miniGameManager.OnClickTarget += OnClickTarget;
-        }
-
-        
-
-        private void OnDisabled()
-        {
-            miniGameManager.OnClickPosition -= OnPointPosition;
-            miniGameManager.OnClickState -= OnClickState;
-            miniGameManager.OnClickTarget -= OnClickTarget;
-        }
-
-        private void OnClickTarget(RaycastHit2D input)
-        {
-            //throw new NotImplementedException();
             
-            //Debug.Log($"OnClickTarget Any called with {input.collider.name}");
-            //if ( != null)
+        }
+        
+        private void OnEnabled() {
+            //contentParent.gameObject.SetActive(true);
+            if (!MiniGameManager.HasInstance) return;
+            
+            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnClickPosition += OnClickPosition;
+            MiniGameManager.Instance.OnClickTarget += OnClickTarget;
+        }
+
+        private void OnDisabled() {
+            //contentParent.gameObject.SetActive(false);
+            if (!MiniGameManager.HasInstance) return;
+            
+            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
+            MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
+        }
+        
+        public override void AcceptCommand(MiniGameCommand command) {
+            var newState = command switch {
+                MiniGameCommand.Start => StartGame1(),
+                MiniGameCommand.Reset => ResetGame1(),
+                MiniGameCommand.Win => WinGame1(),
+                MiniGameCommand.Lose => LoseGame1(),
+                _ => QuitGame1() // ForceQuit here
+            };
+            
+            SetState(newState);
+        }
+        
+        private MiniGameState WinGame1() {
+            Debug.Log("Yippee I found my way there!");
+            QuitGame1();
+            return MiniGameState.Completed;
+        }
+
+        private MiniGameState LoseGame1() {
+            Debug.Log("Aw shucks, wrong move. Let me try again!");
+            return ResetGame1();
+        }
+
+        private MiniGameState StartGame1() {
+            OnEnabled();
+            SetupGame();
+            return MiniGameState.Active;
+        }
+
+        private MiniGameState ResetGame1() {
+            SetupGame();
+            return MiniGameState.Active;
+        }
+
+        private MiniGameState QuitGame1() {
+            OnDisabled();
+            return MiniGameState.Inactive;
+        }
+
+        private void SetupGame() {
+            _score = 0;
+            _maxScore = wires.Count;
+            foreach (var wire in wires) {
+                wire.Init();
+            }
+        }
+        
+        private void SetState(MiniGameState newState, bool notifyManager = true) {
+            if (state == newState) return;
+            state = newState;
+            if (notifyManager) MiniGameManager.Instance.NotifyMiniGameState(source, state);
+        }
+
+        private void OnClickTarget(RaycastHit2D input) {
             if (!_collidables.TryGetValue(input.collider.GetInstanceID(), out var wire)) return;
             if (wire.clickPoint != input.collider) return;
             _currentWire = wire;
             Debug.Log($"OnClickTarget called with {input.collider.name} : {wire.name}");
         }
 
-        private void OnClickState(bool input)
-        {
+        private void OnClickState(bool input) {
             if (_currentWire == null) return;
-            //_currentWire.clickPoint.bounds.Intersects(_currentWire.goal.bounds)
-            //var fulfilled = miniGameManager.Raycast(_movePosition).collider != null;
-            //if (_currentWire.clickPoint.bounds.Intersects(_currentWire.goal.bounds)) Debug.Log("Bounds hit");
             if (!input && _currentWire.TrySnapWire()) {
-                Debug.Log("hit");
-                //_currentWire.isConnected = true;
-                //_currentWire.clickPoint.transform.position = _currentWire.goal.transform.position;
-                //_currentWire.clickPoint.enabled = false;
-                //_currentWire.goal.enabled = false;
                 _score++;
-                //return;
-            }
-            else {
-                Debug.Log("not hit");
-                //_currentWire.clickPoint.transform.position = _currentWire.startPoint.position;
+                if (_score >= _maxScore) SendCommand(MiniGameCommand.Win);
             }
             
             _currentWire = null;
         }
-        private void OnPointPosition(Vector2 input)
-        {
+        
+        private void OnClickPosition(Vector2 input) {
             if (_currentWire == null) return;
             _movePosition = miniGameManager.GetWorldSpacePosition(input, -0.3f);
-            //_currentWire.clickPoint.transform.position = _movePosition;
             _currentWire.MoveWire(_movePosition);
         }
 
@@ -113,19 +150,12 @@ namespace TheDates
             
             private EdgeCollider2D _trailCollider;
 
-            public void Init()
-            {
-                //startPoint.localPosition = startPoint.localPosition.With(z: -0.3f);
-                //clickPoint.transform.position = startPoint.position;
+            public void Init() {
                 var connectingPoint = trail.gameObject.transform.position;
                 trail.SetPosition(0, connectingPoint.With(x: connectingPoint.x - 0.3f));
                 trail.SetPosition(1, connectingPoint);
                 MoveWire(startPoint.position);
-                //trail.transform.localPosition = trail.transform.localPosition.With(z: -0.2f);
-                //goal.transform.localPosition = goal.transform.localPosition.With(z: -0.1f);
                 
-                
-                //trail.
                 isConnected = false;
                 movement = Vector3.zero;
                 clickPoint.enabled = true;
@@ -133,7 +163,7 @@ namespace TheDates
             }
 
             public bool CheckGoal() {
-                return goal.bounds.Intersects(clickPoint.bounds); //clickPoint.IsTouching(goal);
+                return goal.bounds.Intersects(clickPoint.bounds);
             }
 
             public Vector3 MoveWire(Vector3 input) {
@@ -147,10 +177,8 @@ namespace TheDates
 
             public bool TrySnapWire()
             {
-                if (goal.bounds.Intersects(clickPoint.bounds))
-                {
+                if (goal.bounds.Intersects(clickPoint.bounds)) {
                     isConnected = true;
-                    //clickPoint.transform.position = endPoint.position;
                     MoveWire(endPoint.position);
                     clickPoint.enabled = false;
                     goal.enabled = false;
@@ -158,36 +186,10 @@ namespace TheDates
                 }
 
                 MoveWire(startPoint.position);
-                //clickPoint.transform.position = startPoint.position;
                 return false;
             }
         }
         
-        [field: SerializeField, ReadOnly] public GameObject source { get; private set; }
-        public void Init(GameObject prefab)
-        {
-            if (!MiniGameManager.HasInstance || MiniGameManager.Instance == miniGameManager) return;
-            miniGameManager = MiniGameManager.Instance;
-            source = prefab;
-            
-        }
-
-        public void StartGame()
-        {
-            OnEnabled();
-            //throw new NotImplementedException();
-        }
-
-        public void ResetGame()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void StopGame()
-        {
-            OnDisabled();
-            //throw new NotImplementedException();
-        }
     }
     
 }
