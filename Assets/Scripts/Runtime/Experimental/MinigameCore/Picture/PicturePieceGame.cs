@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TheDates.Runtime.Experimental.MinigameCore;
+using TheDates.Runtime.General;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,11 +13,10 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
     // https://www.youtube.com/watch?v=OFC_UUaS4gs
     // https://www.youtube.com/watch?v=2ZH0GaYbrc8
     // https://www.youtube.com/watch?v=bNBS8ZuzgZo
-    public class PicturePieceGame : MonoBehaviour/*, IMiniGame*/, IClickListener
+    public class PicturePieceGame : MiniGame
     {
         private static readonly int MatTextureID = Shader.PropertyToID("_MainTex");
-        public MiniGameManager manager => miniGameManager;
-
+        
         [Header("Mechanic Config")]
         [SerializeField] private int multiplier = 4;
         [SerializeField] private float gridSnapFactor = 2;
@@ -39,6 +39,15 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         [SerializeField] private Transform piecePrefab;
         [SerializeField] private List<Texture2D> textures = new();
         
+        [Header("Exposed Fields")]
+        [SerializeField, ReadOnly] private bool initialised;
+        [SerializeField, ReadOnly] private GameObject prefab;
+        [SerializeField, ReadOnly] private MiniGameState state;
+        public override bool isInitialised => initialised;
+        public override GameObject source => prefab;
+        public override MiniGameState gameState => state;
+        
+        
         private float _width;
         private float _height;
         private Vector2Int _dimensions;
@@ -48,34 +57,6 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         private Transform _draggedPiece;
         private Vector3 _clickOffset;
         private int _score;
-        
-        private void Start() {
-            //contentParent = gameHolder.transform;
-            StartListening(manager);
-            
-            // Setup Collections
-            _pieces = new List<Transform>();
-            _pieceIds = new HashSet<int>();
-            
-            // Setup Line Renderer 
-            _lineRenderer = contentParent.GetComponent<LineRenderer>();
-            if (_lineRenderer.positionCount != 4) _lineRenderer.positionCount = 4;
-            _lineRenderer.startWidth = 1;
-            _lineRenderer.endWidth = 1;
-            _lineRenderer.widthMultiplier = borderThickness;
-            
-            
-            /*
-            foreach (var tex in textures) {
-                var image = Instantiate(levelSelectPrefab, levelSelectPanel);
-                image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
-                
-                // Assign to button
-                image.GetComponent<Button>().onClick.AddListener(() => StartGame(tex));
-            }
-            */
-        }
-
 
         private void StartGame(Texture2D texture) {
             levelSelectPanel.gameObject.SetActive(false);
@@ -90,29 +71,26 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
 
         private void UpdateBorder() {
-            //var lineRenderer = contentParent.GetComponent<LineRenderer>();
             _lineRenderer.useWorldSpace = false;
             
             // We need to scale the border thickness by the local scale for clean edges
+            // If this appears very small, check the line renderer component and debug it first
             var halfWidth = (((_width * _dimensions.x) + borderThickness / contentParent.localScale.x) / 2);
             var halfHeight = (((_height * _dimensions.y) + borderThickness / contentParent.localScale.y) / 2);
             
             // Clockwise
-            
             _lineRenderer.SetPosition(0, new Vector3(-halfWidth, halfHeight, 0));
             _lineRenderer.SetPosition(1, new Vector3(halfWidth, halfHeight, 0));
             _lineRenderer.SetPosition(2, new Vector3(halfWidth, -halfHeight, 0));
             _lineRenderer.SetPosition(3, new Vector3(-halfWidth, -halfHeight, 0));
             //lineRenderer.widthMultiplier = thickness;
             
-            
             _lineRenderer.enabled = true;
-
         }
 
         private void ScatterPieces() {
             // Get the camera's bounds
-            var rangeHeight = Camera.main.orthographicSize;
+            var rangeHeight = CameraManager.Instance.cameraMap[CameraManager.RenderState.HighDefWorld].pairedCamera.orthographicSize;// Camera.main.orthographicSize;
             var screenAspect = (float)Screen.width / Screen.height;
             var rangeWidth = screenAspect * rangeHeight;
             
@@ -149,15 +127,13 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             return dimensions;
         }
 
-        private void CreatePieces(Texture2D texture)
-        {
+        private void CreatePieces(Texture2D texture) {
             _height = 1f / _dimensions.y;
             var aspect = (float)texture.width / texture.height;
             _width = aspect / _dimensions.x;
 
             for (var row = 0; row < _dimensions.y; row++) {
-                for (var col = 0; col < _dimensions.x; col++)
-                {
+                for (var col = 0; col < _dimensions.x; col++) {
                     // Make & add the piece
                     var piece = CreatePiece(col, row, texture);
                     _pieces.Add(piece);
@@ -200,11 +176,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
                 new (width * col, height * (row + 1)), // 3
                 new (width * (col + 1), height * (row + 1)) // 4
             };
-            //uv[0] = new Vector2(width * col, height * row);
-            //uv[1] = new Vector2(width * (col + 1), height * row);
-            //uv[2] = new Vector2(width * col, height * (row + 1));
-            //uv[3] = new Vector2(width * (col + 1), height * (row + 1));
-            
+
             // Get the MeshFilter component & assign the new UV
             var mesh = piece.GetComponent<MeshFilter>().mesh;
             mesh.uv = uv;
@@ -213,34 +185,15 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             piece.GetComponent<MeshRenderer>().material.SetTexture(MatTextureID, pieceTexture);
         }
 
-        public void StartListening(MiniGameManager manager)
-        {
-            manager.OnClickState += OnClickState;
-            manager.OnClickPosition += OnClickPosition;
-            manager.OnClickTarget += OnClickTarget;
-        }
-
-        public void StopListening(MiniGameManager manager)
-        {
-            manager.OnClickState -= OnClickState;
-            manager.OnClickPosition -= OnClickPosition;
-            manager.OnClickTarget -= OnClickTarget;
-        }
-
-        public void OnClickState(bool input) {
+        private void OnClickState(bool input) {
             if (input || !_draggedPiece) return;
             Debug.Log($"Put Down {_draggedPiece.name}");
             TryGridSnap();
             
-            //var newPos = _draggedPiece.position;
-            //newPos.z = zPosition;
-            //_draggedPiece.position = newPos;
-            
             _draggedPiece = null;
         }
 
-        private void TryGridSnap()
-        {
+        private void TryGridSnap() {
             var index = _pieces.IndexOf(_draggedPiece);
 
             var col = index % _dimensions.x;
@@ -252,13 +205,11 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             );
 
             if (Vector2.Distance(_draggedPiece.localPosition, targetPosition) < _width / gridSnapFactor) {
-                //var newPosition = new Vector3(targetPosition.x, targetPosition.y, zPosition);
-                //_draggedPiece.localPosition = new Vector3(targetPosition.x, targetPosition.y, zPosition); 
                 _draggedPiece.localPosition = targetPosition; 
                 _draggedPiece.GetComponent<BoxCollider2D>().enabled = false; // no longer clickable
                 _score++;
                 if (_score == _pieces.Count) {
-                    winInterface.SetActive(true);
+                    SendCommand(MiniGameCommand.Win);
                 }
             }
         }
@@ -272,15 +223,19 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             _pieceIds.Clear();
         }
 
-        public void OnClickPosition(Vector2 input) {
+        private void OnClickPosition(Vector2 input) {
             if (!_draggedPiece) return;
             
             var worldPos = GetWorldSpacePosition(input, 0) + _clickOffset;
             _draggedPiece.position = worldPos;
         }
 
+        private Camera GetCamera() {
+            return !CameraManager.HasInstance ? null : CameraManager.Instance.cameraMap[CameraManager.RenderState.HighDefWorld].pairedCamera;
+        }
+
         private Vector3 GetWorldSpacePosition(Vector2 input, float zPos) {
-            var worldPos = Camera.main.ScreenToWorldPoint(input);
+            var worldPos = GetCamera().ScreenToWorldPoint(input);
             worldPos.z = zPos;
             return worldPos;
         }
@@ -296,7 +251,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             _draggedPiece.parent = contentParent;
         }
 
-        public void OnClickTarget(RaycastHit2D hit) {
+        private void OnClickTarget(RaycastHit2D hit) {
             if (!hit || !_pieceIds.Contains(hit.transform.GetInstanceID())) return;
             
             _draggedPiece = hit.transform;
@@ -305,14 +260,84 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             //_clickOffset += Vector3.back;
             Debug.Log($"Picked Up {_draggedPiece.name}");
         }
-
-        //public event Action<MiniGameOutcome> OnGameOutcome;
-        public bool isInitialised { get; private set;  }
-        public MiniGameState gameState { get; }
         
-        public void StartGame()
-        {
-            //gameObject.SetActive(true);
+        public override void Init(GameObject sourcePrefab) {
+            //manager = MiniGameManager.Instance;
+            if (!MiniGameManager.HasInstance || MiniGameManager.Instance == miniGameManager) return;
+            miniGameManager = MiniGameManager.Instance;
+            prefab = sourcePrefab;
+            Init();
+        }
+
+        private void Init() {
+            if (!contentParent) return;
+            
+            // Setup Collections
+            _pieces = new List<Transform>();
+            _pieceIds = new HashSet<int>();
+            
+            // Setup Line Renderer 
+            _lineRenderer = contentParent.GetComponent<LineRenderer>();
+            if (_lineRenderer.positionCount != 4) _lineRenderer.positionCount = 4;
+            _lineRenderer.startWidth = 1;
+            _lineRenderer.endWidth = 1;
+            _lineRenderer.widthMultiplier = borderThickness;
+            
+            //InitAssets();
+            state = MiniGameState.Inactive;
+            initialised = true;
+        }
+        
+        private void OnEnabled() {
+            contentParent.gameObject.SetActive(true);
+            if (!MiniGameManager.HasInstance) return;
+            
+            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnClickPosition += OnClickPosition;
+            MiniGameManager.Instance.OnClickTarget += OnClickTarget;
+        }
+        
+        private void OnDisabled() {
+            contentParent.gameObject.SetActive(false);
+            if (!MiniGameManager.HasInstance) return;
+            
+            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
+            MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
+        }
+
+        public override void AcceptCommand(MiniGameCommand command) {
+            var newState = command switch {
+                MiniGameCommand.Start => StartGame(),
+                MiniGameCommand.Reset => ResetGame(),
+                MiniGameCommand.Win => WinGame(),
+                MiniGameCommand.Lose => LoseGame(),
+                _ => QuitGame() // ForceQuit here
+            };
+            
+            SetState(newState);
+        }
+        
+        private void SetState(MiniGameState newState, bool notifyManager = true) {
+            if (state == newState) return;
+            state = newState;
+            if (notifyManager) MiniGameManager.Instance.NotifyMiniGameState(source, state);
+        }
+        
+        private MiniGameState WinGame() {
+            Debug.Log("Yippee I finished!");
+            QuitGame();
+            return MiniGameState.Completed;
+        }
+
+        private MiniGameState LoseGame() {
+            Debug.Log("Aw shucks, got it wrong. Let me try again!");
+            return ResetGame();
+        }
+
+        private MiniGameState StartGame() {
+            OnEnabled();
+            contentParent.gameObject.SetActive(true);
             foreach (var tex in textures) {
                 var image = Instantiate(levelSelectPrefab, levelSelectPanel);
                 image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
@@ -320,28 +345,25 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
                 // Assign to button
                 image.GetComponent<Button>().onClick.AddListener(() => StartGame(tex));
             }
-            winInterface.SetActive(false);
             levelSelectPanel.gameObject.SetActive(true);
             
-            //manager.StartGame(this.g);
+            return MiniGameState.Active;
         }
 
-        private void ResetProgress()
-        {
+        private MiniGameState ResetGame() {
             ClearProgress();
             _lineRenderer.enabled = false;
-            winInterface.SetActive(false);
             levelSelectPanel.gameObject.SetActive(true);
+            
+            return MiniGameState.Active;
         }
 
-        public void ResetGame()
-        {
-            ResetProgress();
-        }
+        private MiniGameState QuitGame() {
+            ClearProgress();
+            _lineRenderer.enabled = false;
+            OnDisabled();
 
-        public void StopGame()
-        {
-            ResetProgress();
+            return MiniGameState.Inactive;
         }
     }
 }
