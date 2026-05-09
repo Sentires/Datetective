@@ -292,7 +292,7 @@ RectTransform:
   - {fileID: 1403871231385910033}
   - {fileID: 5476693347561711439}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -315,7 +315,7 @@ MonoBehaviour:
   contentParent: {fileID: 1403871231385910033}
   playerPrefab: {fileID: 7814506088831698627, guid: 7880ab6695919424e9d9fabe84f508ba, type: 3}
   maskPrefab: {fileID: 1403871229953438387}
-  mazePrefab: {fileID: 1000000000000000, guid: 3708b92e479ba9242ab933434b6282c1, type: 3}
+  mazePrefab: {fileID: 1000000000000000, guid: a90a0bc1d15027d40a545200ad6118d6, type: 3}
   expectedLocalScale: {x: 1, y: 1, z: 1}
   miniGameManager: {fileID: 0}
   initialised: 0
@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -2.76}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &5403461692267729784
