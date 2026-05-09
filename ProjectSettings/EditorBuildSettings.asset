@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PrototypeQuest.unity
+    guid: c775ec7923b741541b656c50f376ecad
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
@@ -29,8 +32,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scripts/Runtime/PlayerCore/PlayerCore Testing.unity
     guid: 61c2b0879a8c7044bb20e84cc97164ff
-  - enabled: 1
-    path: Assets/Scenes/PrototypeQuest.unity
-    guid: c775ec7923b741541b656c50f376ecad
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3128d4b10f7b18a49b76a2a062c9a761, type: 2}
