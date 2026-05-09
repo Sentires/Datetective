@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 1000000000000001}
   - component: {fileID: 1000000000000000000}
   m_Layer: 0
-  m_Name: Unity Export
+  m_Name: Office - Unity Export
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
