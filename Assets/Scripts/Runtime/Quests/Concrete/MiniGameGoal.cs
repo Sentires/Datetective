@@ -5,6 +5,7 @@ using TheDates.Runtime;
 using TheDates.Runtime.Experimental.MinigameCore;
 using TheDates.Runtime.Quests;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TheDates
 {
@@ -12,17 +13,16 @@ namespace TheDates
     {
         //private int _interactions = 0;
         //private int _interactionsRequired = 4;
-        private MiniGameState minigameState;
-        public GameObject MiniGamePrefab;
+        private MiniGameState _minigameState;
+        [FormerlySerializedAs("MiniGamePrefab")] public GameObject miniGamePrefab;
         
-        protected override void SetState(string goalState)
-        {
+        protected override void SetState(QuestGoalStatus status, string goalState) {
             // try catch?
-            minigameState = Enum.Parse<MiniGameState>(goalState);
-            UpdateState();
+            if (!string.IsNullOrEmpty(goalState)) _minigameState = Enum.Parse<MiniGameState>(goalState);
+            UpdateState(status);
         }
 
-        protected override string GetState() => minigameState.ToString();
+        protected override string GetState() => _minigameState.ToString();
 
         //public void Interact(GameObject target) => Interaction(target);
 
@@ -33,14 +33,13 @@ namespace TheDates
         }
 
         private void CheckStatus(MiniGameContext context) {
-            if (!context.Source.Equals(MiniGamePrefab)) return;
+            if (!context.Source.Equals(miniGamePrefab)) return;
             if (context.State == MiniGameState.Completed && GameEventsManager.Instance.QuestEvents.currentManager.QuestMap[questID].state == QuestState.Active) {
                 Finalise();
                 return;
             }
             
-            UpdateState();
-            
+            UpdateState(QuestGoalStatus.Active);
         }
 
         private void OnDisable()

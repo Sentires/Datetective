@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5647201733106200787}
   - component: {fileID: 5647201733106200784}
   m_Layer: 0
-  m_Name: MazeGoal
+  m_Name: WiringPuzzleGoal
   m_TagString: Mechanic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6371203873a5d42802c9a81880b5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MiniGamePrefab: {fileID: 1403871231537020592, guid: 47dd21e1f9a236848bb535f803507a54, type: 3}
+  miniGamePrefab: {fileID: 6238285627498529691, guid: 748d052a6a7fba94d811b7b7bbe8a042, type: 3}

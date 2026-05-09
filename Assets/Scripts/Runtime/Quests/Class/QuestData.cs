@@ -20,13 +20,18 @@ namespace TheDates.Runtime.Quests
     [Serializable]
     public class QuestGoalState {
         public string state;
+        public QuestGoalStatus status;
 
-        public QuestGoalState(string state) {
+        public QuestGoalState(QuestGoalStatus status, string state) {
+            this.status = status;
             this.state = state;
         }
 
-        public QuestGoalState() {
-            this.state = string.Empty;
+        public QuestGoalState(QuestGoalStatus status) {
+            this.status = status;
+            state = string.Empty;
         }
     }
+
+    public enum QuestGoalStatus { Inactive, Starting, Active, Concluding }
 }

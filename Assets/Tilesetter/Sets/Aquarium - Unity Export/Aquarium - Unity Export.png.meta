@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 118c9379eab97a0578652bcc5e7515bd
+guid: e13ea44bd321017515a0448266a694c2
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -62,6 +62,9 @@ TextureImporter:
   - first:
       213: 21300038
     second: Aquarium - Unity Export_19
+  - first:
+      213: 21300040
+    second: Aquarium - Unity Export_20
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -586,6 +589,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Aquarium - Unity Export_20
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84305410000000000800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -609,6 +633,7 @@ TextureImporter:
       Aquarium - Unity Export_3: 21300006
       Aquarium - Unity Export_9: 21300018
       Aquarium - Unity Export_11: 21300022
+      Aquarium - Unity Export_20: 21300040
       Aquarium - Unity Export_18: 21300036
       Aquarium - Unity Export_2: 21300004
       Aquarium - Unity Export_12: 21300024

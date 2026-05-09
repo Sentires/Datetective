@@ -19,7 +19,7 @@ namespace TheDates.Runtime.Quests
             
             goalStates = new QuestGoalState[details.stepPrefabs.Length];
             for (var i = 0; i < goalStates.Length; i++) {
-                goalStates[i] = new QuestGoalState();
+                goalStates[i] = new QuestGoalState(QuestGoalStatus.Inactive);
             }
         }
 

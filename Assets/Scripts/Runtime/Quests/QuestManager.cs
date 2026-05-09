@@ -128,7 +128,8 @@ namespace TheDates.Runtime.Quests
         {
             var quest = QuestMap[id];
             quest.StoreGoalState(goalState, goalIndex);
-            ChangeQuestState(quest.hashID, quest.state);
+            // Try disabling this for now
+            //ChangeQuestState(quest.hashID, quest.state);
         }
 
         private void QuestStateChange(Quest quest) => UpdateQuestRequirements();

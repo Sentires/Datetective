@@ -1,6 +1,6 @@
 namespace TheDates.Runtime.Quests.Impl
 {
-    public class StoryQuest : QuestGoal
+    /*public class StoryQuest : QuestGoal
     {
         private string _placeholder;
         
@@ -10,5 +10,5 @@ namespace TheDates.Runtime.Quests.Impl
             _placeholder = goalState;
             UpdateState();
         }
-    }
+    }*/
 }

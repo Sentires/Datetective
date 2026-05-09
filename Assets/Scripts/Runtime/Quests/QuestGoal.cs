@@ -11,19 +11,21 @@ namespace TheDates.Runtime.Quests
         public void Initialise(int id, int index, string goalState) {
             questID = id;
             goalIndex = index;
-            if (!string.IsNullOrEmpty(goalState)) {
-                SetState(goalState);
-            }
+            //if (!string.IsNullOrEmpty(goalState)) {
+            SetState(QuestGoalStatus.Starting, goalState);
+            //}
+            // If we want to notify others when it becomes active
         }
 
-        private void ChangeState(string state) => GameEventsManager.Instance.QuestEvents.QuestGoalStateChange(questID, goalIndex, new QuestGoalState(state));
+        private void ChangeState(QuestGoalStatus status, string state) => GameEventsManager.Instance.QuestEvents.QuestGoalStateChange(questID, goalIndex, new QuestGoalState(status, state));
 
         protected void Finalise()
         {
             if (!_isFinished)
             {
                 _isFinished = true;
-                //AdvanceQuest();
+                // If we want to notify others when it becomes inactive
+                UpdateState(QuestGoalStatus.Concluding);
                 GameEventsManager.Instance.QuestEvents.AdvanceQuest(questID);
                 
                 Destroy(gameObject);
@@ -31,14 +33,14 @@ namespace TheDates.Runtime.Quests
         }
         
         // Each child implements its own GetState(), so any core logic can go here
-        protected void UpdateState() {
+        protected void UpdateState(QuestGoalStatus status) {
             var state = GetState();
-            ChangeState(state);
+            ChangeState(status, state);
         }
         protected abstract string GetState();
 
         //protected abstract void AdvanceQuest(); // TODO - Advancement logic
-        protected abstract void SetState(string goalState);
+        protected abstract void SetState(QuestGoalStatus status, string goalState);
 
     }
 }

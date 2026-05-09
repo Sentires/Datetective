@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheDates.Runtime.Quests
 {
@@ -16,13 +15,7 @@ namespace TheDates.Runtime.Quests
         protected QuestState _currentQuestState;
         
         public virtual bool isAvailable { get; }
-
-        public UnityEvent OnQuestAvailable = new UnityEvent();
-        public UnityEvent OnQuestUnavailable = new UnityEvent();
-        public UnityEvent OnQuestActive = new UnityEvent();
-        public UnityEvent OnQuestAchieved = new UnityEvent();
-        public UnityEvent OnQuestConcluded = new UnityEvent();
-
+        
         private void OnEnable()
         {
             if (!GameEventsManager.HasInstance) return;
@@ -92,51 +85,8 @@ namespace TheDates.Runtime.Quests
         {
             if (quest.details.hashID == _questID) {
                 _currentQuestState = quest.state;
-                var ev = _currentQuestState switch {
-                    QuestState.Available => OnQuestAvailable,
-                    QuestState.Unavailable => OnQuestUnavailable,
-                    QuestState.Active => OnQuestActive,
-                    QuestState.Achieved => OnQuestAchieved,
-                    QuestState.Concluded => OnQuestConcluded,
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-                ev.Invoke();
-                //InvokeQuestEvents();
-                
                 Debug.Log($"Quest state changed to {_currentQuestState} for '{quest.namedID}'");
             }
-        }
-
-        private void InvokeQuestEvents()
-        {
-            //string debugMessage;
-            switch (_currentQuestState)
-            {
-                case QuestState.Available:
-                    OnQuestAvailable.Invoke();
-                    //debugMessage = "Quest Event: Available";
-                    break;
-                case QuestState.Unavailable:
-                    OnQuestUnavailable.Invoke();
-                    //debugMessage = "Quest Event: Unavailable";
-                    break;
-                case QuestState.Active:
-                    OnQuestActive.Invoke();
-                    //debugMessage = "Quest Event: Active";
-                    break;
-                case QuestState.Achieved:
-                    OnQuestAchieved.Invoke();
-                    //debugMessage = "Quest Event: Achieved";
-                    break;
-                case QuestState.Concluded:
-                    OnQuestConcluded.Invoke();
-                    //debugMessage = "Quest Event: Concluded";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
-            //Debug.Log(debugMessage);
         }
 
         private void Awake()

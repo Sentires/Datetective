@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c082f5e4934b0e83a60f2d09df3c77ef
+guid: 230ecb46f46fad5bed4f8926dbe3236b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -47,6 +47,9 @@ TextureImporter:
   - first:
       213: 21300028
     second: Main Street - Unity Export_14
+  - first:
+      213: 21300030
+    second: Main Street - Unity Export_15
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -466,6 +469,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Main Street - Unity Export_15
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -480,6 +504,7 @@ TextureImporter:
       Main Street - Unity Export_9: 21300018
       Main Street - Unity Export_6: 21300012
       Main Street - Unity Export_5: 21300010
+      Main Street - Unity Export_15: 21300030
       Main Street - Unity Export_1: 21300002
       Main Street - Unity Export_7: 21300014
       Main Street - Unity Export_12: 21300024

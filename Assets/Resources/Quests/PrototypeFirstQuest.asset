@@ -18,6 +18,8 @@ MonoBehaviour:
   <path>k__BackingField: Assets/Resources/Quests/PrototypeFirstQuest.asset
   prerequisites: []
   stepPrefabs:
+  - {fileID: 5647201733106200785, guid: a729d785cd04de94283c260e24b66fd5, type: 3}
   - {fileID: 5647201733106200785, guid: 7eb703bf99950eb44bd99930a627229d, type: 3}
-  - {fileID: 5647201733106200785, guid: 7eb703bf99950eb44bd99930a627229d, type: 3}
+  - {fileID: 5647201733106200785, guid: f587a5f66ac1f254587347ef63287d14, type: 3}
+  - {fileID: 5647201733106200785, guid: 3566564dc4c6080448888b07c1333aec, type: 3}
   outcome: '"First quest completed!"'
