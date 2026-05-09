@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TheDates.Runtime.Quests;
@@ -70,6 +71,15 @@ namespace TheDates
             return dividend == 0 && divisor == 0 ? 0 : dividend / divisor;
         }
     }
+    
+    public static class TransformExtensions
+    {
+        public static IEnumerable<Transform> Children(this Transform parent) {
+            foreach (Transform child in parent) {
+                yield return child;
+            }
+        }
+    }
 
     //public static class Vector2Extensions
     //{
@@ -90,6 +100,7 @@ namespace TheDates
         public static bool IsNullOrEmpty(this ICollection collection) => collection?.IsEmpty() ?? true;
     }
 
+#if UNITY_EDITOR
     public static class SceneHelpers
     {
         // Return all the build's scenes
@@ -106,4 +117,6 @@ namespace TheDates
             return sceneNames;
         }
     }
+#endif
+    
 }
