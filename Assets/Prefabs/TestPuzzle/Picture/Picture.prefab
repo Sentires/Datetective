@@ -51,21 +51,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425ef6367fa28ee4e86d84f9f1f39b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
+  multiplier: 4
   gridSnapFactor: 2
   scatterRange: {x: 1, y: 1}
   borderThickness: 0.1
   zPosition: -2
   gameScale: {x: 10, y: 10}
-  miniGameManager: {fileID: 0}
   contentParent: {fileID: 5350576492885783052}
   canvasTransform: {fileID: 5350576492174311271}
   levelSelectPanel: {fileID: 5350576491987900897}
   winInterface: {fileID: 5350576493197428822}
   levelSelectPrefab: {fileID: 274240180807331608, guid: 66ea45f5d8c914845a3a3eea38ebd806, type: 3}
   piecePrefab: {fileID: 5463807516915079698, guid: a2bfe10324067874cbc3496904d99b66, type: 3}
-  textures:
-  - {fileID: 2800000, guid: 602ded277580e9d45a1d082a1c8d9387, type: 3}
+  slicedPicture: {fileID: 2800000, guid: 285e0701845ff7145a565a777876c654, type: 3}
+  guidePicture: {fileID: 2800000, guid: 9f42fa4db975b63479332ba6a92cc0b7, type: 3}
+  miniGameManager: {fileID: 0}
   initialised: 0
   prefab: {fileID: 0}
   state: 0

@@ -15,7 +15,8 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
     // https://www.youtube.com/watch?v=bNBS8ZuzgZo
     public class PicturePieceGame : MiniGame
     {
-        private static readonly int MatTextureID = Shader.PropertyToID("_MainTex");
+        private static readonly int MatTextureID = Shader.PropertyToID("_BaseMap");
+        private static readonly int MatColourID = Shader.PropertyToID("_BaseColor");
         
         [Header("Mechanic Config")]
         [SerializeField] private int multiplier = 4;
@@ -28,7 +29,6 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         [SerializeField] private Vector2 gameScale = new(3, 3);
 
         [Header("Scene Dependencies")] 
-        [SerializeField] private MiniGameManager miniGameManager;
         [SerializeField] private Transform contentParent;
         [SerializeField] private RectTransform canvasTransform;
         [SerializeField] private Transform levelSelectPanel;
@@ -37,9 +37,12 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         [Header("Prefab Dependencies")]
         [SerializeField] private Image levelSelectPrefab;
         [SerializeField] private Transform piecePrefab;
-        [SerializeField] private List<Texture2D> textures = new();
+        //[SerializeField] private List<Texture2D> textures = new();
+        [SerializeField] private Texture2D slicedPicture;
+        [SerializeField] private Texture2D guidePicture;
         
         [Header("Exposed Fields")]
+        [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
         [SerializeField, ReadOnly] private bool initialised;
         [SerializeField, ReadOnly] private GameObject prefab;
         [SerializeField, ReadOnly] private MiniGameState state;
@@ -52,18 +55,20 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         private float _height;
         private Vector2Int _dimensions;
         private List<Transform> _pieces;
+        private Transform _guide;
         private HashSet<int> _pieceIds;
         private LineRenderer _lineRenderer;
         private Transform _draggedPiece;
         private Vector3 _clickOffset;
         private int _score;
 
-        private void StartGame(Texture2D texture) {
+        private void PrepareGame() {
             levelSelectPanel.gameObject.SetActive(false);
             //_pieces.Clear();
             //_pieceIds.Clear();
-            _dimensions = GetDimensions(texture, multiplier);
-            CreatePieces(texture);
+            _dimensions = GetDimensions(slicedPicture, multiplier);
+            CreatePieces(slicedPicture);
+            CreateGuide(guidePicture);
             ScatterPieces();
             UpdateBorder();
 
@@ -83,7 +88,6 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             _lineRenderer.SetPosition(1, new Vector3(halfWidth, halfHeight, 0));
             _lineRenderer.SetPosition(2, new Vector3(halfWidth, -halfHeight, 0));
             _lineRenderer.SetPosition(3, new Vector3(-halfWidth, -halfHeight, 0));
-            //lineRenderer.widthMultiplier = thickness;
             
             _lineRenderer.enabled = true;
         }
@@ -185,6 +189,24 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             piece.GetComponent<MeshRenderer>().material.SetTexture(MatTextureID, pieceTexture);
         }
 
+        private void CreateGuide(Texture2D texture)
+        {
+            _guide = Instantiate(piecePrefab, contentParent);
+            _guide.name = $"Guide";
+            
+            _guide.localPosition = new Vector3(0, 0, zPosition);
+            _guide.localScale = new Vector3(_width * _dimensions.x, _height * _dimensions.y, 1);
+            
+            var mat = _guide.GetComponent<MeshRenderer>().material;
+            mat.SetTexture(MatTextureID, texture);
+            var colour = mat.color;
+            mat.color = new Color(colour.r, colour.g, colour.b, 0f);
+
+            _guide.GetComponent<BoxCollider2D>().enabled = false;
+            
+            //_guide = guide;
+        }
+
         private void OnClickState(bool input) {
             if (input || !_draggedPiece) return;
             Debug.Log($"Put Down {_draggedPiece.name}");
@@ -215,6 +237,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
 
         private void ClearProgress() {
+            Destroy(_guide.gameObject);
             if (_pieces.Count <= 0) return;
             for (var i = _pieces.Count - 1; i >= 0; i--) {
                 Destroy(_pieces[i]?.gameObject);
@@ -262,7 +285,6 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
         
         public override void Init(GameObject sourcePrefab) {
-            //manager = MiniGameManager.Instance;
             if (!MiniGameManager.HasInstance || MiniGameManager.Instance == miniGameManager) return;
             miniGameManager = MiniGameManager.Instance;
             prefab = sourcePrefab;
@@ -338,22 +360,23 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         private MiniGameState StartGame() {
             OnEnabled();
             contentParent.gameObject.SetActive(true);
-            foreach (var tex in textures) {
-                var image = Instantiate(levelSelectPrefab, levelSelectPanel);
-                image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
-                
-                // Assign to button
-                image.GetComponent<Button>().onClick.AddListener(() => StartGame(tex));
-            }
-            levelSelectPanel.gameObject.SetActive(true);
+            //foreach (var tex in textures) {
+            //    var image = Instantiate(levelSelectPrefab, levelSelectPanel);
+            //    image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
+            //    
+            //    // Assign to button
+            //    image.GetComponent<Button>().onClick.AddListener(() => StartGame(tex));
+            //}
+            //levelSelectPanel.gameObject.SetActive(true);
             
+            PrepareGame();
             return MiniGameState.Active;
         }
 
         private MiniGameState ResetGame() {
             ClearProgress();
             _lineRenderer.enabled = false;
-            levelSelectPanel.gameObject.SetActive(true);
+            //levelSelectPanel.gameObject.SetActive(true);
             
             return MiniGameState.Active;
         }
