@@ -29,6 +29,8 @@ namespace TheDates
             public Vector2Int gridSize = new(3, 3);
             
             private Transform[,] _tiles;
+            private float _width;
+            private float _height;
             
             private Vector2Int _currentIndex;
             private Transform _currentTile;
@@ -42,10 +44,9 @@ namespace TheDates
             {
                 _collidables = new HashSet<int>();
                 var root = stepParent.transform.Find("Root");
-                //var root = new GameObject("Tiles").transform;
-                //root.SetParent(stepParent);
                 
                 GenerateTiles();
+                var pos = stepParent.position;
             }
 
             public void Reset()
@@ -92,7 +93,10 @@ namespace TheDates
             
             private void GenerateTiles() {
                 _tiles = new Transform[gridSize.x, gridSize.y];
-            
+                
+                _height = shuffledTiles[0].sprite.bounds.size.y;
+                _width = shuffledTiles[0].sprite.bounds.size.x;
+                
                 var index = 0;
                 for (var y = gridSize.y - 1; y >= 0; y--) {
                     for (var x = 0; x < gridSize.x; x++) {
@@ -110,67 +114,62 @@ namespace TheDates
                             continue;
                         }
                         piece.name = $"Tile";
-                        /*
-                        if (!isWithinBounds || pieces[index] == null) {
-                            piece = new GameObject($"Empty Tile");
-                            piece.transform.SetParent(pieceParent);
 
-                            if (isWithinBounds) {
-                                pieces[index] = piece;
-                            }
-                            else {
-                                pieces.Add(piece);
-                            }
-                        } else {
-                            piece = pieces[index];
-                            if (!piece.transform.IsChildOf(pieceParent)) {
-                                //Debug.Log($"IGNORED piece {piece.name} at index [{index}], sibling index is [{piece.transform.GetSiblingIndex()}]");
-                                pieces[index].SetActive(false);
-                                continue;
-                            }
-                            piece.name = $"Tile";
-                        }
-                        */
                         var siblingIndex = piece.transform.GetSiblingIndex();
-                        CreatePiece(siblingIndex, piece, shuffledTiles[index].sprite);
+                        CreatePiece(siblingIndex, shuffledTiles[index].tile, shuffledTiles[index].sprite);
                         _collidables.Add(piece.GetInstanceID());
                         index++;
                     }
                 }
+                
+                
             }
             
             private void SetupTiles() {
                 var index = 0;
+                
                 for (var y = gridSize.y - 1; y >= 0; y--) {
                     for (var x = 0; x < gridSize.x; x++) {
                         var piece = shuffledTiles[index].tile;
                         _tiles[x,y] = piece.transform;
-                        ArrangePiece(new Vector3(x, y, -1), piece.gameObject);
+                        var width = _width;
+                        var height = _height;
+                        float offsetX = (gridSize.x - 1) * width / 2f;
+                        float offsetY = (gridSize.y - 1) * height / 2f;
+                        var pos = new Vector3((x * _width) - offsetX, (y * _height) - offsetY, -1);
+                        ArrangePiece(pos, piece.gameObject); 
+                        piece.gameObject.SetActive(true);
                         index++;
                     }
                 }
             }
             
-            private void CreatePiece(int index, GameObject piece, Sprite sprite) {
-                var text = piece.GetComponentInChildren<TextMeshPro>();
-                if (text != null) {
-                    text.text = index.ToString();
-                }
+            private void CreatePiece(int index, BoxCollider2D piece, Sprite sprite) {
+                //var text = piece.GetComponentInChildren<TextMeshPro>();
+                //if (text != null) {
+                //    text.text = index.ToString();
+                //}
 
                 piece.name += $" ({index})";
                 piece.transform.localScale = Vector3.one;
-                var renderer = piece.transform.Find("Border").GetComponent<SpriteRenderer>();
+                var renderer = piece.transform.Find("Fill").GetComponent<SpriteRenderer>();
                 renderer.sprite = sprite;
-                //renderer.localBounds = new Bounds(Vector3.zero, Vector3.one);
-                piece.SetActive(false);
+                
+                piece.size = new Vector2(_width, _height);
+                piece.gameObject.SetActive(false);
             }
             
             private void ArrangePiece(Vector3 position, GameObject piece) {
-                //var renderer = piece.transform.Find("Border").GetComponent<SpriteRenderer>();
-                //piece.transform.localPosition = new Vector3(position.x * renderer.sprite., position.y, piece.transform.localPosition.z);
                 piece.transform.localPosition = position;
                 piece.transform.localScale = Vector3.one;
                 piece.SetActive(true);
+            }
+
+            private Vector3 GetCoordinate(Vector3 position, float sizeX, float sizeY)
+            {
+                var posX = position.x * sizeX + (sizeX * 0.5f);
+                var posY = position.y * sizeY + (sizeY * 0.5f);
+                return new Vector3(posX, posY, position.z);
             }
             
             private void SelectTile(Transform target) {
@@ -186,7 +185,6 @@ namespace TheDates
             }
             
             private void SwapTile(Transform target) {
-                //var canSwap = true;
                 Vector2Int newIndex;
                 if (_currentIndex.x - 1 >= 0 && target == _tiles[_currentIndex.x - 1, _currentIndex.y]) {
                     newIndex = new Vector2Int(_currentIndex.x - 1, _currentIndex.y);
@@ -230,14 +228,8 @@ namespace TheDates
             }
         }
         [Header("Mechanic Config")]
-        //public List<GameObject> pieces = new();
-        //public Transform pieceParent;
-        //public Vector2Int gridSize = new(3, 3);
-        
-        //public GameObject tilePrefab;
         public TileBoard[] tileBoards = Array.Empty<TileBoard>();
         public Transform boardParent;
-        //[SerializeField, ReadOnly] private MiniGameState state;
         
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
@@ -247,11 +239,6 @@ namespace TheDates
         public override bool isInitialised => initialised;
         public override GameObject source => prefab;
         public override MiniGameState gameState => state;
-        
-        //private readonly HashSet<int> _collidables = new();
-        //private Transform[,] _tiles;
-        //private Vector2Int _currentIndex;
-        //private Transform _currentTile;
 
         private int _currentBoardIndex;
 
@@ -263,58 +250,7 @@ namespace TheDates
             }
             
             tileBoards[_currentBoardIndex].SetActive(true);
-            //_currentIndex = Vector2Int.zero;
-            //_currentTile = null;
-            //SetupTiles();
         }
-        
-        /*private void SetupTiles() {
-            var index = 0;
-            for (var y = gridSize.y - 1; y >= 0; y--) {
-                for (var x = 0; x < gridSize.x; x++) {
-                    var piece = pieces[index];
-                    _tiles[x,y] = piece.transform;
-                    ArrangePiece(new Vector3(x, y, -1), piece);
-                    index++;
-                }
-            }
-        }
-
-        private void GenerateTiles() {
-            _tiles = new Transform[gridSize.x, gridSize.y];
-            
-            var index = 0;
-            for (var y = gridSize.y - 1; y >= 0; y--) {
-                for (var x = 0; x < gridSize.x; x++) {
-                    GameObject piece;
-                    var isWithinBounds = index < pieces.Count;
-
-                    if (!isWithinBounds || pieces[index] == null) {
-                        piece = new GameObject($"Empty Tile");
-                        piece.transform.SetParent(pieceParent);
-                        
-                        if (isWithinBounds) {
-                            pieces[index] = piece;
-                        }
-                        else {
-                            pieces.Add(piece);
-                        }
-                    } else {
-                        piece = pieces[index];
-                        if (!piece.transform.IsChildOf(pieceParent)) {
-                            //Debug.Log($"IGNORED piece {piece.name} at index [{index}], sibling index is [{piece.transform.GetSiblingIndex()}]");
-                            pieces[index].SetActive(false);
-                            continue;
-                        }
-                        piece.name = $"Tile";
-                    }
-                    var siblingIndex = piece.transform.GetSiblingIndex();
-                    CreatePiece(siblingIndex, piece);
-                    _collidables.Add(piece.GetInstanceID());
-                    index++;
-                }
-            }
-        }*/
 
         private void OnEnabled() {
             if (!MiniGameManager.HasInstance) return;
@@ -327,23 +263,6 @@ namespace TheDates
             
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }
-
-        /*private void CreatePiece(int index, GameObject piece) {
-            var text = piece.GetComponentInChildren<TextMeshPro>();
-            if (text != null) {
-                text.text = index.ToString();
-            }
-
-            piece.name += $" ({index})";
-            piece.transform.localScale = Vector3.one;
-            piece.SetActive(false);
-        }
-
-        private void ArrangePiece(Vector3 position, GameObject piece) {
-            piece.transform.localPosition = position;
-            piece.transform.localScale = Vector3.one;
-            piece.SetActive(true);
-        }*/
         
         private void OnClickTarget(RaycastHit2D input) {
             tileBoards[_currentBoardIndex].TargetTile(input.collider);
@@ -359,77 +278,7 @@ namespace TheDates
                 
                 SendCommand(MiniGameCommand.Win);
             }
-            /*
-            var target = input.transform;
-            if (!_collidables.TryGetValue(target.gameObject.GetInstanceID(), out var wire)) return;
-            Debug.Log($"Clicked {input.collider?.gameObject.name}");
-            
-            if (_currentTile == null) SelectTile(target);
-            else {
-                SwapTile(target);
-                if (!CheckScore()) return;
-                if (_currentTile) _currentTile.localScale = Vector3.one;
-                _currentTile = null;
-                SendCommand(MiniGameCommand.Win);
-            }
-            */
         }
-
-        /*private void SelectTile(Transform target) {
-            for (var y = gridSize.y - 1; y >= 0; y--) {
-                for (var x = 0; x < gridSize.x; x++) {
-                    if (_tiles[x, y] != target) continue;
-                    
-                    _currentTile = target;
-                    _currentIndex = new Vector2Int(x, y);
-                    _currentTile.localScale = SelectedScale;
-                }
-            }
-        }
-
-        private static readonly Vector3 SelectedScale = new(0.8f, 0.8f, 1f);
-
-        private void SwapTile(Transform target) {
-            //var canSwap = true;
-            Vector2Int newIndex;
-            if (_currentIndex.x - 1 >= 0 && target == _tiles[_currentIndex.x - 1, _currentIndex.y]) {
-                newIndex = new Vector2Int(_currentIndex.x - 1, _currentIndex.y);
-            } else if (_currentIndex.x + 1 < gridSize.x && target == _tiles[_currentIndex.x + 1, _currentIndex.y]) {
-                newIndex = new Vector2Int(_currentIndex.x + 1, _currentIndex.y);
-            } else if (_currentIndex.y - 1 >= 0 && target == _tiles[_currentIndex.x, _currentIndex.y - 1]) {
-                newIndex = new Vector2Int(_currentIndex.x, _currentIndex.y - 1);
-            } else if (_currentIndex.y + 1 < gridSize.y && target == _tiles[_currentIndex.x, _currentIndex.y + 1]) {
-                newIndex = new Vector2Int(_currentIndex.x, _currentIndex.y + 1);
-            } else {
-                Debug.Log($"Target {target.gameObject.name} is out of range.");
-                _currentTile.localScale = Vector3.one;
-                _currentTile = null;
-                return;
-            }
-
-            // Jetbrains suggested deconstruction instead of x = y, y = z, z = x, but it looks cursed lmao
-            (_currentTile.localPosition, target.localPosition) = (target.localPosition, _currentTile.localPosition);
-            
-            _tiles[newIndex.x, newIndex.y] = _currentTile;
-            _tiles[_currentIndex.x, _currentIndex.y] = target;
-            
-            _currentIndex = newIndex;
-        }
-
-        private bool CheckScore() {
-            var index = 0;
-            for (var y = gridSize.y - 1; y >= 0; y--) {
-                for (var x = 0; x < gridSize.x; x++) {
-                    if (_tiles[x, y].GetSiblingIndex() != index) {
-                        return false;
-                    }
-                    index++;
-                }
-            }
-            Debug.Log("You win!!!");
-            return true;
-            
-        }*/
         
         public override void Init(GameObject gamePrefab) {
             if (!MiniGameManager.HasInstance || MiniGameManager.Instance == miniGameManager) return;
@@ -439,7 +288,6 @@ namespace TheDates
             foreach (var board in tileBoards) {
                 board.Init(boardParent);
             }
-            //GenerateTiles();
         }
         
         public override void AcceptCommand(MiniGameCommand command) {

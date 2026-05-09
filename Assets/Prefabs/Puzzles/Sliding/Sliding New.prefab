@@ -717,7 +717,7 @@ Transform:
   m_GameObject: {fileID: 3779848297179313428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6151974411376399399}
@@ -775,46 +775,46 @@ MonoBehaviour:
   - stepParent: {fileID: 6151974411376399399}
     gridSize: {x: 3, y: 3}
     shuffledTiles:
-    - tile: {fileID: 3680591893012853391}
-      sprite: {fileID: -819225795, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
-    - tile: {fileID: 5370296016386093718}
-      sprite: {fileID: 877541459, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
-    - tile: {fileID: 6277669110749525685}
-      sprite: {fileID: -348884142, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
     - tile: {fileID: 2228482767849736468}
       sprite: {fileID: 1167160979, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
     - tile: {fileID: 5451117589592034518}
-      sprite: {fileID: 1167160979, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
-    - tile: {fileID: 3213447450121815256}
-      sprite: {fileID: -2084267107, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
-    - tile: {fileID: 1036574429062102989}
-      sprite: {fileID: 2043925681, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
-    - tile: {fileID: 3706258693276782924}
-      sprite: {fileID: 1402318403, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+      sprite: {fileID: -230630943, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 3680591893012853391}
+      sprite: {fileID: -819225795, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
     - tile: {fileID: 6806529633154104815}
       sprite: {fileID: -2038693872, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 1036574429062102989}
+      sprite: {fileID: 2043925681, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 5370296016386093718}
+      sprite: {fileID: 877541459, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 3706258693276782924}
+      sprite: {fileID: 1402318403, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 6277669110749525685}
+      sprite: {fileID: -348884142, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
+    - tile: {fileID: 3213447450121815256}
+      sprite: {fileID: -2084267107, guid: 7845cb56fc2a7354d9f8e2afbc152f37, type: 3}
     isAchieved: 0
   - stepParent: {fileID: 8355211878872877446}
     gridSize: {x: 3, y: 3}
     shuffledTiles:
-    - tile: {fileID: 7002132551952670511}
-      sprite: {fileID: 2056375061, guid: 53673312da8d3404999d152188907067, type: 3}
-    - tile: {fileID: 6385436326455809680}
-      sprite: {fileID: -677975828, guid: 53673312da8d3404999d152188907067, type: 3}
-    - tile: {fileID: 4373013361436592637}
-      sprite: {fileID: 87522970, guid: 53673312da8d3404999d152188907067, type: 3}
-    - tile: {fileID: 5519077190729893946}
-      sprite: {fileID: -541855825, guid: 53673312da8d3404999d152188907067, type: 3}
-    - tile: {fileID: 5920538923797741385}
-      sprite: {fileID: 216657961, guid: 53673312da8d3404999d152188907067, type: 3}
     - tile: {fileID: 5325475403806072620}
       sprite: {fileID: -1289261443, guid: 53673312da8d3404999d152188907067, type: 3}
     - tile: {fileID: 5034467810315550929}
       sprite: {fileID: 1905797922, guid: 53673312da8d3404999d152188907067, type: 3}
-    - tile: {fileID: 1386970128401195991}
-      sprite: {fileID: -482017061, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 5519077190729893946}
+      sprite: {fileID: -541855825, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 4373013361436592637}
+      sprite: {fileID: 87522970, guid: 53673312da8d3404999d152188907067, type: 3}
     - tile: {fileID: 6045939834764596098}
       sprite: {fileID: -202566296, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 7002132551952670511}
+      sprite: {fileID: 2056375061, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 6385436326455809680}
+      sprite: {fileID: -677975828, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 5920538923797741385}
+      sprite: {fileID: 216657961, guid: 53673312da8d3404999d152188907067, type: 3}
+    - tile: {fileID: 1386970128401195991}
+      sprite: {fileID: -482017061, guid: 53673312da8d3404999d152188907067, type: 3}
     isAchieved: 0
   boardParent: {fileID: 724371278174086205}
   miniGameManager: {fileID: 0}
@@ -961,8 +961,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6151974411607193862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 724371278174086205}
