@@ -47,6 +47,10 @@ namespace TheDates
             
             OnCameraStateChange(currentState);
         }
+
+        public void SnapToPosition(Vector2 position) {
+            cameraMap[currentState].SnapToPosition(position);
+        }
         
     }
 }

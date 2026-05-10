@@ -69,6 +69,14 @@ namespace TheDates.Runtime.PlayerCore
             _totalOffset = new Vector3(offset.x, offset.y, _totalOffset.z);
         }
 
+        public void SnapToPosition(Vector2 newPosition)
+        {
+            pairedCamera.transform.position = new Vector3(newPosition.x + _totalOffset.x, newPosition.y + _totalOffset.y, pairedCamera.transform.position.z);
+            //pairedCamera.transform.position = pos;
+            
+            _velocity = Vector3.zero;
+        }
+
         private void LateUpdate() {
             if (!isFollowingTarget) return;
             

@@ -56,6 +56,16 @@ namespace TheDates.Runtime.PlayerCore
             //GameEventsManager.Instance.InputEvents.onClick -= Click;
             //GameEventsManager.Instance.InputEvents.onPoint -= Point;
         }
+
+        public void Warp(Vector2 position, Vector2 direction) {
+            _currentDirection = Mathf.Abs(direction.x) * horizontalInputBias >= Mathf.Abs(direction.y)
+                ? direction.x > 0 ? Direction.Right : Direction.Left
+                : direction.y > 0 ? Direction.Up : Direction.Down;
+            _currentMovementInput = Vector2.zero;
+            
+            rb.position = position;
+            CameraManager.Instance.SnapToPosition(position);
+        }
         
         
 
