@@ -39,6 +39,10 @@ namespace TheDates
                 // TODO Instantiate from a prefab
                 wireParent = Instantiate(prefab, parent);
                 wireParent.transform.localPosition = Vector3.zero;
+                trail = wireParent.GetComponent<LineRenderer>();
+                trail.positionCount = 4;
+                trail.useWorldSpace = true;
+                //UpdateTrail();
                 //wireParent.transform.SetParent(parent);
                 //_startPoint = wireParent.transform.position;
                 startController = new Controller();
@@ -52,8 +56,15 @@ namespace TheDates
                 Matches.Add(endController.goal, endController);
             }
 
+            private void UpdateTrail()
+            {
+                //trail.SetPosition(0, startController.pointTransform.position);
+                //trail.SetPosition(1, endController.pointTransform.position);
+            }
+
             public void SetActive(bool toggle) {
                 wireParent.SetActive(toggle);
+                //UpdateTrail();
             }
 
             public void Reset() {
@@ -71,6 +82,12 @@ namespace TheDates
                 var pos = controller.pointTransform.position;
                 
                 // TODO line
+                var startPos = startController.pointTransform.position;
+                var endPos = endController.pointTransform.position;
+                trail.SetPosition(0, startPos);
+                trail.SetPosition(1, startPos.With(x: startPos.x + 1f));
+                trail.SetPosition(2, endPos.With(x: endPos.x - 1f));
+                trail.SetPosition(3, endPos);
                 // trail.SetPosition(2, pos.With(x: pos.x - 0.3f));
                 // trail.SetPosition(3, pos);
                 return pos;
@@ -375,7 +392,7 @@ namespace TheDates
             if (!input && _currentWire.TrySnapWire(_currentController.point)) {
                 if (_currentWire.startController.IsConnected && _currentWire.endController.IsConnected) {
                     if (_score < _maxScore - 1) {
-                        _currentWire.SetActive(false);
+                        //_currentWire.SetActive(false);
                         SetScore(_score + 1);
                     }
                     else
