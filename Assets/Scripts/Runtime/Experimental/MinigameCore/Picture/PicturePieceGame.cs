@@ -4,6 +4,7 @@ using TheDates.Runtime.Experimental.MinigameCore;
 using TheDates.Runtime.General;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -28,8 +29,9 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         [SerializeField] private float zPosition = -2;
         [SerializeField] private Vector2 gameScale = new(3, 3);
 
+        [FormerlySerializedAs("contentParent")]
         [Header("Scene Dependencies")] 
-        [SerializeField] private Transform contentParent;
+        [SerializeField] private Transform pieceParent;
         [SerializeField] private RectTransform canvasTransform;
         [SerializeField] private Transform levelSelectPanel;
         [SerializeField] private GameObject winInterface;
@@ -63,7 +65,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         private int _score;
 
         private void PrepareGame() {
-            levelSelectPanel.gameObject.SetActive(false);
+            //levelSelectPanel.gameObject.SetActive(false);
             //_pieces.Clear();
             //_pieceIds.Clear();
             _dimensions = GetDimensions(slicedPicture, multiplier);
@@ -80,8 +82,8 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             
             // We need to scale the border thickness by the local scale for clean edges
             // If this appears very small, check the line renderer component and debug it first
-            var halfWidth = (((_width * _dimensions.x) + borderThickness / contentParent.localScale.x) / 2);
-            var halfHeight = (((_height * _dimensions.y) + borderThickness / contentParent.localScale.y) / 2);
+            var halfWidth = (((_width * _dimensions.x) + borderThickness / pieceParent.localScale.x) / 2);
+            var halfHeight = (((_height * _dimensions.y) + borderThickness / pieceParent.localScale.y) / 2);
             
             // Clockwise
             _lineRenderer.SetPosition(0, new Vector3(-halfWidth, halfHeight, 0));
@@ -99,9 +101,9 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             var rangeWidth = screenAspect * rangeHeight;
             
             // scale the base piece size by the gameHolder's local size
-            contentParent.localScale = new Vector3(gameScale.x, gameScale.y, contentParent.localScale.z);
-            var pieceWidth = _width * contentParent.localScale.x;
-            var pieceHeight = _height * contentParent.localScale.y;
+            pieceParent.localScale = new Vector3(gameScale.x, gameScale.y, pieceParent.localScale.z);
+            var pieceWidth = _width * pieceParent.localScale.x;
+            var pieceHeight = _height * pieceParent.localScale.y;
             
             // Scale it based on scatterRange, then subtract piece's height/width
             rangeHeight = rangeHeight * scatterRange.y - pieceHeight;
@@ -147,7 +149,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
 
         private Transform CreatePiece(int col, int row, Texture2D pieceTexture) {
-            var piece = Instantiate(piecePrefab, contentParent);
+            var piece = Instantiate(piecePrefab, pieceParent);
             piece.name = $"Piece {(row * _dimensions.x) + col}";
             
             AssignPieceTransform(piece, row, col);
@@ -191,7 +193,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
 
         private void CreateGuide(Texture2D texture)
         {
-            _guide = Instantiate(piecePrefab, contentParent);
+            _guide = Instantiate(piecePrefab, pieceParent);
             _guide.name = $"Guide";
             
             _guide.localPosition = new Vector3(0, 0, zPosition);
@@ -265,13 +267,13 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
 
         private void SetSiblingPriority() {
             _draggedPiece.SetAsLastSibling();
-            foreach (Transform child in contentParent) {
+            foreach (Transform child in pieceParent) {
                 var newPos = child.position;
                 newPos.z = zPosition - child.GetSiblingIndex() * 0.01f;
                 child.position = newPos;
             }
             
-            _draggedPiece.parent = contentParent;
+            _draggedPiece.parent = pieceParent;
         }
 
         private void OnClickTarget(RaycastHit2D hit) {
@@ -292,14 +294,14 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
 
         private void Init() {
-            if (!contentParent) return;
+            if (!pieceParent) return;
             
             // Setup Collections
             _pieces = new List<Transform>();
             _pieceIds = new HashSet<int>();
             
             // Setup Line Renderer 
-            _lineRenderer = contentParent.GetComponent<LineRenderer>();
+            _lineRenderer = pieceParent.GetComponent<LineRenderer>();
             if (_lineRenderer.positionCount != 4) _lineRenderer.positionCount = 4;
             _lineRenderer.startWidth = 1;
             _lineRenderer.endWidth = 1;
@@ -311,7 +313,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
         
         private void OnEnabled() {
-            contentParent.gameObject.SetActive(true);
+            pieceParent.gameObject.SetActive(true);
             if (!MiniGameManager.HasInstance) return;
             
             MiniGameManager.Instance.OnClickState += OnClickState;
@@ -320,7 +322,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
         
         private void OnDisabled() {
-            contentParent.gameObject.SetActive(false);
+            pieceParent.gameObject.SetActive(false);
             if (!MiniGameManager.HasInstance) return;
             
             MiniGameManager.Instance.OnClickState -= OnClickState;
@@ -359,7 +361,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
 
         private MiniGameState StartGame() {
             OnEnabled();
-            contentParent.gameObject.SetActive(true);
+            pieceParent.gameObject.SetActive(true);
             //foreach (var tex in textures) {
             //    var image = Instantiate(levelSelectPrefab, levelSelectPanel);
             //    image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
@@ -375,7 +377,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
 
         private MiniGameState ResetGame() {
             ClearProgress();
-            _lineRenderer.enabled = false;
+            _lineRenderer.enabled = true;
             //levelSelectPanel.gameObject.SetActive(true);
             
             return MiniGameState.Active;

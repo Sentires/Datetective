@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Beginning
   <namedID>k__BackingField: PrototypeFirstQuest
-  <hashID>k__BackingField: 27606
+  <hashID>k__BackingField: 27948
   <path>k__BackingField: Assets/Resources/Quests/PrototypeFirstQuest.asset
   prerequisites: []
   stepPrefabs:

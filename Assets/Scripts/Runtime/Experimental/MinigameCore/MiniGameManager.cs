@@ -333,6 +333,11 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public abstract MiniGameState gameState { get; }
         public abstract void Init(GameObject prefab);
 
+        private void FindCommonUI()
+        {
+            
+        }
+
         public abstract void AcceptCommand(MiniGameCommand command);
         
         // To call from UnityEvents

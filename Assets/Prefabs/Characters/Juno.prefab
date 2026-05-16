@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 8627943395675927056}
   - component: {fileID: 1424906983}
   m_Layer: 0
-  m_Name: RPGPlayer
+  m_Name: Juno
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
