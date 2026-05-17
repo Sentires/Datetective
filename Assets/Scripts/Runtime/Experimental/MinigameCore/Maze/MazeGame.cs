@@ -40,6 +40,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
         private Rigidbody2D _player;
         private bool _isMoving;
         private Vector3 _desiredPosition;
+        private Vector2 _rawPosition;
         
         private const string MazePointParent = "MazePoints";
         private const string MazePointStart = "Start";
@@ -90,10 +91,21 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             contentParent.gameObject.SetActive(false);
         }
 
+        //private static Vector3 _defaultVelocity = new Vector3(0f, 0f, -2f);
+
         private void FixedUpdate() {
-            var movement = (_desiredPosition - _player.transform.position).normalized;
-            movement.z = 0;
-            _player.velocity = _isMoving ? movement * moveSpeed : Vector3.zero;
+            if (!_isMoving) {
+                _player.velocity = Vector2.zero;
+                return;
+            }
+            
+            var distanceX = Mathf.Abs(_desiredPosition.x - _player.position.x);
+            var distanceY = Mathf.Abs(_desiredPosition.y - _player.position.y);
+            _player.velocity = distanceX >= 0.1f || distanceY >= 0.1f ? GetDirection(_player.position, _desiredPosition) * moveSpeed : Vector2.zero;
+        }
+
+        private static Vector2 GetDirection(Vector2 start, Vector2 end) {
+            return(end - start).normalized;
         }
 
         private void OnClick(bool input) {
@@ -101,9 +113,11 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
         }
 
         private void OnPointPosition(Vector2 input) {
-            if (!_isMoving) return;
-            _desiredPosition = miniGameManager.GetWorldSpacePosition(input, -2);
+            var currentPos = _rawPosition;
+            _rawPosition = input;
             
+            if (currentPos == _rawPosition) return;
+            _desiredPosition = miniGameManager.GetWorldSpacePosition(_rawPosition, -2);
         }
 
         private void SetPlayer() {
