@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TheDates.Runtime.Input;
 using UnityEngine;
@@ -13,13 +14,17 @@ namespace TheDates.Runtime.PlayerCore
     {
         public float speed = 1f;
         public float horizontalInputBias = 1.1f; // Affects how dominant left/right velocity is in the animator
+        public float movementLockoutTime = 0.25f;
         
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform cameraTarget;
         
         private Direction _currentDirection;
         private Vector2 _currentMovementInput;
         private bool _isMoving;
+        private bool _canMove;
+        private WaitForSeconds _movementLockout;
         private static bool ignoreInputs => GameEventsManager.Instance.InputEvents.inputEventContext != InputEvents.Context.World;
         
         // Cache Animator Parameters
@@ -39,37 +44,50 @@ namespace TheDates.Runtime.PlayerCore
         private void Start() {
             rb.AssertNull(this, "RigidBody2D", "Please assign the RB2D component in the editor");
             animator.AssertNull(this, "Animator", "Please assign the Animator component in the editor");
-
+            cameraTarget.AssertNull(this, "CameraTarget", "Please assign the camera target in the editor");
             UpdateAnimator(false, Direction.Down);
+            
+            _movementLockout = new WaitForSeconds(movementLockoutTime);
+            StartCoroutine(WarpLockout()); // this sets _canMove in the process
         }
 
         public void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.InputEvents.onMove += Move;
-            //GameEventsManager.Instance.InputEvents.onClick += Click;
-            //GameEventsManager.Instance.InputEvents.onPoint += Point;
         }
         
         public void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.InputEvents.onMove -= Move;
-            //GameEventsManager.Instance.InputEvents.onClick -= Click;
-            //GameEventsManager.Instance.InputEvents.onPoint -= Point;
         }
 
         public void Warp(Vector2 position, Vector2 direction) {
             _currentDirection = Mathf.Abs(direction.x) * horizontalInputBias >= Mathf.Abs(direction.y)
                 ? direction.x > 0 ? Direction.Right : Direction.Left
                 : direction.y > 0 ? Direction.Up : Direction.Down;
-            _currentMovementInput = Vector2.zero;
+            //_currentMovementInput = Vector2.zero;
             
-            rb.position = position;
-            CameraManager.Instance.SnapToPosition(position);
+            transform.position = position;
+            rb.velocity = Vector2.zero;
+            _isMoving = false;
+            CameraManager.Instance.SnapToPosition(cameraTarget.position);
+            
+            if (!_canMove) StopCoroutine(WarpLockout());
+            StartCoroutine(WarpLockout());
         }
-        
+
+        private IEnumerator WarpLockout() {
+            _canMove = false;
+            UpdateAnimator(_isMoving, _currentDirection);
+            
+            yield return _movementLockout;
+            _canMove = true;
+        }
+
         
 
         private void FixedUpdate() {
+            if (!_canMove) return;
             UpdateDirection();
             SetVelocity();
             UpdateAnimator(_isMoving, _currentDirection);
@@ -78,14 +96,6 @@ namespace TheDates.Runtime.PlayerCore
         private void Move(Vector2 input) {
             _currentMovementInput = ignoreInputs ? Vector2.zero : input;
         }
-        
-        //private void Click(bool input) {
-        //    Debug.Log($"Clicked: {input}");
-        //}
-        
-        //private void Point(Vector2 input) {
-        //    Debug.Log($"Pointed to: {input}");
-        //}
         
         private void SetVelocity() {
             rb.velocity = _currentMovementInput * speed;
