@@ -5,6 +5,9 @@ using TheDates.Runtime.General;
 using TheDates.Runtime.Input;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.Serialization;
 
 namespace TheDates.Runtime.Experimental.MinigameCore
@@ -27,6 +30,9 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public event Action<MiniGameContext> OnMiniGameProcessed = delegate { };
 
         public Vector2 ScreenResolution;
+        
+        // Only true if the UI says this is false/null. We only care about non-UI
+        public static bool isGamePointerValid => !EventSystem.current?.IsPointerOverGameObject(Mouse.current.deviceId) ?? true;
 
         private void MiniGameProcessed(MiniGameContext context)
         {
@@ -41,7 +47,10 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         protected override void Awake()
         {
             base.Awake();
+            
             ScreenResolution = new Vector2(Screen.width, Screen.height);
+            //inputSystemUIInputModule = FindObjectOfType<InputSystemUIInputModule>();
+            //Debug.Assert(inputSystemUIInputModule);
             //ScaleToScreen();
             
             miniGamesDict = new Dictionary<GameObject, MiniGame>();
@@ -236,12 +245,13 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             OnClickState.Invoke(input);
             
             if (!_isClicking || !overlayCamera) return;
-            var worldPos = overlayCamera.ScreenToWorldPoint(mousePosition);
-            var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
-            if (!hit) return;
-            
-            OnClickTarget.Invoke(hit);
-            
+            StartCoroutine(ClickPosition(mousePosition));
+            // var worldPos = overlayCamera.ScreenToWorldPoint(mousePosition);
+            // var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
+            // if (!hit) return;
+
+            // OnClickTarget.Invoke(hit);
+
             //var target = hit.transform;
             //Debug.Log($"Clicked On {hit.collider.name} at {worldPos}");
 
@@ -251,17 +261,24 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         }
         
         public Vector3 GetWorldSpacePosition(Vector2 input, float zPosition) {
-            var worldPos = overlayCamera.ScreenToWorldPoint(input);
-            worldPos.z = zPosition;
-            return worldPos;
+            return overlayCamera ? overlayCamera.ScreenToWorldPoint(input).With(z: zPosition) : new Vector3(0, 0, zPosition);
         }
 
         public RaycastHit2D Raycast(Vector3 position, bool isWorldSpace = true) {
             var pos = isWorldSpace ? position : overlayCamera.ScreenToWorldPoint(position);
             return Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, _layerMask);
         }
+        
+        private IEnumerator ClickPosition(Vector3 position) {
+            yield return null; // Skip this frame
+            if (!isGamePointerValid) yield break;
+            
+            var worldPos = overlayCamera.ScreenToWorldPoint(position);
+            var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
+            if (hit) OnClickTarget.Invoke(hit);
+        }
 
-        private IEnumerator ProcessClick(IClickable clickable)
+        /*private IEnumerator ProcessClick(IClickable clickable)
         {
             clickable?.OnStart();
             //Debug.Log("Button pressed");
@@ -274,7 +291,7 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             
             clickable?.OnRelease();
             //Debug.Log("Button released");
-        }
+        }*/
         
     }
     

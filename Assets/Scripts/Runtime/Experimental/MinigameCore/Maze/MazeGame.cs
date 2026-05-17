@@ -91,10 +91,8 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             contentParent.gameObject.SetActive(false);
         }
 
-        //private static Vector3 _defaultVelocity = new Vector3(0f, 0f, -2f);
-
         private void FixedUpdate() {
-            if (!_isMoving) {
+            if (!_isMoving || !MiniGameManager.isGamePointerValid) {
                 _player.velocity = Vector2.zero;
                 return;
             }

@@ -35,7 +35,7 @@ namespace TheDates
             private Vector2Int _currentIndex;
             private Transform _currentTile;
             
-            [FormerlySerializedAs("_shuffledTiles")] public List<TileData> shuffledTiles = new();
+            public List<TileData> shuffledTiles = new();
             private HashSet<int> _collidables;
 
             public bool isAchieved;
@@ -265,6 +265,7 @@ namespace TheDates
         }
         
         private void OnClickTarget(RaycastHit2D input) {
+            //if (!MiniGameManager.isGamePointerValid) return; // Sends a warning
             tileBoards[_currentBoardIndex].TargetTile(input.collider);
             if (tileBoards[_currentBoardIndex].isAchieved)
             {

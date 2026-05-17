@@ -1637,7 +1637,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &929938171
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,7 +1687,7 @@ MonoBehaviour:
         m_MethodName: SendCommandStart
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4899500219488448740, guid: b7fa032b97afc1b42800f56b1aa498da, type: 3}
+          m_ObjectArgument: {fileID: 371836395284098352, guid: 6c79a1c5c0e673e4bba12d1bfbedf033, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2220,7 +2220,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1121987565
 Transform:
   m_ObjectHideFlags: 0
@@ -2819,7 +2819,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1561880885
 Transform:
   m_ObjectHideFlags: 0
@@ -2869,7 +2869,7 @@ MonoBehaviour:
         m_MethodName: SendCommandStart
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 371836395284098352, guid: 6c79a1c5c0e673e4bba12d1bfbedf033, type: 3}
+          m_ObjectArgument: {fileID: 4899500219488448740, guid: b7fa032b97afc1b42800f56b1aa498da, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
