@@ -34,7 +34,7 @@ namespace TheDates
             
             
 
-            public void Init(Transform parent, Collider2D first, Collider2D second)
+            public void Init(Transform parent, Collider2D first, Collider2D second, int order)
             {
                 // TODO Instantiate from a prefab
                 wireParent = Instantiate(prefab, parent);
@@ -42,13 +42,15 @@ namespace TheDates
                 trail = wireParent.GetComponent<LineRenderer>();
                 trail.positionCount = 4;
                 trail.useWorldSpace = true;
+                trail.sortingOrder = order;
+                
                 //UpdateTrail();
                 //wireParent.transform.SetParent(parent);
                 //_startPoint = wireParent.transform.position;
                 startController = new Controller();
-                startController.Init(wireParent.transform.Find(StartPointReference)?.GetComponent<Collider2D>(), first);
+                startController.Init(wireParent.transform.Find(StartPointReference)?.GetComponent<Collider2D>(), first, order+1);
                 endController = new Controller();
-                endController.Init(wireParent.transform.Find(EndPointReference)?.GetComponent<Collider2D>(), second);
+                endController.Init(wireParent.transform.Find(EndPointReference)?.GetComponent<Collider2D>(), second, order+1);
                 
                 Matches.Add(startController.point, startController);
                 Matches.Add(startController.goal, startController);
@@ -116,18 +118,19 @@ namespace TheDates
                 [field: SerializeField, ReadOnly] public Collider2D goal {get; private set;}
                 [field: SerializeField, ReadOnly] public Vector3 startPosition {get; private set;}
                 [field: SerializeField, ReadOnly] public Vector3 endPosition {get; private set;}
-                [field: SerializeField, ReadOnly] public int[] trailIndices {get; private set;}
-                [field: SerializeField, ReadOnly] public bool IsConnected {get; private set;}
+                [field: SerializeField, ReadOnly] public bool isConnected {get; private set;}
                 
                 public Transform pointTransform => point.transform;
                 public Transform goalTransform => goal.transform;
 
-                public void Init(Collider2D wirePoint, Collider2D wireGoal, params int[] indices) {
+                public void Init(Collider2D wirePoint, Collider2D wireGoal, int order) {
                     point = wirePoint;
                     goal = wireGoal;
                     startPosition = wirePoint.transform.position;
                     endPosition = wireGoal.transform.position;
-                    trailIndices = indices;
+
+                    point.GetComponentInChildren<SpriteRenderer>().sortingOrder = order;
+                    //goal.GetComponentInChildren<SpriteRenderer>().sortingOrder = order;
                 }
 
                 //public void SetActive(bool active) {
@@ -140,7 +143,7 @@ namespace TheDates
                     pointTransform.position = toggle ? endPosition : startPosition;
                     point.enabled = !toggle;
                     goal.enabled = !toggle;
-                    IsConnected = toggle;
+                    isConnected = toggle;
                 }
 
                 public bool IsOverlapping() {
@@ -207,7 +210,7 @@ namespace TheDates
             var wireParent = mechanics?.Find("Wires");
             var switchParent = mechanics?.Find("Switches");
             for (var i = 0; i < count; i++) {
-                wires[i].Init(wireParent, startGoals[i], endGoals[i]);
+                wires[i].Init(wireParent, startGoals[i], endGoals[i], i+10);
                 _collidables.Add(wires[i].startController.point.GetInstanceID(), wires[i]);
                 _collidables.Add(wires[i].startController.goal.GetInstanceID(), wires[i]);
                 _collidables.Add(wires[i].endController.point.GetInstanceID(), wires[i]);
@@ -402,7 +405,7 @@ namespace TheDates
             if (_currentController == null) return;
             //var wire = _collidables[_currentPoint.GetInstanceID()];
             if (!input && _currentWire.TrySnapWire(_currentController.point)) {
-                if (_currentWire.startController.IsConnected && _currentWire.endController.IsConnected) {
+                if (_currentWire.startController.isConnected && _currentWire.endController.isConnected) {
                     if (_score < _maxScore - 1) {
                         //_currentWire.SetActive(false);
                         SetScore(_score + 1);
