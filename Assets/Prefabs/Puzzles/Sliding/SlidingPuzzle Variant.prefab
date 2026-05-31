@@ -395,12 +395,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4369794160573533925, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 70588728}
     - targetCorrespondingSourceObject: {fileID: 4369794161649283972, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1056943070}
+    - targetCorrespondingSourceObject: {fileID: 4369794160573533925, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 70588728}
   m_SourcePrefab: {fileID: 100100000, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
 --- !u!4 &4899500218729870486 stripped
 Transform:
@@ -424,6 +424,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe85a3f2b8d2c648a5c79cb31167ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  winButton: {fileID: 0}
   tileBoards:
   - stepParent: {fileID: 1209066283}
     gridSize: {x: 3, y: 3}
@@ -474,6 +476,7 @@ MonoBehaviour:
   initialised: 0
   prefab: {fileID: 0}
   state: 0
+  phaseDelay: 0.6
 --- !u!4 &4899500219805600247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4369794161649283972, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}

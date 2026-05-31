@@ -37,6 +37,7 @@ namespace TheDates
             
             public List<TileData> shuffledTiles = new();
             private HashSet<int> _collidables;
+            
 
             public bool isAchieved;
 
@@ -47,6 +48,7 @@ namespace TheDates
                 
                 GenerateTiles();
                 var pos = stepParent.position;
+                
             }
 
             public void Reset()
@@ -239,10 +241,15 @@ namespace TheDates
         public override bool isInitialised => initialised;
         public override GameObject source => prefab;
         public override MiniGameState gameState => state;
+        
+        public float phaseDelay = 2f;
 
-        private int _currentBoardIndex;
+        private int _currentBoardIndex;private WaitForSeconds _phaseTime;
 
         private void SetupGame() {
+            HasWon = false;
+            winScreen.SetActive(false);
+            
             _currentBoardIndex = 0;
             foreach (var board in tileBoards) {
                 board.Reset();
@@ -269,14 +276,41 @@ namespace TheDates
             tileBoards[_currentBoardIndex].TargetTile(input.collider);
             if (tileBoards[_currentBoardIndex].isAchieved)
             {
-                tileBoards[_currentBoardIndex].SetActive(false);
+                StartCoroutine(NextPuzzle());
+                /*tileBoards[_currentBoardIndex].SetActive(false);
                 _currentBoardIndex++;
                 if (_currentBoardIndex < tileBoards.Length) {
                     tileBoards[_currentBoardIndex].Reset();
                     tileBoards[_currentBoardIndex].SetActive(true);
                     return;
                 }
+
+                SendCommand(MiniGameCommand.Win);*/
+            }
+        }
+
+        
+        
+        private IEnumerator NextPuzzle()
+        {
+            yield return _phaseTime;
+            if (_currentBoardIndex + 1 < tileBoards.Length)
+            {
+                tileBoards[_currentBoardIndex].SetActive(false);
                 
+                _currentBoardIndex++;
+                tileBoards[_currentBoardIndex].Reset();
+                tileBoards[_currentBoardIndex].SetActive(true);
+            }
+            
+            //tileBoards[_currentBoardIndex].SetActive(false);
+            //_currentBoardIndex++;
+            //if (_currentBoardIndex < tileBoards.Length) {
+            //    tileBoards[_currentBoardIndex].Reset();
+            //    tileBoards[_currentBoardIndex].SetActive(true);
+            //}
+            else
+            {
                 SendCommand(MiniGameCommand.Win);
             }
         }
@@ -289,6 +323,8 @@ namespace TheDates
             foreach (var board in tileBoards) {
                 board.Init(boardParent);
             }
+            _phaseTime = new WaitForSeconds(phaseDelay);
+            InitCommon();
         }
         
         public override void AcceptCommand(MiniGameCommand command) {
@@ -311,9 +347,16 @@ namespace TheDates
         }
         
         private MiniGameState WinGame() {
-            Debug.Log("Yippee I finished!");
-            QuitGame();
-            return MiniGameState.Completed;
+            
+            if (HasWon)
+            {
+                Debug.Log("Yippee I finished!");
+                QuitGame();
+                return MiniGameState.Completed;
+            }
+            
+            OpenWinPrompt();
+            return MiniGameState.Active;
         }
 
         private MiniGameState LoseGame() {

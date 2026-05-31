@@ -52,11 +52,13 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             miniGameManager = MiniGameManager.Instance;
             prefab = sourcePrefab;
             Init();
+            
         }
 
         private void Init() {
             if (!contentParent || !mazePrefab) return;
-
+            
+            InitCommon();
             InitAssets();
             state = MiniGameState.Inactive;
             initialised = true;
@@ -119,6 +121,9 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
         }
 
         private void SetPlayer() {
+            HasWon = false;
+            winScreen.SetActive(false);
+            
             var pos = _mazeStart.position;
             pos.z = -2;
             var tr = _player.transform;
@@ -165,9 +170,15 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
         }
         
         private MiniGameState WinGame() {
-            Debug.Log("Yippee I found my way there!");
-            QuitGame();
-            return MiniGameState.Completed;
+            if (HasWon)
+            {
+                Debug.Log("Yippee I finished!");
+                QuitGame();
+                return MiniGameState.Completed;
+            }
+            
+            OpenWinPrompt();
+            return MiniGameState.Active;
         }
 
         private MiniGameState LoseGame() {

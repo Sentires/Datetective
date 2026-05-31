@@ -68,6 +68,9 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             //levelSelectPanel.gameObject.SetActive(false);
             //_pieces.Clear();
             //_pieceIds.Clear();
+            HasWon = false;
+            winScreen.SetActive(false);
+            
             _dimensions = GetDimensions(slicedPicture, multiplier);
             CreatePieces(slicedPicture);
             CreateGuide(guidePicture);
@@ -291,6 +294,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             miniGameManager = MiniGameManager.Instance;
             prefab = sourcePrefab;
             Init();
+            InitCommon();
         }
 
         private void Init() {
@@ -349,9 +353,15 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
         
         private MiniGameState WinGame() {
-            Debug.Log("Yippee I finished!");
-            QuitGame();
-            return MiniGameState.Completed;
+            if (HasWon)
+            {
+                Debug.Log("Yippee I finished!");
+                QuitGame();
+                return MiniGameState.Completed;
+            }
+            
+            OpenWinPrompt();
+            return MiniGameState.Active;
         }
 
         private MiniGameState LoseGame() {

@@ -54,6 +54,7 @@ namespace TheDates
                 Matches.Add(startController.goal, startController);
                 Matches.Add(endController.point, endController);
                 Matches.Add(endController.goal, endController);
+                
             }
 
             private void UpdateTrail()
@@ -187,6 +188,8 @@ namespace TheDates
             miniGameManager = MiniGameManager.Instance;
             prefab = gamePrefab;
             initialised = InitObjectives();
+            
+            InitCommon();
         }
 
         public bool InitObjectives()
@@ -268,39 +271,45 @@ namespace TheDates
         
         public override void AcceptCommand(MiniGameCommand command) {
             var newState = command switch {
-                MiniGameCommand.Start => StartGame1(),
-                MiniGameCommand.Reset => ResetGame1(),
-                MiniGameCommand.Win => WinGame1(),
-                MiniGameCommand.Lose => LoseGame1(),
-                _ => QuitGame1() // ForceQuit here
+                MiniGameCommand.Start => StartGame(),
+                MiniGameCommand.Reset => ResetGame(),
+                MiniGameCommand.Win => WinGame(),
+                MiniGameCommand.Lose => LoseGame(),
+                _ => QuitGame() // ForceQuit here
             };
             
             SetState(newState);
         }
         
-        private MiniGameState WinGame1() {
-            Debug.Log("Yippee I found my way there!");
-            QuitGame1();
-            return MiniGameState.Completed;
+        private MiniGameState WinGame() {
+            if (HasWon)
+            {
+                Debug.Log("Yippee I finished!");
+                QuitGame();
+                return MiniGameState.Completed;
+            }
+            
+            OpenWinPrompt();
+            return MiniGameState.Active;
         }
 
-        private MiniGameState LoseGame1() {
+        private MiniGameState LoseGame() {
             Debug.Log("Aw shucks, wrong move. Let me try again!");
-            return ResetGame1();
+            return ResetGame();
         }
 
-        private MiniGameState StartGame1() {
+        private MiniGameState StartGame() {
             OnEnabled();
             SetupGame();
             return MiniGameState.Active;
         }
 
-        private MiniGameState ResetGame1() {
+        private MiniGameState ResetGame() {
             SetupGame();
             return MiniGameState.Active;
         }
 
-        private MiniGameState QuitGame1() {
+        private MiniGameState QuitGame() {
             OnDisabled();
             return MiniGameState.Inactive;
         }
@@ -310,6 +319,9 @@ namespace TheDates
             //    wire.Reset();
             //    wire.SetActive(false);
             //}
+            HasWon = false;
+            winScreen.SetActive(false);
+            
             _currentStage = Stage.Cables;
             for (var i = 0; i < wires.Count; i++) {
                 wires[i].Reset();
