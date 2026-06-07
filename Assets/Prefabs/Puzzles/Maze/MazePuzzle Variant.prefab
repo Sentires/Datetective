@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 186515453}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 25.692, y: 24.282, z: 1}
+  m_LocalScale: {x: 59.7339, y: 61.31205, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1540576503879392701}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_Color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,11 +94,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4369794160573533925, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4369794160573533925, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4369794161056336528, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       propertyPath: m_RootOrder
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064c5963df431e0419d87ed1ec5ff8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 0}
+  winButton: {fileID: 0}
   moveSpeed: 2
   contentParent: {fileID: 1540576502807716060}
   playerPrefab: {fileID: 7814506088831698627, guid: 7880ab6695919424e9d9fabe84f508ba, type: 3}
