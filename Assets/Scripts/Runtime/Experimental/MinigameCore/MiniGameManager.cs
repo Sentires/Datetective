@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace TheDates.Runtime.Experimental.MinigameCore
 {
@@ -348,12 +349,12 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public abstract bool isInitialised { get; }
         public abstract GameObject source { get; }
         public abstract MiniGameState gameState { get; }
-        public abstract void Init(GameObject prefab);
+        protected bool HasWon;
 
-        private void FindCommonUI()
-        {
-            
-        }
+        [SerializeField] protected GameObject winScreen;
+        [SerializeField] protected Button winButton;
+        
+        public abstract void Init(GameObject prefab);
 
         public abstract void AcceptCommand(MiniGameCommand command);
         
@@ -367,5 +368,24 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public void SendCommandWin() => SendCommand(MiniGameCommand.Win);
         public void SendCommandLose() => SendCommand(MiniGameCommand.Lose);
         public void SendCommandForceQuit() => SendCommand(MiniGameCommand.ForceQuit);
+
+        protected void InitCommon()
+        {
+            winScreen = transform.Find("UI")?.Find("WinScreen").gameObject;
+            winButton = winScreen?.transform.Find("ExitButton")?.GetComponent<Button>();
+            
+            if (winButton == null || !winScreen) return;
+            winScreen.SetActive(false);
+            winButton.onClick.AddListener(WinPrompt);
+        }
+
+        protected void OpenWinPrompt() {
+            winScreen.SetActive(true);
+        }
+
+        private void WinPrompt() {
+            HasWon = true;
+            SendCommand(MiniGameCommand.Win);
+        }
     }
 }

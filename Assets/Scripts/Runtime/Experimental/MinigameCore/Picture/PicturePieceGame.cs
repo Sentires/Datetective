@@ -73,7 +73,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             
             _dimensions = GetDimensions(slicedPicture, multiplier);
             CreatePieces(slicedPicture);
-            CreateGuide(guidePicture);
+            //CreateGuide(guidePicture);
             ScatterPieces();
             UpdateBorder();
 
@@ -242,7 +242,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         }
 
         private void ClearProgress() {
-            Destroy(_guide.gameObject);
+            //Destroy(_guide.gameObject);
             if (_pieces.Count <= 0) return;
             for (var i = _pieces.Count - 1; i >= 0; i--) {
                 Destroy(_pieces[i]?.gameObject);
