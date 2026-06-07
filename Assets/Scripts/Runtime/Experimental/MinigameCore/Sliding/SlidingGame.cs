@@ -147,17 +147,18 @@ namespace TheDates
             }
             
             private void CreatePiece(int index, BoxCollider2D piece, Sprite sprite) {
-                //var text = piece.GetComponentInChildren<TextMeshPro>();
-                //if (text != null) {
-                //    text.text = index.ToString();
-                //}
-
                 piece.name += $" ({index})";
                 piece.transform.localScale = Vector3.one;
-                var renderer = piece.transform.Find("Fill").GetComponent<SpriteRenderer>();
-                renderer.sprite = sprite;
+                var picture = piece.transform.Find("Fill").GetComponent<SpriteRenderer>();
+                picture.sprite = sprite;
                 
-                piece.size = new Vector2(_width, _height);
+                var pictureScale = new Vector2(_width, _height);
+                
+                var border = piece.transform.Find("Border");
+                border.localScale = pictureScale;
+
+
+                piece.size = pictureScale;
                 piece.gameObject.SetActive(false);
             }
             
