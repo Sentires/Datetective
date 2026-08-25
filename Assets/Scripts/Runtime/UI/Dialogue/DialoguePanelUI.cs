@@ -19,12 +19,14 @@ namespace TheDates.Runtime.UI
         }
 
         private void OnEnable() {
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.DialogueEvents.onDialogueStarted += DialogueStarted;
             GameEventsManager.Instance.DialogueEvents.onDialogueFinished += DialogueFinished;
             GameEventsManager.Instance.DialogueEvents.onDialogueDisplay += DisplayDialogue;
         }
 
         private void OnDisable() {
+            if (!GameEventsManager.HasInstance) return;
             GameEventsManager.Instance.DialogueEvents.onDialogueStarted -= DialogueStarted;
             GameEventsManager.Instance.DialogueEvents.onDialogueFinished -= DialogueFinished;
             GameEventsManager.Instance.DialogueEvents.onDialogueDisplay -= DisplayDialogue;

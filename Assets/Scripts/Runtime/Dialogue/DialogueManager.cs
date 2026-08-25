@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TheDates.Runtime.Dialogue
 {
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : BasicSingleton<DialogueManager>
     {
         [Header("Ink Scripting")]
         [SerializeField] private TextAsset inkJson;
@@ -21,7 +21,8 @@ namespace TheDates.Runtime.Dialogue
         private InkDialogueVariables _inkDialogueVariables;
 
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             _story = new Story(inkJson.text);
             _inkExternalFunctions = new InkExternalFunctions();
             _inkExternalFunctions.Bind(_story);
