@@ -15,3 +15,10 @@ EXTERNAL FinishQuest(questId)
 === function FinishQuest(questId)
 ~ return // Fallback for Inky
 
+EXTERNAL SetSpeaker(name)
+=== function SetSpeaker(name)
+~ return // Fallback for Inky
+
+EXTERNAL SetMood(name, mood)
+=== function SetMood(name, mood)
+~ return // Fallback for Inky

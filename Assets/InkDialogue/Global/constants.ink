@@ -11,3 +11,19 @@ CONST QuestState_Available_Debug = "DEBUG: You have fulfilled the prerequisites 
 CONST QuestState_Active_Debug = "DEBUG: This quest is currently active."
 CONST QuestState_Achieved_Debug = "DEBUG: You can complete this quest."
 CONST QuestState_Concluded_Debug = "DEBUG: You have already completed this quest."
+
+// Default Named Speaker
+CONST Default_Speaker = "Narrator"
+
+// Characters
+CONST Char_Detective = "Juno"
+CONST Char_Baker = "Briar"
+CONST Char_Clown = "Jestar"
+
+// Character Moods
+CONST Mood_Neutral = 1
+CONST Mood_Happy = 2
+CONST Mood_Sad = 3
+CONST Mood_Angry = 4
+CONST Mood_Shock = 5
+CONST Mood_Fluster = 6
