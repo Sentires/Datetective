@@ -37,10 +37,10 @@ namespace TheDates.Runtime.Dialogue
         public event Action<string, Ink.Runtime.Object> onUpdateInkVariable;
         public void UpdateInkVariable(string name, Ink.Runtime.Object value) => onUpdateInkVariable?.Invoke(name, value);
         
-        public event Action<CharacterProfile, int, int> onAdjustSpeaker;
-        public void AdjustSpeaker(CharacterProfile target, int portrait) => onAdjustSpeaker?.Invoke(target, portrait, 0);
+        //public event Action<CharacterProfile, int, int> onAdjustSpeaker;
+        //public void AdjustSpeaker(CharacterProfile target, int portrait) => onAdjustSpeaker?.Invoke(target, portrait, 0);
         
-        public event Action<CharacterProfile, int> onSetSpeaker;
-        public void SetSpeaker(CharacterProfile target, int position) => onSetSpeaker?.Invoke(target, position);
+        //public event Action<CharacterProfile, int> onSetSpeaker;
+        //public void SetSpeaker(CharacterProfile target, int position) => onSetSpeaker?.Invoke(target, position);
     }
 }

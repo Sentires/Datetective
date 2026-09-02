@@ -39,8 +39,6 @@ namespace TheDates.Runtime.UI
             dialogueEvents.onDialogueFinished += DialogueFinished;
             dialogueEvents.onDialogueDisplay += DisplayDialogue;
             dialogueEvents.onUpdateChoiceIndex += OnChoiceSelect;
-            //dialogueEvents.onSetSpeaker += SetActiveSpeaker;
-            //dialogueEvents.onAdjustSpeaker += SetPortraitVariant;
         }
 
         private void OnDisable() {
@@ -49,18 +47,6 @@ namespace TheDates.Runtime.UI
             dialogueEvents.onDialogueFinished -= DialogueFinished;
             dialogueEvents.onDialogueDisplay -= DisplayDialogue;
             dialogueEvents.onUpdateChoiceIndex -= OnChoiceSelect;
-            //dialogueEvents.onSetSpeaker -= SetActiveSpeaker;
-            //dialogueEvents.onAdjustSpeaker -= SetPortraitVariant;
-        }
-        
-        private void SetActiveSpeaker(CharacterProfile profile, int index) {
-            portraitSecondary.sprite = profile?.GetPortrait(1);
-            //Debug.Log($"Active portrait {0} for {profile?.name}");
-        }
-        
-        private void SetPortraitVariant(CharacterProfile profile, int mood, int variant) {
-            portraitSecondary.sprite = profile?.GetPortrait(mood);
-            //Debug.Log($"Active portrait {mood} for {profile?.name}");
         }
 
         private void DialogueStarted() {
@@ -81,27 +67,40 @@ namespace TheDates.Runtime.UI
         private void TempAdjustUI(string dialogueLine)
         {
             var manager = dialogueEvents.currentManager;
-            
-            if (manager.currentSpeakerIndex == 0) {
-                dialogueTextPrimary.text = dialogueLine;
-                dialogueTextSecondary.text = string.Empty;
-                dialogueBoxPrimary.SetActive(true);
-                dialogueBoxSecondary.SetActive(false);
-            }
-            else {
-                dialogueTextSecondary.text = dialogueLine;
-                dialogueTextPrimary.text = string.Empty;
-                dialogueBoxSecondary.SetActive(true);
-                dialogueBoxPrimary.SetActive(false);
-            }
-            
             var primarySpeaker = manager.currentRoster[0];
             var secondarySpeaker = manager.currentRoster[1];
-
-            labelPrimary.text = primarySpeaker.Name;
-            labelSecondary.text = secondarySpeaker.Name;
-            portraitPrimary.sprite = primarySpeaker.Profile.GetPortrait(primarySpeaker.MoodIndex);
-            portraitSecondary.sprite = secondarySpeaker.Profile.GetPortrait(secondarySpeaker.MoodIndex);
+            
+            portraitPrimary.sprite = primarySpeaker.GetCurrentPortrait();
+            portraitSecondary.sprite = secondarySpeaker.GetCurrentPortrait();
+            portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
+            portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
+            
+            switch (manager.currentSpeakerIndex) {
+                case 0:
+                    dialogueTextPrimary.text = dialogueLine;
+                    //dialogueTextSecondary.text = string.Empty;
+                    labelPrimary.text = primarySpeaker.GetCurrentName();
+                    dialogueBoxPrimary.SetActive(true);
+                    dialogueBoxSecondary.SetActive(false);
+                    break;
+                case 1:
+                    dialogueTextSecondary.text = dialogueLine;
+                    //dialogueTextPrimary.text = string.Empty;
+                    labelSecondary.text = secondarySpeaker.GetCurrentName();
+                    dialogueBoxSecondary.SetActive(true);
+                    dialogueBoxPrimary.SetActive(false);
+                    break;
+                default: // 'no direct speaker'
+                    dialogueTextPrimary.text = dialogueLine;
+                    labelPrimary.text = string.Empty;
+                    dialogueBoxPrimary.SetActive(true);
+                    dialogueBoxSecondary.SetActive(false);
+                    break;
+            }
+            
+            
+            
+            
         }
 
         //private void UpdateDialogueBox(bool toggle, string text) {
@@ -128,6 +127,7 @@ namespace TheDates.Runtime.UI
                 choiceButton.gameObject.SetActive(true);
                 choiceButton.SetChoiceText(dialogueChoice.text);
                 choiceButton.SetChoiceIndex(inkIndex);
+                choiceButton.SetSelectionPointer(false);
 
                 if (inkIndex == 0) {
                     choiceButton.SelectButton();
@@ -141,6 +141,10 @@ namespace TheDates.Runtime.UI
         private void ResetPanel() {
             dialogueTextPrimary.text = string.Empty;
             dialogueTextSecondary.text = string.Empty;
+            labelPrimary.text = string.Empty;
+            labelSecondary.text = string.Empty;
+            portraitPrimary.sprite = null;
+            portraitSecondary.sprite = null;
         }
         
         

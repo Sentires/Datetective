@@ -14,6 +14,7 @@ namespace TheDates.Runtime.Dialogue
             story.BindExternalFunction("Speaker", (int positionIndex) => SetSpeaker(positionIndex));
             story.BindExternalFunction("Character", (string character, int positionIndex) => SetCharacter(character, positionIndex));
             story.BindExternalFunction("Portrait", (int positionIndex, int moodIndex) => SetPortrait(positionIndex, moodIndex));
+            story.BindExternalFunction("Alias", (int positionIndex, string alias) => SetAlias(positionIndex, alias));
         }
         public void Unbind(Story story) {
             story.UnbindExternalFunction("StartQuest");
@@ -23,6 +24,7 @@ namespace TheDates.Runtime.Dialogue
             story.UnbindExternalFunction("Speaker");
             story.UnbindExternalFunction("Character");
             story.UnbindExternalFunction("Portrait");
+            story.UnbindExternalFunction("Alias");
         }
         
         private void StartQuest(string questID) {
@@ -43,21 +45,15 @@ namespace TheDates.Runtime.Dialogue
         }
         
         private void SetCharacter(string name, int positionIndex) {
-            //Debug.Log("Speaker set to: " + name + ", index: " + index);
-            //var profile = GameEventsManager.Instance.DialogueEvents.currentManager.FindCharacter(name);
-            //if (!profile) return;
-            
-            //GameEventsManager.Instance.DialogueEvents.SetSpeaker(profile, index);
             GameEventsManager.Instance.DialogueEvents.currentManager.SetCharacterAt(name, positionIndex);
         }
         
         private void SetPortrait(int positionIndex, int moodIndex) {
-            //Debug.Log($"Mood for '{name}' set to: {moodID}");
-            //var profile = GameEventsManager.Instance.DialogueEvents.currentManager.FindCharacter(name);
-            //if (!profile) return;
-            
-            //GameEventsManager.Instance.DialogueEvents.AdjustSpeaker(profile, moodID);
             GameEventsManager.Instance.DialogueEvents.currentManager.SetPortraitAt(positionIndex, moodIndex);
+        }
+        
+        private void SetAlias(int positionIndex, string alias) {
+            GameEventsManager.Instance.DialogueEvents.currentManager.SetSpeakerAlias(positionIndex, alias);
         }
     }
 }
