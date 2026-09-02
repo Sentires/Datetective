@@ -1,4 +1,4 @@
-CHARACTERISATION BREAKDOWN - Briar
+/*CHARACTERISATION BREAKDOWN - Briar
 
 Basic info I like to write out to ground the character
 
@@ -7,20 +7,20 @@ Age: 26
 Ethnicity: French-Spanish
 Height: 5'3" / 159cm
 Pronouns: she/her
-Occupation: Baker
--> Briar
+Occupation: Baker*/
+//-> Briar
 
 === Briar ===
-+[Introduction]-> Introduction
-+['What are your likes and dislikes?'] -> Likes_Dislikes
-+['You're cute'] -> Flirt
-+['I don't think you're telling me the whole truth...'] -> Confrontation
++[Introduction]-> Briar_Introduction
++['What are your likes and dislikes?'] -> Briar_Likes_Dislikes
++['You're cute'] -> Briar_Flirt
++['I don't think you're telling me the whole truth...'] -> Briar_Confrontation
 
-=== Introduction ===
+=== Briar_Introduction ===
 Hello dear! My name is Briar, it's lovely to meet you. Please make yourself at home, let me know if you need anything.
 -> Briar
 
-=== Likes_Dislikes ===
+=== Briar_Likes_Dislikes ===
 
 Briar: Hehe, now why do you want to know more about little old me? If anything, I should be asking you dear.
 
@@ -33,13 +33,13 @@ She grimaced at the mention of the rodents. Clearly this is something she has go
 Briar: Filthy, filthy things... how do they even get so big here... I've never seen rats that big back home... ah- ahaha anyway, working with food naturally means I'd rather not be seeing them around.
 -> Briar
 
-=== Flirt ===
+=== Briar_Flirt ===
 Briar: Aww aren't you just the sweetest, dear! I think you're positively adorable too.
 
 Despite her positive response, there seems to be little emotion behind them, almost as if she doesn't believe your words or her own.
 -> Briar
 
-=== Confrontation ===
+=== Briar_Confrontation ===
 It was only for a split second, but Briar glared ice cold daggers into you before snapping back to her usual, chipper self.
 
 Briar: What are you talking about, dear? Did I do something to upset you... tell me, I'll make things right.

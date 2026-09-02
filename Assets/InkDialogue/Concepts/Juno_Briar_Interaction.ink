@@ -1,6 +1,7 @@
-(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)
+/*(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)*/
 
-
+// I added this, it didn't have a knot before - Jack
+=== interaction_enter ===
 You enter the bakery next door to the crimescene. Despite the horrific act that has taken place so near by, it's still open for business, though notably the entrance connecting the store directly to the aquarium has been barred off with police tape.
 
 Unsurprisingly, there are few customers in sight at a time like this.

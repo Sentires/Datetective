@@ -1,7 +1,7 @@
-A new case file was on your desk this morning.
+/*A new case file was on your desk this morning.
 Another crime the police force couldn't solve themselves. Typical.
-This wasn't the first time they turned to your humble little detective firm for help, you doubt it'll be the last either, but hey, you were never one to turn down an interesting case.
--> Office
+This wasn't the first time they turned to your humble little detective firm for help, you doubt it'll be the last either, but hey, you were never one to turn down an interesting case.*/
+//-> Office
 
 === Office ===
  + [Interact with case file] -> Case_file
@@ -80,13 +80,13 @@ If you're lucky, that old file with the password on it might still be in here...
 
 === Lafayette_Street ===
 A bustling street in Lower Manhatten. Despite now being the scene of a crime, people walking about seem to be going on about their business without any concern.
- +[Interact with young man frantically searching his pockets] -> Jestar
+ +[Interact with young man frantically searching his pockets] -> Jestar_Prologue
  +[Interact with elderly woman staring at the aquarium] -> Elder
  +[Enter the alleyway] -> Alleyway
  
  
  
- === Jestar ===
+ === Jestar_Prologue ===
   You see a young man frantically looking around and repeatedly checking his pockets.
   Young Man: Crap- no no no- If I can't get back inside...
   Juno: You alright there? Looking for something?

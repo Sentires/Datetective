@@ -12,18 +12,23 @@ CONST QuestState_Active_Debug = "DEBUG: This quest is currently active."
 CONST QuestState_Achieved_Debug = "DEBUG: You can complete this quest."
 CONST QuestState_Concluded_Debug = "DEBUG: You have already completed this quest."
 
-// Default Named Speaker
-CONST Default_Speaker = "Narrator"
+// Default Character/Speaker
+CONST Char_Default = "Narrator"
 
 // Characters
 CONST Char_Detective = "Juno"
 CONST Char_Baker = "Briar"
 CONST Char_Clown = "Jestar"
+CONST Char_Landlord = "Dakota"
+
+// Character Placement
+CONST SpeakerIndex_Primary = 0
+CONST SpeakerIndex_Secondary = 1
 
 // Character Moods
-CONST Mood_Neutral = 1
-CONST Mood_Happy = 2
+CONST Mood_Neutral = 0
+CONST Mood_Happy = 1
+CONST Mood_Shock = 2
 CONST Mood_Sad = 3
 CONST Mood_Angry = 4
-CONST Mood_Shock = 5
-CONST Mood_Fluster = 6
+CONST Mood_Fluster = 5
