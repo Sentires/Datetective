@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Ink.Runtime;
+using TheDates.Runtime.Dialogue;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace TheDates.Runtime.UI
 {
@@ -10,8 +13,20 @@ namespace TheDates.Runtime.UI
     {
         [Header("Components")]
         [SerializeField] private GameObject contentParent;
-        [SerializeField] private TextMeshProUGUI dialogueText;
+        [SerializeField] private GameObject dialogueBoxPrimary;
+        [SerializeField] private GameObject dialogueBoxSecondary;
+        [SerializeField] private TextMeshProUGUI dialogueTextPrimary;
+        [SerializeField] private TextMeshProUGUI dialogueTextSecondary;
+        [FormerlySerializedAs("speakerPrimary")] [SerializeField] private TextMeshProUGUI labelPrimary;
+        [FormerlySerializedAs("speakerSecondary")] [SerializeField] private TextMeshProUGUI labelSecondary;
+        [SerializeField] private Image portraitPrimary;
+        [SerializeField] private Image portraitSecondary;
         [SerializeField] private DialogueChoiceButton[] choicesButtons;
+
+        private int _currentWindowIndex;
+        
+        
+        private DialogueEvents dialogueEvents => GameEventsManager.Instance?.DialogueEvents;
 
         private void Awake() {
             contentParent.SetActive(false);
@@ -20,16 +35,32 @@ namespace TheDates.Runtime.UI
 
         private void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.DialogueEvents.onDialogueStarted += DialogueStarted;
-            GameEventsManager.Instance.DialogueEvents.onDialogueFinished += DialogueFinished;
-            GameEventsManager.Instance.DialogueEvents.onDialogueDisplay += DisplayDialogue;
+            dialogueEvents.onDialogueStarted += DialogueStarted;
+            dialogueEvents.onDialogueFinished += DialogueFinished;
+            dialogueEvents.onDialogueDisplay += DisplayDialogue;
+            dialogueEvents.onUpdateChoiceIndex += OnChoiceSelect;
+            //dialogueEvents.onSetSpeaker += SetActiveSpeaker;
+            //dialogueEvents.onAdjustSpeaker += SetPortraitVariant;
         }
 
         private void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.DialogueEvents.onDialogueStarted -= DialogueStarted;
-            GameEventsManager.Instance.DialogueEvents.onDialogueFinished -= DialogueFinished;
-            GameEventsManager.Instance.DialogueEvents.onDialogueDisplay -= DisplayDialogue;
+            dialogueEvents.onDialogueStarted -= DialogueStarted;
+            dialogueEvents.onDialogueFinished -= DialogueFinished;
+            dialogueEvents.onDialogueDisplay -= DisplayDialogue;
+            dialogueEvents.onUpdateChoiceIndex -= OnChoiceSelect;
+            //dialogueEvents.onSetSpeaker -= SetActiveSpeaker;
+            //dialogueEvents.onAdjustSpeaker -= SetPortraitVariant;
+        }
+        
+        private void SetActiveSpeaker(CharacterProfile profile, int index) {
+            portraitSecondary.sprite = profile?.GetPortrait(1);
+            //Debug.Log($"Active portrait {0} for {profile?.name}");
+        }
+        
+        private void SetPortraitVariant(CharacterProfile profile, int mood, int variant) {
+            portraitSecondary.sprite = profile?.GetPortrait(mood);
+            //Debug.Log($"Active portrait {mood} for {profile?.name}");
         }
 
         private void DialogueStarted() {
@@ -41,8 +72,45 @@ namespace TheDates.Runtime.UI
             ResetPanel();
         }
 
+        private void OnChoiceSelect(int index) {
+            foreach (var button in choicesButtons) {
+                button.SetSelectionPointer(index == button.choiceIndex);
+            }
+        }
+
+        private void TempAdjustUI(string dialogueLine)
+        {
+            var manager = dialogueEvents.currentManager;
+            
+            if (manager.currentSpeakerIndex == 0) {
+                dialogueTextPrimary.text = dialogueLine;
+                dialogueTextSecondary.text = string.Empty;
+                dialogueBoxPrimary.SetActive(true);
+                dialogueBoxSecondary.SetActive(false);
+            }
+            else {
+                dialogueTextSecondary.text = dialogueLine;
+                dialogueTextPrimary.text = string.Empty;
+                dialogueBoxSecondary.SetActive(true);
+                dialogueBoxPrimary.SetActive(false);
+            }
+            
+            var primarySpeaker = manager.currentRoster[0];
+            var secondarySpeaker = manager.currentRoster[1];
+
+            labelPrimary.text = primarySpeaker.Name;
+            labelSecondary.text = secondarySpeaker.Name;
+            portraitPrimary.sprite = primarySpeaker.Profile.GetPortrait(primarySpeaker.MoodIndex);
+            portraitSecondary.sprite = secondarySpeaker.Profile.GetPortrait(secondarySpeaker.MoodIndex);
+        }
+
+        //private void UpdateDialogueBox(bool toggle, string text) {
+        //    
+        //}
+
         private void DisplayDialogue(string dialogueLine, List<Choice> choices) {
-            dialogueText.text = dialogueLine;
+            TempAdjustUI(dialogueLine);
+            //dialogueTextPrimary.text = dialogueLine;
 
             if (choices.Count > choicesButtons.Length) {
                 Debug.LogWarning("Too many choices on the dialogue line");
@@ -71,7 +139,8 @@ namespace TheDates.Runtime.UI
         }
 
         private void ResetPanel() {
-            dialogueText.text = string.Empty;
+            dialogueTextPrimary.text = string.Empty;
+            dialogueTextSecondary.text = string.Empty;
         }
         
         

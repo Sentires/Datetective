@@ -10,8 +10,9 @@ namespace TheDates.Runtime.UI
         [Header("Components")]
         [SerializeField] private Button button;
         [SerializeField] private TextMeshProUGUI choiceText;
+        [SerializeField] private Image selectionPointer;
 
-        private int choiceIndex = -1;
+        public int choiceIndex { get; private set; }  = -1;
 
         public void SetChoiceText(string textString) {
             choiceText.text = textString;
@@ -19,6 +20,10 @@ namespace TheDates.Runtime.UI
 
         public void SetChoiceIndex(int index) {
             choiceIndex = index;
+        }
+
+        public void SetSelectionPointer(bool isSelected) {
+            selectionPointer.gameObject.SetActive(isSelected);
         }
 
         public void SelectButton() {
