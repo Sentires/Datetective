@@ -26,3 +26,7 @@ EXTERNAL Character(name, positionIndex)
 EXTERNAL Portrait(positionIndex, moodIndex)
 === function Portrait(positionIndex, moodIndex)
 ~ return // Fallback for Inky
+
+EXTERNAL Alias(positionIndex, alias)
+=== function Alias(positionIndex, alias)
+~ return // Fallback for Inky
