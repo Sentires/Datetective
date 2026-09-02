@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5e1ba964acdb24ba0f1d502076f5ce, type: 3}
+  m_Name: JestarProfile
+  m_EditorClassIdentifier: 
+  characterName: Jestar
+  collection:
+    rowLabels:
+    - Neutral
+    - Happy
+    - Shocked
+    - Sad
+    - Angry
+    - Flustered
+    columnLabels:
+    - Default
+    columns:
+    - rows:
+      - {fileID: 21300000, guid: 28ac3b90e5bfa8943ba52712eeb06ba0, type: 3}
+      - {fileID: 21300000, guid: 9819574719b47284986cd96ccdbe8c74, type: 3}
+      - {fileID: 21300000, guid: b98dd86f6e838ba42ab57def955f032f, type: 3}
+      - {fileID: 21300000, guid: bbe7a695fd3c5834aa7f21952558b3a4, type: 3}
+      - {fileID: 21300000, guid: b7a88524748afbb47bb433eabd616f20, type: 3}
+      - {fileID: 21300000, guid: a2c9a9e6756a1204cbf33ff0409dc09b, type: 3}
+  CustomEmotionLabels: []
+  CustomAppearanceLabels: []

@@ -13,12 +13,12 @@ namespace TheDates.Runtime
         [SerializeField]
         private string characterName;
         
-        public GridCollection<Texture2D> collection = SetupProfiles();
+        public GridCollection<Sprite> collection = SetupProfiles();
         
         public string CharacterName => characterName;
         
         
-        public static readonly string[] Emotions = { "Neutral", "Happy", "Surprised", "Sad", "Angry", "Flustered" };
+        public static readonly string[] Emotions = { "Neutral", "Happy", "Shocked", "Sad", "Angry", "Flustered" };
         public static readonly string[] Appearances = { "Default"};
         
         public string[] TotalEmotionLabels => CustomEmotionLabels.Length != 0 ? Emotions.Concat(CustomEmotionLabels).ToArray() : Emotions;
@@ -29,8 +29,8 @@ namespace TheDates.Runtime
         [SerializeField]
         private string[] CustomAppearanceLabels = Array.Empty<string>();
 
-        public static GridCollection<Texture2D> SetupProfiles() {
-            var grid = new GridCollection<Texture2D>(Appearances, Emotions);
+        public static GridCollection<Sprite> SetupProfiles() {
+            var grid = new GridCollection<Sprite>(Appearances, Emotions);
             return grid;
         }
         
@@ -43,6 +43,15 @@ namespace TheDates.Runtime
 
         public void OnAfterDeserialize() {
             
+        }
+
+        public Sprite GetPortrait(int index) {
+            if (!TotalEmotionLabels.IsWithinBounds(index)) {
+                Debug.Log($"Portrait index {index} is invalid");
+                return null;
+            }
+            
+            return collection.columns[0].rows[index];
         }
     }
 }
