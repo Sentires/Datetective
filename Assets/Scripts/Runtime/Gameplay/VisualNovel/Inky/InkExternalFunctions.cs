@@ -10,16 +10,19 @@ namespace TheDates.Runtime.Dialogue
             story.BindExternalFunction("AdvanceQuest", (string questId) => AdvanceQuest(questId));
             story.BindExternalFunction("FinishQuest", (string questId) => FinishQuest(questId));
             
-            story.BindExternalFunction("SetSpeaker", (string characterName) => SetSpeaker(characterName));
-            story.BindExternalFunction("SetMood", (string characterName, int moodId) => SetMood(characterName, moodId));
+            // Position is basically the index. 0 is the primary, 1 is the secondary. 
+            story.BindExternalFunction("Speaker", (int positionIndex) => SetSpeaker(positionIndex));
+            story.BindExternalFunction("Character", (string character, int positionIndex) => SetCharacter(character, positionIndex));
+            story.BindExternalFunction("Portrait", (int positionIndex, int moodIndex) => SetPortrait(positionIndex, moodIndex));
         }
         public void Unbind(Story story) {
             story.UnbindExternalFunction("StartQuest");
             story.UnbindExternalFunction("AdvanceQuest");
             story.UnbindExternalFunction("FinishQuest");
             
-            story.UnbindExternalFunction("SetSpeaker");
-            story.UnbindExternalFunction("SetMood");
+            story.UnbindExternalFunction("Speaker");
+            story.UnbindExternalFunction("Character");
+            story.UnbindExternalFunction("Portrait");
         }
         
         private void StartQuest(string questID) {
@@ -35,14 +38,26 @@ namespace TheDates.Runtime.Dialogue
             GameEventsManager.Instance.QuestEvents.FinishQuest(hashID);
         }
 
-        private void SetSpeaker(string name)
-        {
-            Debug.Log("Speaker set to: " + name);
+        private void SetSpeaker(int positionIndex) {
+            GameEventsManager.Instance.DialogueEvents.currentManager.SetCurrentSpeaker(positionIndex);
         }
         
-        private void SetMood(string name, int mood)
-        {
-            Debug.Log($"Mood for '{name}' set to: {mood}");
+        private void SetCharacter(string name, int positionIndex) {
+            //Debug.Log("Speaker set to: " + name + ", index: " + index);
+            //var profile = GameEventsManager.Instance.DialogueEvents.currentManager.FindCharacter(name);
+            //if (!profile) return;
+            
+            //GameEventsManager.Instance.DialogueEvents.SetSpeaker(profile, index);
+            GameEventsManager.Instance.DialogueEvents.currentManager.SetCharacterAt(name, positionIndex);
+        }
+        
+        private void SetPortrait(int positionIndex, int moodIndex) {
+            //Debug.Log($"Mood for '{name}' set to: {moodID}");
+            //var profile = GameEventsManager.Instance.DialogueEvents.currentManager.FindCharacter(name);
+            //if (!profile) return;
+            
+            //GameEventsManager.Instance.DialogueEvents.AdjustSpeaker(profile, moodID);
+            GameEventsManager.Instance.DialogueEvents.currentManager.SetPortraitAt(positionIndex, moodIndex);
         }
     }
 }

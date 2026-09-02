@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Ink.Runtime;
 using TheDates.Runtime.General;
 using TheDates.Runtime.Quests;
@@ -15,10 +17,35 @@ namespace TheDates.Runtime.Dialogue
         [field: SerializeField, ReadOnly] public bool isRunning { get; private set; }
         [field: SerializeField, ReadOnly] public int currentChoiceIndex { get; private set; } = -1;
         [field: SerializeField, ReadOnly] public string currentKnotName { get; private set; } = string.Empty;
+        [field: SerializeField] public CharacterProfile[] characters { get; private set; } = Array.Empty<CharacterProfile>();
         
         private Story _story;
         private InkExternalFunctions _inkExternalFunctions;
         private InkDialogueVariables _inkDialogueVariables;
+        private Dictionary<string, int> _characterDictionary;
+        
+        public CharacterData[] currentRoster { get; private set; }
+        public int currentSpeakerIndex { get; private set; } = -1;
+
+        private DialogueEvents dialogueEvents => GameEventsManager.Instance?.DialogueEvents;
+        private static CharacterData _defaultCharacterFallback = new();
+        private CharacterData _defaultCharacter;
+
+        public struct CharacterData
+        {
+            public readonly CharacterProfile Profile;
+            public string Name;
+            public int MoodIndex;
+            
+            public CharacterData(CharacterProfile profile) {
+                Profile = profile;
+                Name = profile.CharacterName;
+                MoodIndex = 0;
+            }
+
+            public bool isValid => Profile;
+
+        }
 
 
         protected override void Awake() {
@@ -27,6 +54,17 @@ namespace TheDates.Runtime.Dialogue
             _inkExternalFunctions = new InkExternalFunctions();
             _inkExternalFunctions.Bind(_story);
             _inkDialogueVariables = new InkDialogueVariables(_story);
+            
+            _characterDictionary = new Dictionary<string, int>();
+            for (var i = 0; i < characters.Length; i++) {
+                _characterDictionary.TryAdd(characters[i].CharacterName, i);
+                Debug.Log($"Character {characters[i].CharacterName} has been added to Story at position {i}");
+            }
+            
+            currentRoster = new CharacterData[2];
+            _defaultCharacter = characters.IsNullOrEmpty() ? _defaultCharacterFallback : new CharacterData(characters[0]);
+            //var testing = new CharacterData()
+
         }
 
         private void OnDestroy() {
@@ -35,21 +73,51 @@ namespace TheDates.Runtime.Dialogue
 
         private void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.DialogueEvents.BindManager(this);
-            GameEventsManager.Instance.DialogueEvents.onEnterDialogue += EnterDialogue;
-            GameEventsManager.Instance.DialogueEvents.onUpdateChoiceIndex += UpdateChoiceIndex;
-            GameEventsManager.Instance.DialogueEvents.onUpdateInkVariable += UpdateInkVariable;
+            dialogueEvents.BindManager(this);
+            dialogueEvents.onEnterDialogue += EnterDialogue;
+            dialogueEvents.onUpdateChoiceIndex += UpdateChoiceIndex;
+            dialogueEvents.onUpdateInkVariable += UpdateInkVariable;
+            //dialogueEvents.onSetSpeaker += SetCharacterAt;
             GameEventsManager.Instance.QuestEvents.onQuestStateChange += QuestStateChange;
         }
 
         private void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.DialogueEvents.UnbindManager(this);
-            GameEventsManager.Instance.DialogueEvents.onEnterDialogue -= EnterDialogue;
-            GameEventsManager.Instance.DialogueEvents.onUpdateChoiceIndex -= UpdateChoiceIndex;
-            GameEventsManager.Instance.DialogueEvents.onUpdateInkVariable -= UpdateInkVariable;
+            dialogueEvents.UnbindManager(this);
+            dialogueEvents.onEnterDialogue -= EnterDialogue;
+            dialogueEvents.onUpdateChoiceIndex -= UpdateChoiceIndex;
+            dialogueEvents.onUpdateInkVariable -= UpdateInkVariable;
+            //dialogueEvents.onSetSpeaker -= SetCharacterAt;
             GameEventsManager.Instance.QuestEvents.onQuestStateChange -= QuestStateChange;
         }
+
+        public void SetCharacterAt(string characterName, int positionIndex) {
+            if (!currentRoster.IsWithinBounds(positionIndex) || !_characterDictionary.TryGetValue(characterName, out var profileIndex)) return;
+            if (currentRoster[positionIndex].Profile != characters[profileIndex]) {
+                currentRoster[positionIndex] = new CharacterData(characters[profileIndex]);
+            }
+        }
+        
+        public void SetPortraitAt(int positionIndex, int moodIndex) {
+            if (!currentRoster.IsWithinBounds(positionIndex) || currentRoster[positionIndex].MoodIndex == moodIndex) return;
+            currentRoster[positionIndex].MoodIndex = moodIndex;
+            //currentCharacters[index] = character;
+        }
+
+        public void SetCurrentSpeaker(int positionIndex) {
+            if (!currentRoster.IsWithinBounds(positionIndex)) return; //|| currentSpeakerIndex == positionIndex
+            currentSpeakerIndex = positionIndex;
+        }
+
+        //public CharacterProfile FindCharacter(string characterName) {
+        //    return _characterDictionary.TryGetValue(characterName, out var index) ? characters[index] : null;
+        //}
+        
+        //public CharacterProfile GetCharacterAt(int index) {
+        //    return currentRoster.IsWithinBounds(index) ? currentRoster[index].Profile : null;
+        //}
+        
+        //public void UpdateCharacterPortrait()
 
         private void QuestStateChange(Quest quest) {
             GameEventsManager.Instance.DialogueEvents.UpdateInkVariable(quest.namedID + "State", new StringValue(quest.state.ToString())
@@ -63,6 +131,7 @@ namespace TheDates.Runtime.Dialogue
 
         private void UpdateChoiceIndex(int choiceIndex) {
             currentChoiceIndex = choiceIndex;
+            //ProcessDialogue(); // We can change this later?
         }
 
         public void ProcessDialogue() {
@@ -77,6 +146,10 @@ namespace TheDates.Runtime.Dialogue
                 isRunning = true;
                 currentKnotName = knotName;
                 _story.ChoosePathString(knotName);
+                // Default to these characters
+                currentRoster[0] = _defaultCharacter;
+                currentRoster[1] = _defaultCharacter;
+                SetCurrentSpeaker(0);
                 GameEventsManager.Instance.DialogueEvents.DialogueStarted();
             }
             else {
@@ -84,7 +157,7 @@ namespace TheDates.Runtime.Dialogue
             }
             _inkDialogueVariables.StartListening(_story);
             RunStory();
-            //Debug.Log($"Entering Dialogue: {dialogueKnot}");
+            Debug.Log($"Entering Dialogue: {knotName}");
         }
 
         private void RunStory() {
@@ -117,17 +190,21 @@ namespace TheDates.Runtime.Dialogue
         
         private IEnumerator ExitDialogue() {
             yield return null;
-            //Debug.Log("Dialogue Knot has been exited.");
+            Debug.Log("Dialogue Knot has been exited.");
             
             isRunning = false;
             currentKnotName = string.Empty;
+            // Default to null
+            currentRoster[0] = _defaultCharacter;
+            currentRoster[1] = _defaultCharacter;
+            SetCurrentSpeaker(0);
             GameEventsManager.Instance.DialogueEvents.DialogueFinished();
             
             _story.ResetState();
         }
         
         private void ExitDialogue2() {
-            //Debug.Log("Dialogue Knot has been exited.");
+            Debug.Log("Dialogue Knot has been exited.");
             isRunning = false;
             _inkDialogueVariables.StopListening(_story);
             _story.ResetState();
