@@ -249,6 +249,65 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 646712890, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4387582bffca5ab40a651079e2df8a12, type: 3}
+    - target: {fileID: 762535081, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4387582bffca5ab40a651079e2df8a12, type: 3}
+    - target: {fileID: 1077045789, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4387582bffca5ab40a651079e2df8a12, type: 3}
+    - target: {fileID: 1148144291, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4387582bffca5ab40a651079e2df8a12, type: 3}
+    - target: {fileID: 1345776342, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8950ef15c887d534a8f622603f1ddebc, type: 3}
+    - target: {fileID: 1349625746, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_text
+      value: "Murdoch Active is holding an eSports day for high school students to
+        come through as a kind of open day for the uni, obviously with a more tailored
+        angle of studying games. The official event runs from 9-12:15. There will
+        be 3 groups of students cycling through the day. Each group gets a 10 minute
+        presentation and then a roughly 20 minute walk around to some of the activities.
+        We will be set up in room 360.4.031 (the room just above the main entrance)
+        with some laptops supplied by the eSports team to run some demos of student
+        made games.\r\nYour job would basically be to come before 9, set your game
+        up on the laptop - which I can help with! - and then enjoy watching students
+        play your game and provide feedback. From my own experience in showing off
+        my game demos these events are always great. Both in getting some feedback
+        and that warm fuzzy feeling of seeing people enjoy your game \U0001F605 \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349625746, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1349625746, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349625746, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 1806876327, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dade6f0a46f709647b30617037c2b361, type: 3}
+    - target: {fileID: 2037481196, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5bfd892283aee1f4e9ee4c077e29f181, type: 2}
+    - target: {fileID: 2037481196, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6769087469717991182, guid: 5bfd892283aee1f4e9ee4c077e29f181, type: 2}
     - target: {fileID: 8894475946677944584, guid: 08fe3cfc2cba1c444a207853146ad202, type: 3}
       propertyPath: m_Pivot.x
       value: 0
