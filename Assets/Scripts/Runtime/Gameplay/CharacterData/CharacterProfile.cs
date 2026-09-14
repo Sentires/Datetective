@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using TheDates.Runtime.General;
+using TMPro;
 using UnityEngine;
 
 namespace TheDates.Runtime
@@ -12,6 +13,9 @@ namespace TheDates.Runtime
         
         [SerializeField]
         private string characterName;
+        [SerializeField]
+        private TMP_FontAsset characterSpecialFont;
+        
         
         public GridCollection<Sprite> collection = SetupProfiles();
         
@@ -53,5 +57,7 @@ namespace TheDates.Runtime
             
             return collection.columns[0].rows[index];
         }
+        
+        public TMP_FontAsset specialLabelFont => characterSpecialFont;
     }
 }

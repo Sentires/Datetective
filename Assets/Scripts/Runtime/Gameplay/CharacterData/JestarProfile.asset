@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: JestarProfile
   m_EditorClassIdentifier: 
   characterName: Jestar
+  characterSpecialFont: {fileID: 11400000, guid: 8b76aa762bb345c4f874f87812f81161, type: 2}
   collection:
     rowLabels:
     - Neutral

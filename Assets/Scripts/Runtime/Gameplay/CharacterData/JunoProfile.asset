@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: JunoProfile
   m_EditorClassIdentifier: 
   characterName: Juno
+  characterSpecialFont: {fileID: 11400000, guid: 5bfd892283aee1f4e9ee4c077e29f181, type: 2}
   collection:
     rowLabels:
     - Neutral

@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 53415769e443cd74d94633f6f8b37621, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8950ef15c887d534a8f622603f1ddebc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2231,7 +2231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1681952632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2482,7 +2482,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc301d000dc62db48a339709a7480aa0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dade6f0a46f709647b30617037c2b361, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3650,7 +3650,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7464164136427039113, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
       propertyPath: m_Name
-      value: UI
+      value: UI Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7464164136427039117, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
       propertyPath: m_Pivot.x
@@ -3662,7 +3662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7464164136427039117, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7464164136427039117, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
       propertyPath: m_AnchorMax.x

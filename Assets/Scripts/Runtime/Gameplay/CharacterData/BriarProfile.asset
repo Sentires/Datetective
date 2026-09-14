@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BriarProfile
   m_EditorClassIdentifier: 
   characterName: Briar
+  characterSpecialFont: {fileID: 11400000, guid: 04ba03cd6de7a764e84ac8a3b67cc802, type: 2}
   collection:
     rowLabels:
     - Neutral

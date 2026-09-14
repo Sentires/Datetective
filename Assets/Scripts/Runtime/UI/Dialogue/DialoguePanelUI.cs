@@ -17,11 +17,14 @@ namespace TheDates.Runtime.UI
         [SerializeField] private GameObject dialogueBoxSecondary;
         [SerializeField] private TextMeshProUGUI dialogueTextPrimary;
         [SerializeField] private TextMeshProUGUI dialogueTextSecondary;
-        [FormerlySerializedAs("speakerPrimary")] [SerializeField] private TextMeshProUGUI labelPrimary;
-        [FormerlySerializedAs("speakerSecondary")] [SerializeField] private TextMeshProUGUI labelSecondary;
+        [SerializeField] private TextMeshProUGUI labelPrimary;
+        [SerializeField] private TextMeshProUGUI labelSecondary;
         [SerializeField] private Image portraitPrimary;
         [SerializeField] private Image portraitSecondary;
         [SerializeField] private DialogueChoiceButton[] choicesButtons;
+        
+        private TMP_FontAsset defaultTextFontAsset;
+        private TMP_FontAsset defaultLabelFontAsset;
 
         private int _currentWindowIndex;
         
@@ -31,6 +34,9 @@ namespace TheDates.Runtime.UI
         private void Awake() {
             contentParent.SetActive(false);
             ResetPanel();
+
+            defaultTextFontAsset = dialogueTextPrimary.font;
+            defaultLabelFontAsset = labelPrimary.font;
         }
 
         private void OnEnable() {
@@ -80,6 +86,7 @@ namespace TheDates.Runtime.UI
                     dialogueTextPrimary.text = dialogueLine;
                     //dialogueTextSecondary.text = string.Empty;
                     labelPrimary.text = primarySpeaker.GetCurrentName();
+                    labelPrimary.font = primarySpeaker.Profile?.specialLabelFont ?? defaultTextFontAsset;
                     dialogueBoxPrimary.SetActive(true);
                     dialogueBoxSecondary.SetActive(false);
                     break;
@@ -87,12 +94,14 @@ namespace TheDates.Runtime.UI
                     dialogueTextSecondary.text = dialogueLine;
                     //dialogueTextPrimary.text = string.Empty;
                     labelSecondary.text = secondarySpeaker.GetCurrentName();
+                    labelSecondary.font = secondarySpeaker.Profile?.specialLabelFont ?? defaultTextFontAsset;
                     dialogueBoxSecondary.SetActive(true);
                     dialogueBoxPrimary.SetActive(false);
                     break;
                 default: // 'no direct speaker'
                     dialogueTextPrimary.text = dialogueLine;
                     labelPrimary.text = string.Empty;
+                    labelPrimary.font = defaultLabelFontAsset;
                     dialogueBoxPrimary.SetActive(true);
                     dialogueBoxSecondary.SetActive(false);
                     break;

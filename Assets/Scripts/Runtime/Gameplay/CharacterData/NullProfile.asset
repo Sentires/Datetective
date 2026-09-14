@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NullProfile
   m_EditorClassIdentifier: 
   characterName: Null
+  characterSpecialFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   collection:
     rowLabels:
     - Neutral
