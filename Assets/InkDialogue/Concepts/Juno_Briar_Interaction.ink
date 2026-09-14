@@ -10,6 +10,7 @@ Behind the counter stands a young lady, one who's face aligns with one of the th
 
 ~ Character(CHAR_BAKER, 1)
 ~ Speaker(1)
+~ Alias(1, "Baker")
 Cafe Worker: Hello dear! Welcome to Baked Hearts Patisserie & Cafe. How can I help you?
 
 * [I'll get the daily special.] 
@@ -120,6 +121,7 @@ Juno: Thank you. Oh by the way, a bit of an odd question but could I get your na
 
 ~ Speaker(1)
 Cafe Worker: Aww you're too kind, you don't need to do all that. Still, the name's Briar.
+~ Alias(1, "")
 Briar: And in exchange, could I get yours?
 
 ~ Speaker(0)
