@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771636, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771636, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,8 +66,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771639, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_Name
-      value: Briar
+      value: Briar Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8535032997172451650, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 767adb38e9085aa44b56830e30d02833, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}

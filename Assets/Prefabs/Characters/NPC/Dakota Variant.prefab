@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 5915536281365807809, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300014, guid: e13ea44bd321017515a0448266a694c2, type: 3}
+      objectReference: {fileID: 21300000, guid: f43ede1f5138c154799ea174bdddaee7, type: 3}
     - target: {fileID: 5915536281365807809, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_Color.g
       value: 1
@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771636, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771636, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,8 +66,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5915536281476771639, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
       propertyPath: m_Name
-      value: Dakota
+      value: Dakota Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8535032997172451650, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f43ede1f5138c154799ea174bdddaee7, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 851072e49f009b34a82b4d64cfe997ed, type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1384070733}
   - component: {fileID: 1384070735}
   - component: {fileID: 1384070734}
-  - component: {fileID: 9032070477811279434}
+  - component: {fileID: 2956283511838567254}
   m_Layer: 0
   m_Name: Evil Chair
   m_TagString: Untagged
@@ -343,19 +343,32 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!65 &9032070477811279434
-BoxCollider:
+--- !u!61 &2956283511838567254
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384070732}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.461163, y: -1.1618425}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7436757, y: 1, z: 0}
-  m_Center: {x: -0.62816215, y: -0.5, z: 0}
+  m_Size: {x: 0.3621108, y: 0.32368493}
+  m_EdgeRadius: 0
 --- !u!1001 &8126233836574900931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,6 +424,14 @@ PrefabInstance:
     - target: {fileID: 1000000000000001, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000000000001, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+      propertyPath: m_Name
+      value: Collidable 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000000000003, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+      propertyPath: m_Name
+      value: Collidable 2
       objectReference: {fileID: 0}
     - target: {fileID: 4000000000000001, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
       propertyPath: m_SortingOrder
@@ -510,6 +531,134 @@ PrefabInstance:
       insertIndex: 4
       addedObject: {fileID: 1384070733}
   m_SourcePrefab: {fileID: 100100000, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+--- !u!1 &8124832806573671104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2000000000000003, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+  m_PrefabInstance: {fileID: 8126233836574900931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!19719996 &203125594312062175
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124832806573671104}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
+--- !u!1 &8124832806573671106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2000000000000001, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+  m_PrefabInstance: {fileID: 8126233836574900931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!19719996 &203125594086686643
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124832806573671106}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
+--- !u!1 &8124832806573671109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2000000000000006, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+  m_PrefabInstance: {fileID: 8126233836574900931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &8583707545359007290
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124832806573671109}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: -1.8032724}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.98965716}
+  m_EdgeRadius: 0
+--- !u!1 &8124832806573671111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2000000000000004, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+  m_PrefabInstance: {fileID: 8126233836574900931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &8406213882119395482
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124832806573671111}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: -1.8032724}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.98965716}
+  m_EdgeRadius: 0
+--- !u!1 &8124832806573671115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2000000000000008, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
+  m_PrefabInstance: {fileID: 8126233836574900931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!19719996 &203125594192748795
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124832806573671115}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!4 &8126081285162009282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1000000000000001, guid: d710d004f0c6ac2a8a4e46c83799f40c, type: 3}
