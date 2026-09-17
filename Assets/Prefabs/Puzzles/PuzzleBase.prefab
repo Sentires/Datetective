@@ -533,7 +533,7 @@ Transform:
   - {fileID: 4369794161649283972}
   - {fileID: 4369794160573533925}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4369794161649283979
 GameObject:
@@ -574,6 +574,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4369794161056336528}
     m_Modifications:
+    - target: {fileID: 2216346598900780602, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155879867741747819, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_text
+      value: '[CHEAT]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205582743702462126, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3367088430813748434, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -661,6 +673,26 @@ PrefabInstance:
     - target: {fileID: 3367088430813748438, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734898542576759590, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1925
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734898542576759590, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509295039316970633, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537495940607457792, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537495940607457792, guid: d4d2df7ab6c45bd47a59c3ed995e7d44, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 69
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:

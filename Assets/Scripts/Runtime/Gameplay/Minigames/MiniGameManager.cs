@@ -15,13 +15,10 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 {
     public class MiniGameManager : BasicSingleton<MiniGameManager>
     {
-        private bool _isActive;
-        private bool _isClicking;
-        private int _layerMask;
-        
+        public static bool IsCheatingEnabled = true;
 
         public Vector2 mousePosition { get; private set; }
-        [FormerlySerializedAs("MiniGamePrefabs")] [FormerlySerializedAs("MiniGames")] public List<GameObject> miniGamePrefabs = new();
+        public List<GameObject> miniGamePrefabs = new();
         [SerializeField] private Camera overlayCamera;
         public Dictionary<GameObject, MiniGame> miniGamesDict;
 
@@ -29,8 +26,11 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public event Action<Vector2> OnClickPosition = delegate { };
         public event Action<RaycastHit2D> OnClickTarget = delegate { };
         public event Action<MiniGameContext> OnMiniGameProcessed = delegate { };
-
         public Vector2 ScreenResolution;
+        
+        private bool _isActive;
+        private bool _isClicking;
+        private int _layerMask;
         
         // Only true if the UI says this is false/null. We only care about non-UI
         public static bool isGamePointerValid => !EventSystem.current?.IsPointerOverGameObject(Mouse.current.deviceId) ?? true;
@@ -353,6 +353,8 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         [SerializeField] protected GameObject winScreen;
         [SerializeField] protected Button winButton;
+        [SerializeField] protected Button cheatSuccessButton;
+        //[SerializeField] protected Button cheatFailButton;
         
         public abstract void Init(GameObject prefab);
 
@@ -371,9 +373,17 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         protected void InitCommon()
         {
-            winScreen = transform.Find("UI")?.Find("WinScreen").gameObject;
+            var uiParent = transform.Find("UI");
+            winScreen = uiParent?.Find("WinScreen").gameObject;
             winButton = winScreen?.transform.Find("ExitButton")?.GetComponent<Button>();
+            cheatSuccessButton = uiParent?.Find("Cheats")?.Find("WinButton")?.GetComponent<Button>();
             
+            // Allow for faster debugging outside of puzzle gameplay
+            if (cheatSuccessButton) {
+                cheatSuccessButton.gameObject.SetActive(MiniGameManager.IsCheatingEnabled);
+                cheatSuccessButton.onClick.AddListener(WinPrompt);
+            }
+
             if (winButton == null || !winScreen) return;
             winScreen.SetActive(false);
             winButton.onClick.AddListener(WinPrompt);
