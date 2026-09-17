@@ -15,6 +15,8 @@ namespace TheDates
         [SerializeField] private UnityEvent onActivate = new();
         [SerializeField] private UnityEvent onDeactivate = new();
         
+        //[SerializeField] private GameObject indicator;
+        
         private InputEvents dialogueEvents => GameEventsManager.Instance?.InputEvents;
         private bool canInteract;
         
@@ -27,6 +29,7 @@ namespace TheDates
         //private static string[] tags => UnityEditorInternal.InternalEditorUtility.tags.Prepend("<None>").ToArray();
         private void Start() {
             canInteract = false;
+            //indicator.SetActive(false);
         }
         
         private void OnEnable() {
