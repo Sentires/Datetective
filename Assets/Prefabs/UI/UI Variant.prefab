@@ -1380,6 +1380,7 @@ GameObject:
   - component: {fileID: 1296173824}
   - component: {fileID: 1296173826}
   - component: {fileID: 1296173825}
+  - component: {fileID: 2620719423858980489}
   m_Layer: 5
   m_Name: Pause Menu
   m_TagString: Untagged
@@ -1448,6 +1449,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2620719423858980489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296173823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce00f241b806438469fdaa1052908b21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1314137805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart game
+  m_text: To main menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2078,7 +2091,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1500088527}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2620719423858980489}
+        m_TargetAssemblyTypeName: TheDates.GameManagerHook, TheDates
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1582183322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2330,7 @@ GameObject:
   - component: {fileID: 1688838897}
   - component: {fileID: 1688838896}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2413,7 +2438,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1688838897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2620719423858980489}
+        m_TargetAssemblyTypeName: TheDates.GameManagerHook, TheDates
+        m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1716743143
 GameObject:
   m_ObjectHideFlags: 0
