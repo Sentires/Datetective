@@ -351,9 +351,9 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public abstract MiniGameState gameState { get; }
         protected bool HasWon;
 
-        [SerializeField] protected GameObject winScreen;
-        [SerializeField] protected Button winButton;
-        [SerializeField] protected Button cheatSuccessButton;
+        protected GameObject winScreen;
+        protected Button winButton;
+        protected Button cheatSuccessButton;
         //[SerializeField] protected Button cheatFailButton;
         
         public abstract void Init(GameObject prefab);

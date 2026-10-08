@@ -1093,7 +1093,7 @@ PrefabInstance:
     - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 5756951057870219306, guid: 2f7fe93f3477ba34eb3506535936bc6e, type: 3}
+      objectReference: {fileID: 5756951057870219306, guid: 648c6110d875ae34caef64f37411b9f0, type: 3}
     - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
@@ -1206,10 +1206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGamePrefabs:
-  - {fileID: 5756951057870219306, guid: 2f7fe93f3477ba34eb3506535936bc6e, type: 3}
-  - {fileID: 1540576502065915054, guid: 9a62eee487d15dd4f89da17280d52a91, type: 3}
-  - {fileID: 371836395284098352, guid: 6c79a1c5c0e673e4bba12d1bfbedf033, type: 3}
-  - {fileID: 4899500219488448740, guid: b7fa032b97afc1b42800f56b1aa498da, type: 3}
+  - {fileID: 5756951057870219306, guid: 648c6110d875ae34caef64f37411b9f0, type: 3}
   overlayCamera: {fileID: 977539936}
   ScreenResolution: {x: 0, y: 0}
 --- !u!1 &203125594533642817
