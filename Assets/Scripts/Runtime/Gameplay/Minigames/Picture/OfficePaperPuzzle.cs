@@ -14,7 +14,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
             public GameObject Parent ;
             public Vector2Int GridSize = new(3, 3);
             
-            private GridComponent[,] _tiles;
+            //private GridComponent[,] _tiles;
             private float _width;
             private float _height;
             private HashSet<int> _registeredTiles;
