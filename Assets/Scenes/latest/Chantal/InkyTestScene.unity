@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fa8f699bd4a9a45a40993c7431ad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueKnot: interaction_enter
+  dialogueKnot: Jestar_Prologue
 --- !u!4 &1781386398
 Transform:
   m_ObjectHideFlags: 0

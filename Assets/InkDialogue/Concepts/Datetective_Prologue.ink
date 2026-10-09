@@ -87,16 +87,28 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
  
  
  === Jestar_Prologue ===
+     ~ Speaker(-1)
   You see a young man frantically looking around and repeatedly checking his pockets.
-  Young Man: Crap- no no no- If I can't get back inside...
-  Juno: You alright there? Looking for something?
-  Young Man: Ah!
+     ~ Character (CHAR_CLOWN, 1)
+    ~ Speaker(1)
+    ~ Alias(1, "Young Man")
+  Crap- no no no- If I can't get back inside...
+  ~ Character(CHAR_DETECTIVE, 0)
+  ~ Speaker(0)
+   You alright there? Looking for something?
+    ~ Speaker(1)
+   Ah!
+    ~ Speaker(-1)
   He jolted back and flailed his arms as if he had been caught doing something he wasn't meant to.
-  Young Man: I- um- my keys- work keys. Lost them, that's all. Not that I'll be able to go to work anytime soon...
-  Juno: Oh? How come?
+      ~ Speaker(1)
+  I- um- my keys- work keys. Lost them, that's all. Not that I'll be able to go to work anytime soon...
+    ~ Speaker(0)
+  Oh? How come?
+    ~ Speaker (-1)
   The man stared in the direction of the aquarium.
-  Juno: Ah... I see. 
-  Juno: Don't see why you'd need your uniform though.
+      ~ Speaker(0)
+  Ah... I see. 
+  Don't see why you'd need your uniform though.
   Young Man: Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, a-anyway I needed it back in case I can get work elsewhere.
   Juno: Mhmm... (don't see why he'd need an aquarium-specific uniform for a new job but...)
   Juno: Well, best of luck with that. But I get the feeling the case will be solved sooner than you think, you'll be back to work in no time.
