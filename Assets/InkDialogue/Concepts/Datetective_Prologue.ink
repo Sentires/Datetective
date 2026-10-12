@@ -11,6 +11,7 @@ This wasn't the first time they turned to your humble little detective firm for 
  +[Interact with bin (before PC) ] -> Bin1
  +[Interact with bin (after PC) ] -> Bin2
  === Case_file ===
+     ~ Speaker(-1)
  A standard case file with your detective agency's emblem printed on the front. Inside you find small silver key, and three suspect profiles, with photographs attached. 
  A fourth sheet of paper slips out.
  'Further information can be found by logging into the database.'
@@ -18,20 +19,26 @@ This wasn't the first time they turned to your humble little detective firm for 
 -> Office 
  
  === PC ===
+     ~ Speaker(-1)
 A standard desktop computer, one you bought purely because your manager kept pestering you to get over the 'classic' detective experience and get with the times. It does it's job well enough, but you still think paper files and corkboards with evidence tied together with red string are way cooler. 
 A shame no one is willing to comply with your methods, at least not fully.
-Juno: ...
-Juno: .....
-Juno: ..What was the password again..?
+  ~ Character(CHAR_DETECTIVE, 0)
+  ~ Speaker(0)
+...
+.....
+..What was the password again..?
+    ~ Speaker(-1)
 You vaguely remember receiving a file with the login information back when you first began engaging with the local police.
-...and promptly throwing it out after confidently thinking you could remember it all.
+...and promptly putting it in your paper shredder after confidently thinking you could remember all the information on it.
  -> Office
  
  === Corkboard ===
+    ~ Speaker(-1)
 A corkboard covered in photographs and notes from your last major case. Everything is connected with a piece of red string, creating a mesmerising web. 
 -> Office
  
  === Filing_cabinet ===
+    ~ Speaker(-1)
  You open the cabinet to rows of neatly organised files documenting your past cases.
  
  They're ordered by date. 
@@ -40,11 +47,13 @@ A corkboard covered in photographs and notes from your last major case. Everythi
   -> Office
   
  === Bin1  ===
+    ~ Speaker(-1)
  A simple mesh bin filled with paper scraps. 
  ...You cannot remember the last time you emptied it out.
   -> Office
  
   === Bin2  ===
+     ~ Speaker(-1)
 If you're lucky, that old file with the password on it might still be in here...
   -> Minigame1
   
@@ -56,11 +65,12 @@ If you're lucky, that old file with the password on it might still be in here...
    +[Interact with PC] -> PC2
    + [Leave Apartment] -> Leave
  === PC2 ===
+    ~ Speaker(-1)
  You enter the password. 
  
- [Graphic with case information]
+ /*[Graphic with case information]*/
  
- 'Despite all the suspects being interrogated by police, none were willing to give substantial information, and the interogators were unable to find justifiable reasoning to keep them in police holding.
+ 'Despite all the suspects being interrogated by police, none were willing to give substantial information, and the interogators were unable to find justifiable reasoning to keep them in police holding.'
  
  Police have reason to believe that all three suspects possess knowledge that could assist in this case, however their lack of cooperation has stagnated progress.
  
@@ -71,14 +81,16 @@ If you're lucky, that old file with the password on it might still be in here...
  
  The Aquarium has been closed off from the public while the investigation takes place. Please enter via the backdoor entrance accessible through the alleyway next to Baked Hearts Patisserie & Cafe. 
  
- Juno: Huh, Lafayette isn't too far from here. Guess I can get right to work.
+   ~ Speaker(0)
+ Huh, Lafayette isn't too far from here. Guess I can get right to work.
   -> Office_PostPuzzle
   
 === Leave ==
-[DRIVING CUTSCENE GRAPHIC HERE]
+/*[DRIVING CUTSCENE GRAPHIC HERE]*/
 + [Lafayette Street] -> Lafayette_Street
 
 === Lafayette_Street ===
+   ~ Speaker(-1)
 A bustling street in Lower Manhatten. Despite now being the scene of a crime, people walking about seem to be going on about their business without any concern.
  +[Interact with young man frantically searching his pockets] -> Jestar_Prologue
  +[Interact with elderly woman staring at the aquarium] -> Elder
@@ -93,7 +105,6 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
     ~ Speaker(1)
     ~ Alias(1, "Young Man")
   Crap- no no no- If I can't get back inside...
-  ~ Character(CHAR_DETECTIVE, 0)
   ~ Speaker(0)
    You alright there? Looking for something?
     ~ Speaker(1)
@@ -109,15 +120,19 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
       ~ Speaker(0)
   Ah... I see. 
   Don't see why you'd need your uniform though.
-  Young Man: Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, a-anyway I needed it back in case I can get work elsewhere.
-  Juno: Mhmm... (don't see why he'd need an aquarium-specific uniform for a new job but...)
-  Juno: Well, best of luck with that. But I get the feeling the case will be solved sooner than you think, you'll be back to work in no time.
-  Juno: (I'll keep an eye out for the uniform just in case it leads to something more sinister with this guy...)
+    ~ Speaker (1)
+  Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, a-anyway I needed it back in case I can get work elsewhere.
+    ~ Speaker(0)
+  Mhmm... (don't see why he'd need an aquarium-specific uniform for a new job but...)
+  Well, best of luck with that. But I get the feeling the case will be solved sooner than you think, you'll be back to work in no time.
+  (I'll keep an eye out for the uniform just in case it leads to something more sinister with this guy...)
   
   -> Lafayette_Street
   
   === Elder ===
+  ~ Speaker(-1)
   You see an older lady staring wistfully at the closed off aquarium.
+   /*check with jack if this requires making a new speaker or if i can just add an alias to an existing speaker*/
   Elderly Woman: Terrible... just terrible...
   She seems to be lost in thought, speaking to herself. Best not to disturb her.
    -> Lafayette_Street
@@ -127,28 +142,32 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
    +[Aquarium backdoor] -> AquariumBackdoor
    
    === BakeryBackdoor ===
+    ~ Speaker(-1)
    This isn't the scene of the crime, though still an area of interest.
    +[Leave] -> Alleyway
    +[Try opening the door] ->BakeryOpenAttempt
    
    === BakeryOpenAttempt ===
+    ~ Speaker(-1)
    You attempt to turn the door knob. Unsurprisingly, it doesn't open.
    
    Since you have nothing better to do, you try inserting the aquarium key into the lock. It goes in all the way until the second last notch, but doesn't open.
-   Juno: (Hmm... same locksmith for both buildings.)
+  ~ Speaker(0)
+ Hmm... same locksmith for both buildings.
    -> Alleyway
    
    === AquariumBackdoor ===
+    ~ Speaker(-1)
    As you approach the backdoor, covered in police tape like the front of the aquarium, you make sure to double check that you still have the case file and your detective badge on your person before entering. 
    click!
-   
    The door unlocks seemlessly with the key you were given.
    
     +[Enter Aquarium] -> Storeroom
     
     === Storeroom ===
+     ~ Speaker(-1)
     It's pitch black inside. You feel along the walls and find yourself coming into contact with shelves and cardboard boxes. A storage room of sorts, it seems.
-    [MAZE MINIGAME HERE]
+   /*MAZE MINIGAME HERE]*/
     
     +[Crime scene] ->CrimeScene
     
@@ -159,6 +178,7 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
     +[Investigate fish tank] -> Tank
     
     === Body ===
+        ~ Speaker(-1)
     The lifeless body lays before you.
     [Cutscene art close up]
     The victim was male, 28, middle class background, worked at the aquarium as an educator doing tour guides for families.
