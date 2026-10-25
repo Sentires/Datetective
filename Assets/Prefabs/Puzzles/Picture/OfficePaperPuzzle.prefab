@@ -315,8 +315,16 @@ MonoBehaviour:
   borderThickness: 0.1
   zPosition: -2
   gameScale: {x: 10, y: 10}
+  gridConfig:
+    texture: {fileID: 2800000, guid: 9f42fa4db975b63479332ba6a92cc0b7, type: 3}
+    tilePrefab: {fileID: 3002374551061008542, guid: a2bfe10324067874cbc3496904d99b66, type: 3}
+    tileGridPrefab: {fileID: 8129177453623259837, guid: 6210587b879cdb44996708608ea958c0, type: 3}
+    tiling: {x: 4, y: 4}
+    gridLineThickness: 0.01
+    gridLineColor: {r: 1, g: 1, b: 1, a: 1}
   tileParent: {fileID: 5756951058319469656}
   scoreText: {fileID: 4784832637866060954}
+  gridPrefab: {fileID: 8129177453623259837, guid: 6210587b879cdb44996708608ea958c0, type: 3}
   tilePrefab: {fileID: 5463807516915079698, guid: a2bfe10324067874cbc3496904d99b66, type: 3}
   tileSource: {fileID: 2800000, guid: 9f42fa4db975b63479332ba6a92cc0b7, type: 3}
   miniGameManager: {fileID: 0}

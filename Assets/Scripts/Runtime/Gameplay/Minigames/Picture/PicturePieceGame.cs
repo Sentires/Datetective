@@ -37,11 +37,11 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
         [SerializeField] private GameObject winInterface;
         
         [Header("Prefab Dependencies")]
-        [SerializeField] private Image levelSelectPrefab;
+        //[SerializeField] private Image levelSelectPrefab;
         [SerializeField] private Transform piecePrefab;
         //[SerializeField] private List<Texture2D> textures = new();
-        [SerializeField] private Texture2D slicedPicture;
-        [SerializeField] private Texture2D guidePicture;
+        [FormerlySerializedAs("slicedPicture")] [SerializeField] private Texture2D tileSource;
+        //[SerializeField] private Texture2D guidePicture;
         
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
@@ -71,8 +71,8 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             HasWon = false;
             winScreen.SetActive(false);
             
-            _dimensions = GetDimensions(slicedPicture, multiplier);
-            CreatePieces(slicedPicture);
+            _dimensions = GetDimensions(tileSource, multiplier);
+            CreatePieces(tileSource);
             //CreateGuide(guidePicture);
             ScatterPieces();
             UpdateBorder();
