@@ -773,6 +773,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1864192756, guid: 29da63fd4c0476744b752e668e69afdd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1898831959, guid: 29da63fd4c0476744b752e668e69afdd, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -886,6 +890,10 @@ PrefabInstance:
       value: UI Variant
       objectReference: {fileID: 0}
     - target: {fileID: 116102124290765054, guid: 29da63fd4c0476744b752e668e69afdd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352816850983060885, guid: 29da63fd4c0476744b752e668e69afdd, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
