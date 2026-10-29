@@ -4,271 +4,36 @@ using TheDates.Runtime.Experimental.MinigameCore;
 using TheDates.Runtime.General;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using MiniGame = TheDates.Runtime.Experimental.MinigameCore.MiniGame;
 using Random = UnityEngine.Random;
 
 namespace TheDates.Runtime.Gameplay.Minigames
 {
     public class OfficePaperPuzzle : MiniGame
     {
-        [Serializable]
-        public class TileGridAsset
-        {
-            public Texture2D texture;
-            public GameObject tilePrefab;
-            public GameObject tileGridPrefab;
-            
-            public Vector2Int tiling = new(2, 2);
-            public float gridLineThickness = 0.01f;
-            public Color gridLineColor = Color.white;
-        }
-        
-        public class TileGrid
-        {
-            public Transform Parent;
-            public GameObject Grid;
-            public GridDisplay GridDisplay;
-            public int Score;
-            public int MaxScore;
-            
-            public float Width;
-            public float Height;
-            public Vector2Int Dimensions;
-            public  List<Transform> Tiles;
-            
-            private HashSet<int> _registeredTiles;
-            private readonly TileGridAsset _tileGridAsset;
-            private Dictionary<Vector2Int, Vector2> _tileAnchors;
-            private Transform[,] _tileMapping;
-            private Dictionary<Transform, Vector2Int> _desiredMapping;
-            
-
-            
-            
-
-            public TileGrid(TileGridAsset tileGridAsset) {
-                _tileGridAsset = tileGridAsset;
-            }
-
-            public void Create(Transform parent) {
-                Parent = parent;
-                
-                Tiles = new List<Transform>();
-                _registeredTiles = new HashSet<int>();
-                _tileAnchors = new Dictionary<Vector2Int, Vector2>();
-
-                Dimensions = _tileGridAsset.tiling;
-                
-                CreatePieces(_tileGridAsset.texture);
-                CreateGrid();
-
-                Score = 0;
-                MaxScore = Tiles.Count;
-            }
-
-            public bool HasTile(Transform target) => _registeredTiles.Contains(target.GetInstanceID());
-
-            public void Purge() {
-                if (Tiles.Count <= 0) return;
-                for (var i = Tiles.Count - 1; i >= 0; i--) {
-                    Destroy(Tiles[i]?.gameObject);
-                }
-                Tiles.Clear();
-                _registeredTiles.Clear();
-                _tileAnchors.Clear();
-                _tileMapping = null;
-                _desiredMapping.Clear();
-            }
-            
-            private void CreateGrid()
-            {
-                Grid = Instantiate(_tileGridAsset.tileGridPrefab, Parent);
-                Grid.name = "Grid";
-                var grid = Grid.transform;
-            
-                grid.localPosition = new Vector3(0, 0, 0);
-                grid.localScale = new Vector3(Width * Dimensions.x, Height * Dimensions.y, 1);
-
-                GridDisplay = new GridDisplay(Grid.GetComponent<MeshRenderer>());
-                
-                GridDisplay.SetLineColour(_tileGridAsset.gridLineColor);
-                GridDisplay.SetLineThickness(_tileGridAsset.gridLineThickness);
-                GridDisplay.SetGridTiling(Dimensions);
-
-                Grid.GetComponent<Collider>().enabled = false;
-            }
-            
-            private Vector2Int GetDimensions(Texture2D texture, int divisions) {
-                //var dimensions = Vector2Int.zero;
-                var div = _tileGridAsset.tiling;
-                var dimensions = Vector2Int.zero;
-                if (texture.width < texture.height) {
-                    //dimensions.x = divisions;
-                    //dimensions.y = (divisions * texture.height) / texture.width;
-                    dimensions.x = div.x;
-                    dimensions.y = (div.y * texture.height) / texture.width;
-                } else {
-                    //dimensions.x = (divisions * texture.width) / texture.height;
-                    //dimensions.y = divisions;
-                    dimensions.x = (div.x * texture.width) / texture.height;
-                    dimensions.y = div.y;
-                }
-
-                return div; //dimensions;
-            }
-            
-            private void CreatePieces(Texture2D texture) {
-                Height = 1f / Dimensions.y;
-                var aspect = (float)texture.width / texture.height;
-                Width = aspect / Dimensions.x;
-                
-                _tileMapping = new Transform[Dimensions.x, Dimensions.y];
-                _desiredMapping = new Dictionary<Transform, Vector2Int>();
-
-                for (var row = 0; row < Dimensions.y; row++) {
-                    for (var col = 0; col < Dimensions.x; col++) {
-                        // Make & add the piece
-                        var piece = CreatePiece(col, row, texture);
-                        Tiles.Add(piece);
-                        _registeredTiles.Add(piece.GetInstanceID());
-
-                        var anchorIndex = new Vector2Int(col, row);
-                        var anchor = GetPositionAt(col, row);
-                        _tileAnchors.Add(anchorIndex, anchor);
-                        _desiredMapping[piece] = anchorIndex;
-                    }
-                }
-            }
-
-            public bool SetTile(Vector2Int index, Transform tile) {
-                // If the new tile is null, no record of that tile exists, or the index is already filled, then return false
-                if (!tile || !_desiredMapping.ContainsKey(tile) || _tileMapping[index.x, index.y]) return false;
-                _tileMapping[index.x, index.y] = tile;
-                if (_desiredMapping[tile] == index) Score++;
-                
-                Debug.Log($"Added tile {index}, Completion: {Score} / {_desiredMapping.Count}");
-                return true;
-            }
-
-            public bool RemoveTile(Vector2Int index) {
-                var tile = _tileMapping[index.x, index.y];
-                if (!tile) return false;
-                
-                if (_desiredMapping[tile] == index) Score--;
-                _tileMapping[index.x, index.y] = null;
-                
-                Debug.Log($"Removed tile {index}, Completion: {Score} / {_desiredMapping.Count}");
-                return true;
-            }
-
-            public bool IndexFromTile(Transform target, out Vector2Int index) {
-                index = default;
-                for (var row = 0; row < Dimensions.y; row++) {
-                    for (var col = 0; col < Dimensions.x; col++) {
-                        if (!_tileMapping[col, row] || target != _tileMapping[col, row]) continue;
-                        index = new Vector2Int(col, row);
-                        return true;
-                    }
-                }
-                
-                return false;
-            }
-            
-            private Transform CreatePiece(int col, int row, Texture2D pieceTexture) {
-                var piece = Instantiate(_tileGridAsset.tilePrefab.transform, Parent.transform);
-                piece.name = $"Piece {(row * Dimensions.x) + col}";
-
-                AssignPieceTransform(piece, row, col);
-                AssignPieceTexture(piece, row, col, pieceTexture);
-
-                return piece;
-            }
-            
-            private void AssignPieceTransform(Transform piece, int row, int col) {
-                piece.localPosition = new Vector3(
-                    GetAlignment(Width, Dimensions.x, col),
-                    GetAlignment(Height, Dimensions.y, row),
-                    0);
-                piece.localScale = new Vector3(Width, Height, 1);
-                return;
-
-                float GetAlignment(float length, int count, int index) => -length * count / 2 + length * index + length / 2;
-            }
-
-
-            private void AssignPieceTexture(Transform piece, int row, int col, Texture2D pieceTexture) {
-                // Calculate the dimensions
-                var width = 1f / Dimensions.x;
-                var height = 1f / Dimensions.y;
-
-                // Create the new UV
-                var uv = new Vector2[] {
-                    new (width * col, height * row), // 1
-                    new (width * (col + 1), height * row), // 2
-                    new (width * col, height * (row + 1)), // 3
-                    new (width * (col + 1), height * (row + 1)) // 4
-                };
-
-                // Get the MeshFilter component & assign the new UV
-                var mesh = piece.GetComponent<MeshFilter>().mesh;
-                mesh.uv = uv;
-
-                // Get the MeshRenderer component & assign the texture
-                piece.GetComponent<MeshRenderer>().material.SetTexture(MatTextureID, pieceTexture);
-            }
-
-            private Vector2 GetPositionAt(int col, int row) {
-                var targetPosition = new Vector2(
-                    (-Width * Dimensions.x / 2) + (Width * col) + (Width / 2),
-                    (-Height * Dimensions.y / 2) + (Height * row) + (Height / 2)
-                );
-                Debug.Log("Target position for tile is: " + targetPosition);
-                return targetPosition;
-            }
-
-            public Vector2 GetTileAnchor(Vector2Int index) {
-                return _tileAnchors[index];
-            }
-
-            public bool FindTileAnchor(Vector2 localPosition, float sensitivity, out Vector2Int nearestAnchor) {
-                nearestAnchor = Vector2Int.zero;
-                var currentDistance = float.PositiveInfinity;
-                var matchFactor = Width / sensitivity;
-                
-                foreach (var pair in _tileAnchors) {
-                    var anchorDistance = Vector2.Distance(localPosition, pair.Value);
-                    if (anchorDistance < matchFactor)
-                    {
-                        if (anchorDistance > currentDistance) continue;
-                        currentDistance = anchorDistance;
-                        nearestAnchor = pair.Key;
-                    }
-                    
-                }
-                
-                return !float.IsInfinity(currentDistance);
-            }
-        }
-        
         #region [ Inspector Fields ]
         [Header("Mechanic Config")]
         [SerializeField] private float gridSnapFactor = 2;
         [SerializeField] private Vector2 scatterRange = new (1, 1);
-        [SerializeField] private int multiplier = 4;
+        //[SerializeField] private int multiplier = 4;
         
         [Header("Visual Config")]
         [SerializeField] private float borderThickness = 0.1f;
+        [SerializeField] private Color borderColour = Color.white;
         [SerializeField] private float zPosition = -2;
-        [SerializeField] private Vector2 gameScale = new(3, 3);
+        [SerializeField] private Vector2 gameScale = new(3, 3); // can probs be factored out
         [SerializeField] private TileGridAsset gridConfig = new();
         
+        [FormerlySerializedAs("tileParent")]
         [Header("Scene Dependencies")] 
-        [SerializeField] private Transform tileParent;
+        [SerializeField] private Transform contentParent;
         [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private GameObject gridPrefab;
+        //[SerializeField] private GameObject gridPrefab;
         
-        [Header("Prefab Dependencies")]
-        [SerializeField] private Transform tilePrefab;
-        [SerializeField] private Texture2D tileSource;
+        //[Header("Prefab Dependencies")]
+        //[SerializeField] private Transform tilePrefab;
+        //[SerializeField] private Texture2D tileSource;
         
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
@@ -278,26 +43,27 @@ namespace TheDates.Runtime.Gameplay.Minigames
         #endregion
         
         #region [ Hidden Fields ]
-        private static readonly int MatTextureID = Shader.PropertyToID("_BaseMap");
-        private static readonly int MatColourID = Shader.PropertyToID("_BaseColor");
+        
         public override bool isInitialised => initialised;
         public override GameObject source => prefab;
         public override MiniGameState gameState => state;
         private Camera targetCamera => !CameraManager.HasInstance ? null : CameraManager.Instance.cameraMap[CameraManager.RenderState.HighDefWorld].pairedCamera;
         
-        private float _width;
-        private float _height;
-        private Vector2Int _dimensions;
-        private List<Transform> _pieces;
-        private HashSet<int> _pieceIds;
+        // Tabbing out for cleanup marking
+        //private float _width;
+        //private float _height;
+        //private Vector2Int _dimensions;
+        //private List<Transform> _pieces;
+        //private HashSet<int> _pieceIds;
         private LineRenderer _lineRenderer;
-        private Transform _draggedPiece;
+        private GridTile _draggedPiece;
         private Vector3 _clickOffset;
-        private int _score;
-        private GridDisplay _gridDisplay;
-        private GameObject _gridObject;
+
+        //private GridDisplay _gridDisplay;
+        //private GameObject _gridObject;
         
         private TileGrid _tileGrid;
+        private BorderRenderer _borderRenderer;
         #endregion
         
         #region { Event Handlers }
@@ -305,32 +71,40 @@ namespace TheDates.Runtime.Gameplay.Minigames
             if (input || !_draggedPiece) return;
             Debug.Log($"Put Down {_draggedPiece.name}");
             
+            //SetSiblingPriority(_draggedPiece, null); // It'll be drawn like its other siblings
             TryGridSnap();
             
             UpdateScoreDisplay();
-            if (_tileGrid.Score >= _tileGrid.MaxScore) {
+            if (_tileGrid.score >= _tileGrid.maxScore) {
                  SendCommand(MiniGameCommand.Win);
             }
+            
             
             _draggedPiece = null;
         }
 
         private void OnClickTarget(RaycastHit2D hit) {
-            if (!hit || !_tileGrid.HasTile(hit.transform)) return;
+            var tile = hit.transform?.GetComponent<GridTile>();
+            if (!tile || !_tileGrid.HasTile(tile)) return;
             
-            _draggedPiece = hit.transform;
-            SetSiblingPriority(); // It'll be drawn in front of its siblings
-            _clickOffset = _draggedPiece.position - (Vector3)hit.point;
+            _draggedPiece = tile;
+            
+            
+            //SetSiblingPriority(null, _draggedPiece); // It'll be drawn in front of its siblings
+            _clickOffset = _draggedPiece.tilePosition - (Vector3)hit.point;
             if (_tileGrid.IndexFromTile(_draggedPiece, out var index)) _tileGrid.RemoveTile(index);
             
             Debug.Log($"Picked Up {_draggedPiece.name}");
+            // It'll be drawn in front of its siblings
+            _draggedPiece.materialDisplay.currentSortingOrder = 12;
+            _draggedPiece.transform.SetAsLastSibling(); 
         }
 
         private void OnClickPosition(Vector2 input) {
             if (!_draggedPiece) return;
             
             var worldPos = GetWorldSpacePosition(input, 0) + _clickOffset;
-            _draggedPiece.position = worldPos;
+            _draggedPiece.tilePosition = worldPos;
         }
         #endregion
         
@@ -360,15 +134,26 @@ namespace TheDates.Runtime.Gameplay.Minigames
             HasWon = false;
             winScreen.SetActive(false);
             _tileGrid = new TileGrid(gridConfig);
-            _tileGrid.Create(tileParent);
-            ScatterPieces();
+            _tileGrid.Create(contentParent);
+            
+            
+            // Calc screen sizing
+            var screenRange = GetGameScreenSize();
+            // Set game scale
+            var parent = _tileGrid.parent;
+            parent.localScale = new Vector3(gameScale.x, gameScale.y, parent.localScale.z);
+            // Scatter tiles based on screen calc
+            
+            ScatterPieces(screenRange.x, screenRange.y);
+            
+            _borderRenderer = new BorderRenderer();
             UpdateBorder();
             
-            _score = 0;
             UpdateScoreDisplay();
         }
         private void ClearProgress() {
             _tileGrid.Purge();
+            _borderRenderer.Clear();
         }
        
         public override void Init(GameObject sourcePrefab) {
@@ -380,18 +165,19 @@ namespace TheDates.Runtime.Gameplay.Minigames
         }
 
         private void Init() {
-            if (!tileParent) return;
+            if (!contentParent) return;
             
             // Setup Collections
-            _pieces = new List<Transform>();
-            _pieceIds = new HashSet<int>();
+            //_pieces = new List<Transform>();
+            //_pieceIds = new HashSet<int>();
             
             // Setup Line Renderer 
-            _lineRenderer = tileParent.GetComponent<LineRenderer>();
-            if (_lineRenderer.positionCount != 4) _lineRenderer.positionCount = 4;
-            _lineRenderer.startWidth = 1;
-            _lineRenderer.endWidth = 1;
-            _lineRenderer.widthMultiplier = borderThickness;
+            _lineRenderer = contentParent.GetComponent<LineRenderer>();
+            
+            // TODO if (_lineRenderer.positionCount != 4) _lineRenderer.positionCount = 4;
+            // TODO _lineRenderer.startWidth = 1;
+            // TODO _lineRenderer.endWidth = 1;
+            // TODO _lineRenderer.widthMultiplier = borderThickness;
             
             state = MiniGameState.Inactive;
             initialised = true;
@@ -418,8 +204,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         }
         
         private MiniGameState WinGame() {
-            if (HasWon)
-            {
+            if (HasWon) {
                 QuitGame();
                 return MiniGameState.Completed;
             }
@@ -434,7 +219,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
 
         private MiniGameState StartGame() {
             OnEnabled();
-            tileParent.gameObject.SetActive(true);
+            contentParent.gameObject.SetActive(true);
             
             PrepareGame();
             return MiniGameState.Active;
@@ -442,13 +227,15 @@ namespace TheDates.Runtime.Gameplay.Minigames
 
         private MiniGameState ResetGame() {
             ClearProgress();
-            _lineRenderer.enabled = true;
+            // TODO _lineRenderer.enabled = true;
+            _borderRenderer.SetActive(true);
             return MiniGameState.Active;
         }
 
         private MiniGameState QuitGame() {
             ClearProgress();
-            _lineRenderer.enabled = false;
+            // TODO _lineRenderer.enabled = false;
+            _borderRenderer.SetActive(false);
             OnDisabled();
 
             return MiniGameState.Inactive;
@@ -458,15 +245,31 @@ namespace TheDates.Runtime.Gameplay.Minigames
         #region { Remaining Logic }
         
         private void UpdateScoreDisplay() {
-            scoreText.text = $"Score: {_tileGrid.Score} / {_tileGrid.MaxScore}";
+            scoreText.text = $"Score: {_tileGrid.score} / {_tileGrid.maxScore}";
         }
         
         private void UpdateBorder() {
-            var parent = _tileGrid.Parent;
-            var width = _tileGrid.Width;
-            var height = _tileGrid.Height;
-            var dimensions = _tileGrid.Dimensions;
+            var parent = _tileGrid.parent;
+            var width = _tileGrid.tileWidth;
+            var height = _tileGrid.tileHeight;
+            var dimensions = _tileGrid.dimensions;
+
+            var fullWidth = width * dimensions.x;
+            var fullHeight = height * dimensions.y;
             
+            //_borderRenderer.SetDimensions(fullWidth, fullHeight, borderThickness);
+            _borderRenderer.TotalHeight = fullHeight;
+            _borderRenderer.TotalWidth = fullWidth;
+            //_borderRenderer.LineThickness = borderThickness;
+            _borderRenderer.LineThickness = borderThickness;
+            _borderRenderer.LineColour = borderColour;
+            _borderRenderer.MaterialSortingOrder = 8;
+            
+            
+            _borderRenderer.Init(parent.transform, _lineRenderer);
+            _borderRenderer.SetActive(true);
+            
+            /*
             _lineRenderer.useWorldSpace = false;
             
             // We need to scale the border thickness by the local scale for clean edges
@@ -481,21 +284,33 @@ namespace TheDates.Runtime.Gameplay.Minigames
             _lineRenderer.SetPosition(3, new Vector3(-halfWidth, -halfHeight, 0));
             
             _lineRenderer.enabled = true;
+            */
+            // TODO
         }
 
-        private void ScatterPieces() {
-            var parent = _tileGrid.Parent;
-            var width = _tileGrid.Width;
-            var height = _tileGrid.Height;
-            var tiles = _tileGrid.Tiles;
-            
+        private Vector2 GetGameScreenSize() {
             // Get the camera's bounds
             var rangeHeight = CameraManager.Instance.cameraMap[CameraManager.RenderState.HighDefWorld].pairedCamera.orthographicSize;// Camera.main.orthographicSize;
             var screenAspect = (float)Screen.width / Screen.height;
             var rangeWidth = screenAspect * rangeHeight;
             
             // scale the base piece size by the gameHolder's local size
-            parent.localScale = new Vector3(gameScale.x, gameScale.y, parent.localScale.z);
+            return new Vector2(rangeWidth, rangeHeight); // Return the calculated range
+        }
+        
+        private void ScatterPieces(float rangeWidth, float rangeHeight) {
+            var parent = _tileGrid.parent;
+            var width = _tileGrid.tileWidth;
+            var height = _tileGrid.tileHeight;
+            var tiles = _tileGrid.orderedTiles;
+            
+            // Get the camera's bounds
+            // var rangeHeight = CameraManager.Instance.cameraMap[CameraManager.RenderState.HighDefWorld].pairedCamera.orthographicSize;// Camera.main.orthographicSize;
+            // var screenAspect = (float)Screen.width / Screen.height;
+            // var rangeWidth = screenAspect * rangeHeight;
+            
+            // scale the base piece size by the gameHolder's local size
+            // parent.localScale = new Vector3(gameScale.x, gameScale.y, parent.localScale.z);
             var pieceWidth = width * parent.localScale.x;
             var pieceHeight = height * parent.localScale.y;
             
@@ -507,17 +322,24 @@ namespace TheDates.Runtime.Gameplay.Minigames
             foreach (var piece in tiles) {
                 var x = Random.Range(-rangeWidth, rangeWidth);
                 var y = Random.Range(-rangeHeight, rangeHeight);
-                piece.position = new Vector3(x, y, zPosition);
+                piece.tilePosition = new Vector3(x, y, zPosition);
+
+                piece.materialDisplay.currentSortingOrder = 6;
             }
             
         }
 
         private void TryGridSnap() {
-            if (_tileGrid.FindTileAnchor(_draggedPiece.localPosition, gridSnapFactor, out var anchor)) {
-                if (!_tileGrid.SetTile(anchor, _draggedPiece)) return;
-                var targetPosition = _tileGrid.GetTileAnchor(anchor);
-                _draggedPiece.localPosition = targetPosition;
+            var newOrder = 6; // aka no snap occurred 
+            if (_tileGrid.FindTileAnchor(_draggedPiece.tileLocalPosition, gridSnapFactor, out var anchor)) {
+                if (_tileGrid.SetTile(anchor, _draggedPiece)) {
+                    var targetPosition = _tileGrid.GetTileAnchor(anchor);
+                    _draggedPiece.tileLocalPosition = targetPosition;
+                    newOrder = 5;
+                    _draggedPiece.transform.SetAsFirstSibling(); // shouldnt be easy to target over loose pieces 
+                }
             }
+            _draggedPiece.materialDisplay.currentSortingOrder = newOrder;
         }
         
         private Vector3 GetWorldSpacePosition(Vector2 input, float zPos) {
@@ -526,16 +348,23 @@ namespace TheDates.Runtime.Gameplay.Minigames
             return worldPos;
         }
         
-        private void SetSiblingPriority() {
+        private void SetSiblingPriority(GridTile oldTile, GridTile newTile) {
             // This aids targeting, but currently doesn't sync well with our rendering pipeline. I should add some direct material render priority logic.
-            _draggedPiece.SetAsLastSibling();
-            foreach (Transform child in tileParent) {
-                var newPos = child.position;
-                newPos.z = zPosition - child.GetSiblingIndex() * 0.01f;
-                child.position = newPos;
+            if (oldTile) oldTile.materialDisplay.currentSortingOrder = 6;
+            
+            if (newTile) {
+                newTile.transform.SetAsLastSibling();
+                newTile.materialDisplay.currentSortingOrder = 10;
             }
             
-            _draggedPiece.parent = tileParent;
+            
+            //foreach (Transform child in tileParent) {
+            //    var newPos = child.position;
+            //    newPos.z = zPosition - child.GetSiblingIndex() * 0.01f;
+            //    child.position = newPos;
+            //}
+            
+            //_draggedPiece.transform.parent = _tileGrid.parent;
         }
         #endregion
     }
