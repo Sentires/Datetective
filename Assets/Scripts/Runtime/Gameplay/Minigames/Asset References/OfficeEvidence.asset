@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295ff101df5b82d4f9767492beeb03b8, type: 3}
+  m_Name: OfficeEvidence
+  m_EditorClassIdentifier: 
+  <miniGamePrefab>k__BackingField: {fileID: 371836395284098352, guid: 6c79a1c5c0e673e4bba12d1bfbedf033, type: 3}

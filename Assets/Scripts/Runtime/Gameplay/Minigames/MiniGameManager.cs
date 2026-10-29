@@ -18,7 +18,7 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public static bool IsCheatingEnabled = true;
 
         public Vector2 mousePosition { get; private set; }
-        public List<GameObject> miniGamePrefabs = new();
+        public List<MiniGameAssetReference> miniGameAssets = new();
         [SerializeField] private Camera overlayCamera;
         public Dictionary<GameObject, MiniGame> miniGamesDict;
 
@@ -56,9 +56,9 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             
             miniGamesDict = new Dictionary<GameObject, MiniGame>();
             var gameParent = transform.Find("Games");
-            for (var i = miniGamePrefabs.Count - 1; i >= 0; i--)
+            for (var i = miniGameAssets.Count - 1; i >= 0; i--)
             {
-                var prefab = miniGamePrefabs[i];
+                var prefab = miniGameAssets[i]?.miniGamePrefab;
                 if (!prefab) continue;
                 var gameObj = Instantiate(prefab, gameParent);
                 if (gameObj.TryGetComponent<MiniGame>(out var game)) {
@@ -69,7 +69,7 @@ namespace TheDates.Runtime.Experimental.MinigameCore
                 }
                 
                 Debug.Log("Removed MiniGame: " + prefab.name + ", this does not contain an IMiniGame inheritor component!");
-                miniGamePrefabs.RemoveAt(i);
+                miniGameAssets.RemoveAt(i);
                 Destroy(gameObj);
             }
             
@@ -155,6 +155,12 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public void SendCommandWin(GameObject target) => SendCommand(target, MiniGameCommand.Win);
         public void SendCommandLose(GameObject target) => SendCommand(target, MiniGameCommand.Lose);
         public void SendCommandForceQuit(GameObject target) => SendCommand(target, MiniGameCommand.ForceQuit);
+        
+        public void SendCommandStart(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Start);
+        public void SendCommandReset(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Reset);
+        public void SendCommandWin(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Win);
+        public void SendCommandLose(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Lose);
+        public void SendCommandForceQuit(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.ForceQuit);
         
         /*
         public void StartGame(GameObject target) {
