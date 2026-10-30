@@ -49,7 +49,7 @@ Wait- where did you find it?
 
 * [I found it in the bin.] 
     -> Jestar_Lie
-* [it was in the aquarium, duh.] 
+* [It was in the aquarium, duh.] 
     -> Jestar_Truth
     
     === Jestar_Lie ===
@@ -57,8 +57,18 @@ Wait- where did you find it?
 I found it in the dumpster in the alleyway behind the aquarium. Thankfully it was right on top of a tied bag, no other rubbish was touching it.
     ~ Speaker (1)
 The dumpster?! How could they?! Ooooh and I just KNOW which bastard would've done it too...
-    
-    -> END
+Nevermind that, thank you again for finding it for me! Now the the Jestar can shine in the night sky again!
+And maybe I can find a new gig....
+
+    ~ Speaker (0)
+Oh yeah, I wanted to ask about that.
+
+* [How does the whole clown thing work?] 
+    -> Jestar_Work
+    * [How'd you get a gig in an aquarium?] 
+    -> Jestar_Aquarium
+* [Do you know Antonio?] 
+    -> Jestar_Antonio
     
     
     === Jestar_Truth ===
@@ -69,8 +79,36 @@ It was in the aquarium like you said it would be.
     ~ Speaker (0)
 ...!
     ~ Speaker (-1)
-WHY DID YOU SAY THAT? So much for being discrete about your intentions here. You try to act like nothing you said was suspicious but they definitely caught on.
+WHY DID YOU SAY THAT? So much for being discrete about your position here. You try to act like nothing you said was suspicious but they definitely caught on.
+        ~ Speaker (1)
+How did you get inside...? It's meant to be closed for repairs.
+    ~ Speaker (0)
+...A key, just like what you were looking for to get in. I was asked to get some supplies from the back by a friend who works there.
+    ~ Speaker (-1)
+You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a playful smirk, you prod them further while their guard is down.
+* [How does the whole clown thing work?] 
+    -> Jestar_Work
+    * [How'd you get a gig in an aquarium?] 
+    -> Jestar_Aquarium
+* [Do you know Antonio?] 
+    -> Jestar_Antonio
+
+
     
+=== Jestar_Work ===
+     ~ Speaker (0)
+How does this whole clown thing work? I think it sounds fun.
+
+
+
+
+    -> END
+
+=== Jestar_Aquarium ===
+placeholder
+    -> END
     
-        -> END
+=== Jestar_Antonio ===
+placeholder
+-> END
 

@@ -11,7 +11,7 @@ Behind the counter stands a young lady, one who's face aligns with one of the th
 ~ Character(CHAR_BAKER, 1)
 ~ Speaker(1)
 ~ Alias(1, "Baker")
-llo dear! Welcome to Baked Hearts Patisserie & Cafe. How can I help you?
+Hello dear! Welcome to Baked Hearts Patisserie & Cafe. How can I help you?
 
 * [I'll get the daily special.] 
     -> special
