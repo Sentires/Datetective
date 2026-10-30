@@ -96,19 +96,66 @@ You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a 
 
     
 === Jestar_Work ===
-     ~ Speaker (0)
+    ~ Speaker (0)
 How does this whole clown thing work? I think it sounds fun.
+    ~ Speaker (-1)
+Jestar's face lights up at the slightest semblance of interest in what he does.
+     ~ Speaker (1)
+Hehe, well at the moment I just run any odd jobs that people want some entertainment at, usually kid's birthdays or pop up carnivals, but someday I wanna make it big and join a circus troupe! 
+I do the usual comedy routine you'd expect from a clown, but I also throw in some magic tricks to bring the audience into it. The excitement on kids faces when you pull off a trick makes it worthwhile, even if it's... not the most profitable career path.
+Oh! Look at me rambling- that's probably not what you meant with your question- well the plain and simple is I look for gigs on forums and Facebook groups... and I guess make connections through that.
+The aquarium actually- that gig I got through a lady who had hired me for her kid's birthday party a while back. She knew someone who works here and suggested adding some interactive shows to keep kids more engaged over school break.
+    ~ Speaker (0)
+Heh, that's cool. I've always been more fond of freelance work. Means you can follow your own rules, and your own passions.
+    ~ Speaker (1)
+Y-yeah!
+    -> Jestar_Conclude
 
-
-
-
-    -> END
 
 === Jestar_Aquarium ===
-placeholder
-    -> END
+    ~ Speaker (0)
+How'd you end up with a gig at an aquarium of all places? It's not where I'd usually expect to see a clown is all.
+    ~ Speaker (1)
+Ahaha yeah... a bit of a new thing they were trying out is what I was told. See, a lady who'd hired me for her kid's birthday party let me know that she was friend's with one of the managers here and that they wanted to find new ways to engage kids with the exhibits since they can get a little boring for them, and she suggested me for the job!
+I had to change up my routine a little to include some more fish facts than I'm used to but I think I made it work!
+Definitely not my favourite environment to work in though... There's always a bit of a looming smell- not a fishy one surprisingly, a more...sterile one? And the workers I have to interact with....
+    ~ Speaker (0)
+Oh? Not a fan of them?
+    ~ Speaker (1)
+It's- they're fine- most of them... well there's this one guy- he's always a bit of an ass for no reason, treating me like my presence is a nuisance, acting like he runs the place... and a womaniser at that! I've seen him flirting with every other woman working at Oceanarium and then acting like it never happened.
+    ~ Speaker (0)
+Ugh, I hate guys like that. He sounds like someone I know, what did you say his name was?
+    ~ Speaker (1)
+I'm... not sure... see he never even bothered to introduce himself! Acting like he's too good to even give me a name... I think I heard some other workers call him... Anthony was it? No- Antonio.
+    ~ Speaker (0)
+!
+(The murder victim. To talk so casually about someone who just died... Is Jestar unaware, too bold for his own good, or trying to throw me off?)
+    -> Jestar_Conclude
     
 === Jestar_Antonio ===
-placeholder
--> END
+    ~ Speaker (0)
+Do you know a guy who works at Oceanarium called Antonio? Figured you might have crossed paths.
+    ~ Speaker (1)
+Wh-why do you want to know about him? Is he talking behind my back again?!
+    ~ Speaker (0)
+No no, nothing like that, I just know one of the higher ups in HR- it's why I've been around the area, and... I heard he was causing some trouble. I wanted to get some first hand accounts.
+    ~ Speaker (1)
+Oh I'll give you some firsthand accounts...
+    ~ Speaker (-1)
+Wow, he believed that story without hesitation, seems like they're looking for a reason to cuss out this guy.
+    ~ Speaker (1)
+Such a prick! Treating me and his coworkers like our presence is a nuisance, acting like he runs the place... Oh! but only the men of course. The women? I've seen him flirting with every other woman working at Oceanarium and then acting like it never happened when they catch on that they aren't the only one he treats nicely. Heartbreaking bastard...
+    ~ Speaker (0)
+    Jeez, sounds like a real piece of work... I'll look into it further.
+    (To talk so casually about someone who just died... Is Jestar unaware, too bold for his own good, or trying to throw me off?)
+    
+    -> Jestar_Conclude
 
+=== Jestar_Conclude ===
+    ~ Speaker (0)
+Thanks for entertaining my questioning, and I hope you get yourself another gig soon. And let me know if I can help in any way, I'll be around the area.
+    ~ Speaker (-1)
+You shoot Jestar a little wink as you wave goodbye.
+    ~ Speaker (1)
+Y-yeah! No worrries- and thanks.
+    -> END
