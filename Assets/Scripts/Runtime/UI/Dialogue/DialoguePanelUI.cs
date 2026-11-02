@@ -78,8 +78,8 @@ namespace TheDates.Runtime.UI
             
             portraitPrimary.sprite = primarySpeaker.GetCurrentPortrait();
             portraitSecondary.sprite = secondarySpeaker.GetCurrentPortrait();
-            portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
-            portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
+            //portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
+            //portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
             
             switch (manager.currentSpeakerIndex) {
                 case 0:
@@ -89,6 +89,8 @@ namespace TheDates.Runtime.UI
                     labelPrimary.font = primarySpeaker.Profile?.specialLabelFont ?? defaultTextFontAsset;
                     dialogueBoxPrimary.SetActive(true);
                     dialogueBoxSecondary.SetActive(false);
+                    portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
+                    portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
                     break;
                 case 1:
                     dialogueTextSecondary.text = dialogueLine;
@@ -97,13 +99,26 @@ namespace TheDates.Runtime.UI
                     labelSecondary.font = secondarySpeaker.Profile?.specialLabelFont ?? defaultTextFontAsset;
                     dialogueBoxSecondary.SetActive(true);
                     dialogueBoxPrimary.SetActive(false);
+                    portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
+                    portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
                     break;
-                default: // 'no direct speaker'
+                case -2:
                     dialogueTextPrimary.text = dialogueLine;
                     labelPrimary.text = string.Empty;
                     labelPrimary.font = defaultLabelFontAsset;
                     dialogueBoxPrimary.SetActive(true);
                     dialogueBoxSecondary.SetActive(false);
+                    portraitPrimary.gameObject.SetActive(false);
+                    portraitSecondary.gameObject.SetActive(false);
+                    break;
+                default: // 'no direct speaker' aka -1
+                    dialogueTextPrimary.text = dialogueLine;
+                    labelPrimary.text = string.Empty;
+                    labelPrimary.font = defaultLabelFontAsset;
+                    dialogueBoxPrimary.SetActive(true);
+                    dialogueBoxSecondary.SetActive(false);
+                    portraitPrimary.gameObject.SetActive(!primarySpeaker.isEmpty);
+                    portraitSecondary.gameObject.SetActive(!secondarySpeaker.isEmpty);
                     break;
             }
             

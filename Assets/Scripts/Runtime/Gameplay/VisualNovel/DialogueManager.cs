@@ -128,8 +128,8 @@ namespace TheDates.Runtime.Dialogue
         }
 
         public void SetCurrentSpeaker(int positionIndex) {
-            //Debug.Log($"SetSpeaker: at position {positionIndex}");
-            if (!currentRoster.IsWithinBounds(positionIndex) && positionIndex != -1) return; //|| currentSpeakerIndex == positionIndex
+            //Debug.Log($"SetSpeaker: at position {positionIndex}"); //&& (positionIndex != -1 || positionIndex != -2) //!(positionIndex < 0)
+            if (!currentRoster.IsWithinBounds(positionIndex) && positionIndex is not (-1 or -2)) return; //|| currentSpeakerIndex == positionIndex
             currentSpeakerIndex = positionIndex;
         }
         
