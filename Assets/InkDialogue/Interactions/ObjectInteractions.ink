@@ -101,6 +101,7 @@ There's a lack of caution tape or cop cars surrounding the premise. It seems tha
     
 //AQUARIUM -------------------------------------------------------------------------------------------------------------------------
 
+// Crime scene room
 === Fish_Tank ===
     ~ Speaker(-1)
 A massive fish tank looms over you. Inside are varying forms of aquatic life, from colourful schools of fish to turtles. They mindlessly swish back and forth in their enclosure, unaware of, or perhaps not bothered by the lifeless body splayed before them.
@@ -115,6 +116,7 @@ Yellow and black caution tape outlines the lifeless body, a precaution you won't
 The lifeless body of a young man lays before you. Deep crimson stains his plain collared shirt, and a pool of blood wets the tile below him. The killing blow, well, blows, appear to be an array of haphazard stab wounds aimed at the heart. Not all the stabs hit their target, this appears to be the work of an amateur. 
     -> END
     
+// Other room
 === Clown_Costume ===
     ~ Speaker(-1)
 You notice a colourful bundle of clothes folded up behind the stage. Unfolding it, you realise it is a clown costume. What in the world is a costume like that doing here..? As you question the costume's presence, you remember the frantic young man you met outside the aquarium.
@@ -125,7 +127,16 @@ Wait no it doesn't. What kind of aquarium has a clown??
 You fold up the costume again and take it with you. Returning it to it's presumed owner might give you an opening to ask some questions.
     -> END
     
-/*BAKERY*/
+
+// Storage room
+
+=== Flour ===
+    ~ Speaker(-1)
+There's a faint white powder coating the door handle. No, it's not that sort of powder, it's much lamer. Flour.
+Flour?? Okay that's an odd one to find in an aquarium storage room.
+    -> END
+    
+//BAKERY-----------------------------------------------------------------------------------------------------------------------------
 
 === Bakery_Table ===
     ~ Speaker(-1)
@@ -147,28 +158,53 @@ It lights up, revealing several unread messages from a contact named 'Antonio <3
 
   ~ Speaker(0)
 ..! That's the victim's name. It could be a coincidence, but it'd be worth double checking anyway. If only that baker wasn't so close by...
+    ~ Speaker(-1)
+It would be best to come back later to avoid raising suspicion.
     -> END
     
-/*Lost and found box, unattended, investigated prior*/
+// QUEST CONT. Lost and found box, Briar not in bakery
+=== Baker_Box_Alone ===
+    ~ Speaker(-1)
 Seemes like Briar finally went on a lunch break or something. You quickly fish out the phone from the lost and found box and switch it on to read the text message previews.
 2:57am - 'Hey baby, got us those tickets for that movie I...' 
 the text fades out, you'd need to unlock the phone to see the rest of it. Luckily for you, he had sent a follow up message.
 2:59am - Use the back door so she doesn't see you, I left it unloc...'
 
+This is definitely worth taking note of. These messages took place on the night the victim was murdered.
 
-/*Lost and found box, unattended, NOT investigated prior*/
+
+    -> END
+    
+// QUEST ALT. Lost and found box, Briar not in bakery, NOT investigated prior
+=== Baker_Box_Alone_New ===
+    ~ Speaker(-1)
 A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'. Inside are the typical items you would expect people to absentmindedly leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
 Upon closer inspection however, you notice a much more valuable item at the bottom of the box. A smartphone, a recent model as well. Trying not to draw attention to yourself, you sift through the box and push the other objects out of the way so you can turn it on.
 It lights up, revealing several unread messages from a contact named 'Antonio <3'. 
-/*Juno*/ ..! That's the victim's name. It could be a coincidence, but...
+  ~ Character(CHAR_DETECTIVE, 0)
+    ~ Speaker(0)
+ ..! That's the victim's name. It could be a coincidence, but...
+     ~ Speaker(-1)
 You fish out the phone and read what you can of the text message previews.
 
 2:57am - 'Hey baby, got us those tickets for that movie I...' 
 the text fades out, you'd need to unlock the phone to see the rest of it. Luckily for you, he had sent a follow up message.
 2:59am - Use the back door so she doesn't see you, I left it unloc...'
 
+This is definitely worth taking note of. These messages took place on the night the victim was murdered.
 
-/*ALLEYWAY*/
+    -> END
 
 
-/*ANDRONE ST*/
+//ALLEYWAY---------------------------------------------------------------------------------------------------------------------------
+
+
+//ANDRONE ST ------------------------------------------------------------------------------------------------------------------------
+
+=== YachtClub_Front ===
+The elegant yacht club  looms over all the other buildings on the same street. It's much more modern than it's neighbours. Feels like it's flaunting it's wealth... Just like the individual who you know runs it.
+    -> END
+
+=== Cafe ===
+The dreamy aroma of coffee wafts through the front door of the humble cafe that sits before you. It looks like a nice spot to take someone for a first date.
+    -> END

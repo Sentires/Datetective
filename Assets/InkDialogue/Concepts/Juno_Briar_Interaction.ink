@@ -1,4 +1,4 @@
-/*(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)*/
+/*(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)
 
 // I added this, it didn't have a knot before - Jack
 === interaction_enter ===

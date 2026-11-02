@@ -1,13 +1,15 @@
 //LAFAYETTE ST ---------------------------------------------------------------------------------------------------------------------
 
 === Jestar_Meet ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
      ~ Speaker(-1)
   You see a young man frantically looking around and repeatedly checking his pockets. He looks like an ordinary civilian at first, and perhaps he still is, but you realise they also looks similar to one of the suspects.
-     ~ Character (CHAR_CLOWN, 1)
     ~ Speaker(1)
     ~ Alias(1, "Young Man")
   Crap- no no no- If I can't get back inside...
   ~ Speaker(0)
+  ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
    You alright there? Looking for something?
     ~ Speaker(1)
    Ah!
@@ -16,35 +18,47 @@
       ~ Speaker(1)
   I- um- my keys- work keys. Lost them, that's all. Not that I'll be able to go to work anytime soon...
     ~ Speaker(0)
+  ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
   Oh? How come?
     ~ Speaker (-1)
   The man stared in the direction of the aquarium.
-      ~ Speaker(0)
+    ~ Speaker(0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   Ah... I see. 
   Don't see why you'd need your uniform though.
     ~ Speaker (1)
   Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, comedy, a-anyway I needed it back in case I can get work elsewhere.
     ~ Speaker(0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   Mhmm... (don't see why he'd need an aquarium-specific uniform for a new job but...)
   Well, best of luck with that. But I get the feeling the case will be solved sooner than you think, you'll be back to work in no time.
   (I'll keep an eye out for the uniform just in case it leads to something more sinister with this guy...)
     -> END
     
 === Jestar_Uniform ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
     ~ Speaker(-1)
 The young man you spoke to earlier is still hanging around outside the aquarium looking defeated.
     ~ Speaker (0)
+    ~ Alias(1, "Young Man")
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
 Hey you, you still need that uniform?
     ~ Speaker (1)
 Me- yes, yeah...
     ~ Speaker(-1)
 You hand them the clown costume. He takes it with confusion at first, seemingly listening to you without actually registering what he was being handed, but once the dots connect his eyes light up immediately.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 This... thank you! You're a lifesaver, really!
 // QUEST - fade screen to black and then fade back in with Jestar's civilian sprite switched out for his clown costume
+    ~ Alias(1, "")
+Jestar is back in business!
     ~ Speaker(-1)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_SHOCK)
 What. What? How did he do that. Where did the makeup come from. What? Before you can ask any questions, they beat you to it.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
 Wait- where did you find it? 
 
 * [I found it in the bin.] 
@@ -54,13 +68,16 @@ Wait- where did you find it?
     
     === Jestar_Lie ===
     ~ Speaker (0)
-I found it in the dumpster in the alleyway behind the aquarium. Thankfully it was right on top of a tied bag, no other rubbish was touching it.
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_SAD)
+I found it in the dumpster in the alleyway behind the aquarium. Terrible that someone would throw it out just like that. Thankfully it was right on top of a tied bag, no other rubbish was touching it.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
 The dumpster?! How could they?! Ooooh and I just KNOW which bastard would've done it too...
 Nevermind that, thank you again for finding it for me! Now the the Jestar can shine in the night sky again!
 And maybe I can find a new gig....
 
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
 Oh yeah, I wanted to ask about that.
 
 * [How does the whole clown thing work?] 
@@ -79,6 +96,8 @@ It was in the aquarium like you said it would be.
     ~ Speaker (0)
 ...!
     ~ Speaker (-1)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_SHOCK)
+
 WHY DID YOU SAY THAT? So much for being discrete about your position here. You try to act like nothing you said was suspicious but they definitely caught on.
         ~ Speaker (1)
 How did you get inside...? It's meant to be closed for repairs.
@@ -159,3 +178,312 @@ You shoot Jestar a little wink as you wave goodbye.
     ~ Speaker (1)
 Y-yeah! No worrries- and thanks.
     -> END
+    
+    
+//ANDRONE ST ------------------------------------------------------------------------------------------------------------------------
+
+=== Dakota_Meet ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_LANDLORD, SPEAKER_SECONDARY)
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    ...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    ...
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Dakota.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Juno.
+    ~ Speaker (-1)
+You haven't spoken with Dakota in three years. Not since that messy fight you'd had over him quitting the force during a case you two were leading. You both know it wasn't really about the case, but neither of you are going to admit there were more personal feelings involved.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    I'm assuming you didn't just come here to say hi. You still running errands for those cops?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Tch, they're the ones who come running to me for help now. Not that it matters.
+    I'm not gonna beat around the bush, you know my methods already. You're a suspect, answer my questions and we won't have any trouble.
+     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Oh and aren't you so giddy to get up and personal in my business again.
+     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_FLUSTER)
+    I WAS NOT- shut up- 
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    always trying to distract me...I'm here on business.
+     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
+    Heh, yeah yeah. Shoot.
+    
+    * [What have you been doing since you quit?] 
+    -> Dakota_Work
+    * [Working at a yacht club, really?] 
+    -> Dakota_YachtClub
+    * [Do you know Antonio?] 
+    -> Dakota_Antonio
+    
+=== Dakota_Work ===
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Oh, you care about that now?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    No. Answer the question.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    I'm a landlord of sorts. Own most of the buildings along this street and Lafayette. Lease them out. Really scored with securing the rights to that aquarium, though it's a bit of a hassle dealing with it being directly tied to the bakery next door.
+    ~ Speaker (-1)
+    He's sprinkling in areas of interest without any prodding. He definitely knows something is up. Is he giving you more evidence right off the bat to protect himself from suspicion..? But it kind of loops back around to making him more suspicious...
+    Still, you might not be on good terms now but you've known Dakota for years, what reason would he have to murder someone? Murder them in a building he owns as well...
+    But then again, it's been three years, people can change. You both changed during your time together, it would inevitably change while you were apart... right...
+     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    Juno? Earth to Junoooo? You okay?
+      ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Wuh-
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    I'm fine. I was just analysing what you said or whatever. You're not off the hook yet, but what you said has given me a good lead so... thanks.
+    ~ Speaker (-1)
+    You leave before you can bring yourself to look at Dakota's expression. Now's not the time to be getting sentimenal over what could have been.
+    
+    -> END
+
+=== Dakota_YachtClub ===
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Working at a yacht club? Really?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    What's that supposed to mean?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    I thought you hated stuck up people, and I'm preeetty sure yacht clubs are for stuck up people.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    As much as I'd love to make this a 'gotcha' moment and say people change, I'd like to believe I haven't changed for the worse. I don't work here, I lease out the building though. I was checking in on overdue rent.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    Ewwww you're a landlord now? I'd say that's even worse.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Well at least I'm earning a good living. I've heard that you can't say the same.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    Huh?! Who the hell is saying that? AND I'M DOING JUST FINE THANK YOU. 
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_FLUSTER)
+    No but seriously, who's saying that...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    You aren't the only one who stays in touch with the force, though I guess you're on better terms with them.
+    It was Keith, he loves to get up in others' business. I'm sure he's told you things about me too.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    God, yeah. Hate that guy. Well just so you know I make more than double what he does now that I work alone.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Heh, I'll take your word for it. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Anyway, we weren't here to complain about Keith, and I've still got leases to check up on, so if you'll excuse m-
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    I never said questioning was over, did I? What was that about more leases? You own more property?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Tch. Yeah, yeah I do. Most of the buildings on this street and Lafayette are mine. That includes that aquarium I know you're investigating. And yes that was Keith talking behind your back again. Happy?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    ...Happy.
+    
+    ~ Speaker (-1)
+    You leave Dakota be, reminded of why you two used to butt heads so much. What a pain...
+    -> END
+
+=== Dakota_Antonio ===
+
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Do you know a man named Antonio Lenarduzzi?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Hmm... doesn't ring a bell. Is this guy a lead?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    A murder victim.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Ah, I see... that's unfortunate. 
+    ~ Speaker (-1) 
+    You two always had a habit of talking about serious matters such as this a bit too casually. You can't bring yourself to count it as evidence against Dakota.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    You know the how and where yet?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Mhmm. Lots of stab wounds to the heart. Happened in the aquarium.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Aaah, that would explain why it's locked down. Shame, they owe me a lot of money. Guess I won't be getting it anytime soon.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    An aquarium owing you money? How in the world did you wrap them around your finger?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Nothing underhanded, don't give me that look. I own the building, became a landlord since I left the force. They're just overdue on rent.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    A landlord... ew.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    It pays well. And I'd like to believe I treat people kindly enough. Don't look so glum about it.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    You used to be way cooler, man.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    And you used to not reek of cigarette smoke.
+        ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    Fuck you.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Fuck you.
+    ~ Speaker (-1)
+    You storm off, reminded of why you two broke u-
+    ahem,
+    stopped working together.
+    
+    -> END
+    
+    //BAKERY ------------------------------------------------------------------------------------------------------------------------
+=== Briar_Meet ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_BAKER, SPEAKER_SECONDARY)
+
+~ Character(CHAR_BAKER, 1)
+~ Speaker(1)
+~ Alias(1, "Baker")
+Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
+
+* [I'll get the daily special.] 
+    -> Briar_Special
+* [What would you recommend.] 
+    -> Briar_Recommendations
+* [I was actually hoping to ask you some questions.] 
+    -> Briar_Questions
+
+=== Briar_Special ===
+    ~ Speaker(-1)
+    You notice a board by the counter advertising today's special: A toasted croissant with hazelnut filling.
+
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    I'll just get the daily special. Oh, and a black coffee, take away if it's possible.
+
+    ~ Speaker(-1)
+    You intentionally gaze towards the taped off door as you speak.
+
+    ~ Speaker(1)
+    A lovely choice!
+    Oh- ahaha, don't worry yourself too much about that dear, nothing to be scared of. We've been given the clear to stay open for business, I heard the crime- poor thing- happened on the opposite side of the building.
+    ~ Speaker(-1)
+    You pay for you your meal and wait for the baker to bring it to you. 
+     ~ Speaker(1)
+     ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    that's all ready for you, dear! Can I help you with anything else?
+        -> Briar_Questions
+
+=== Briar_Recommendations ===
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Hmm, what would you recommend? I think I can trust your judgement, you seem like you have good taste.
+    You shoot her a grin as you speak. Seriously not the time for flirting but okay.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
+    Oh! Ehe, well I guess I know my way around here.
+    I know it sounds like I'm taking the easy way out, but I'm serious when I say today's daily special is great.
+    ~ Speaker(-1)
+    She leans in over the counter and whispers closer to you.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    It's because I choose all the daily specials and pick my favourites you see, teehee.
+    I make the hazelnut filling myself actually, it's my specialty!
+
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Sounds lovely, consider me sold. I'll grab a black coffee with that as well if I can, takeaway if that's alright.
+
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Of course dear! Just one moment.
+    ~ Speaker (-1)
+    You wait for the baker to prepare your order, awkardly looking around the establishment to avoid pressuring her.
+    
+    -> Briar_Questions
+
+    
+=== Briar_Questions ===
+~ Speaker(1)
+Cafe Worker: Oh? Me? Well, I can answer as best as I can I guess, so ask away.
+There was a flicker of surprise in her eyes, but she quickly regained her composure.
+
+~ Speaker(0)
+Juno: I'm surprised this place is open is all. Are you feeling okay working so close to a crime scene? I'd be a little on edge if it were me.
+
+~ Speaker(1)
+Cafe Worker: Oh that... I guess business has to run as usual ahaha... my boss was very determined to stay open once permission was given, but you're right it's a bit of an... odd feeling. None of my coworkers wanted to step in, and I'd hate to upset the regulars, so it's just me here today actually. 
+Cafe Worker: Thank you for your concern though, that's sweet of you.
+
+~ Speaker(0)
+Juno: Of course. I think you're brave for stepping up to the task, if it's any consolation.
+
+~ Speaker(-1)
+She giggles and waves her hand dismisivelly.
+
+~ Speaker(1)
+Cafe Worker: Ah, it could be worse I guess... anyway! Could I get you anything today, dear?
+
+~ Speaker(0)
+Juno: Oh yes- my bad, I'll just get the...
+
+~ Speaker(-1)
+You frantically look around for somethin to order, and notice the daily special, a toasted croissant with hazelnut filling.
+
+~ Speaker(0)
+Juno: Just today's special and a black coffee, please.
+
+~ Speaker(1)
+Cafe Worker: Perfect! I'll get that ready right away for you, dear.
+
+~ Speaker(-1)
+You pay for you your meal and find a place to sit.
+* [Take a seat]
+    -> Table
+=== Table ===
+~ Speaker(-1)
+Eventually, the lady who had taken your order brings it to the table. She smiles warmly at you as she places it down with steady hands, not a stray crumb on the plate or any ripples on the coffee's surface.
+Despite knowing her name from the file you had received on her, it would still be polite (and far less suspicious) to ask.
+
+~ Speaker(0)
+Juno: Thank you. Oh by the way, a bit of an odd question but could I get your name? just wanted to put in a good review since you've been so nice to me.
+
+~ Speaker(1)
+Cafe Worker: Aww you're too kind, you don't need to do all that. Still, the name's Briar.
+~ Alias(1, "")
+Briar: And in exchange, could I get yours?
+
+~ Speaker(0)
+Juno: You can call me Juno.
+
+~ Speaker(1)
+Briar: Well I hope you'll come visit again, Juno. I'd love to chat some more but you'd be surprised how much work needs to be done behind the scenes even on quiet days like this.
+
+~ Speaker(-1)
+She waves you goodbye with a bright smile, leaving you to your meal.
+
+
+-> END
+
