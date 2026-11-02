@@ -24,6 +24,10 @@ namespace TheDates.Runtime.Gameplay.Minigames
             public bool isAchieved {get; private set;}
             
             [SerializeField] private Vector2 gameScale = new(10, 10); 
+            [SerializeField] private Color highlightPaddingColour = Color.green; 
+            [SerializeField] private float highlightPaddingThickness = 0.02f;
+            [SerializeField] private Color defaultPaddingColour = Color.grey;
+            [SerializeField] private float defaultPaddingThickness = 0.01f;
             
             public GridTile currentTile;
 
@@ -50,7 +54,17 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     _tileGrid.SetTile(index, shuffled[i]);
                     shuffled[i].clickableArea.enabled = true;
                     shuffled[i].tileLocalPosition = _tileGrid.GetTileAnchor(index);
+                    
+                    shuffled[i].materialDisplay.SetPaddingTiling(_tileGrid.dimensions);
+                    shuffled[i].materialDisplay.SetPaddingEnabled(true);
+                    SetupDisplay(shuffled[i], defaultPaddingColour, 0.01f);
                 }
+            }
+
+            private void SetupDisplay(GridTile tile, Color colour, float thickness) {
+                if (!tile) return;
+                tile.materialDisplay.SetPaddingColour(colour);
+                tile.materialDisplay.SetPaddingThickness(thickness);
             }
             
             public void UpdateBorder() {
@@ -94,6 +108,9 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 if (!currentTile) return;
                 Debug.Log($"Unclicked {currentTile.name}");
                 currentTile.transform.localScale += SelectedScale;
+                
+                HighlightTiles(false, _currentIndex);
+                
                 currentTile = null;
             }
             
@@ -120,11 +137,33 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             private static readonly Vector3 SelectedScale = new(0.05f, 0.05f, 0f);
             
+            
             private void SelectTile(GridTile target) {
                 if (!_tileGrid.IndexFromTile(target, out var index)) return;
                 currentTile = target;
                 _currentIndex = index;
                 currentTile.transform.localScale -= SelectedScale;
+                
+                //_tileGrid.TileFromIndex(index.x + 1, index.y)
+                HighlightTiles(true, _currentIndex);
+
+            }
+
+            private void HighlightTiles(bool toggle, Vector2Int index) {
+                if (toggle)
+                {
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y + 1, index.x), highlightPaddingColour, highlightPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y - 1, index.x), highlightPaddingColour, highlightPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y, index.x + 1), highlightPaddingColour, highlightPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y, index.x - 1), highlightPaddingColour, highlightPaddingThickness);
+                }
+                else
+                {
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y + 1, index.x), defaultPaddingColour, defaultPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y - 1, index.x), defaultPaddingColour, defaultPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y, index.x + 1), defaultPaddingColour, defaultPaddingThickness);
+                    SetupDisplay(_tileGrid.TileFromIndex(index.y, index.x - 1), defaultPaddingColour, defaultPaddingThickness);
+                }
             }
         
             private void SwapTile(GridTile target) {
@@ -146,8 +185,11 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 
                     _tileGrid.SetTile(newIndex, currentTile);
                     _tileGrid.SetTile(_currentIndex, target);
-        
+                    
+                    HighlightTiles(false, _currentIndex);
+                    HighlightTiles(true, newIndex);
                     _currentIndex = newIndex;
+                    
                     //Debug.Log($"New Tile Layout for {_tileGrid.TileFromIndex(_currentIndex)} : Left [{_tileGrid.TileFromIndex(_currentIndex + Vector2Int.left)?.name}], Right [{_tileGrid.TileFromIndex(_currentIndex + Vector2Int.right)?.name}], Up [{_tileGrid.TileFromIndex(_currentIndex + Vector2Int.up)?.name}], Down [{_tileGrid.TileFromIndex(_currentIndex + Vector2Int.down)?.name}]");
                     return;
                 }

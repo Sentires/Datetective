@@ -10,7 +10,7 @@ namespace TheDates
     public class GridTile : MonoBehaviour
     {
         public GameObject gridParent { get; private set; }
-        public MaterialInstanceWrapper materialDisplay { get; private set; }
+        public PuzzleTileDisplay materialDisplay { get; private set; }
         public BoxCollider2D clickableArea => hitBox;
         public bool isSelected => _selected;
         public Vector3 tilePosition { get => transform.position; set => transform.position = value; }
@@ -36,7 +36,7 @@ namespace TheDates
             gridParent = newParent;
             // probs should set as transform parent, too
             
-            materialDisplay = new MaterialInstanceWrapper(materialRenderer) {
+            materialDisplay = new PuzzleTileDisplay(materialRenderer) {
                 currentSortingLayerID = _sortingLayerID
             };
         }

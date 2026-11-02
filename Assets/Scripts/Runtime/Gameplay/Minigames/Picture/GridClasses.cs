@@ -229,7 +229,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 for (var col = 0; col < dimensions.x; col++) {
                     // Make & add the piece
                     var piece = CreatePiece(col, row, texture);
-                    piece.Init(_grid);
+                    //piece.Init(_grid);
                     //piece.materialDisplay.currentSortingOrder = 1;
                     //.Add(piece)
                     orderedTiles[col, row] = piece;
@@ -315,7 +315,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
         {
             var piece = Object.Instantiate(_tileGridAsset.tilePrefab, _tileParent);
             piece.name = $"Piece {(row * dimensions.x) + col}";
-
+            piece.Init(_grid);
+            
             AssignPieceTransform(piece.transform, row, col);
             AssignPieceTexture(piece, row, col, pieceTexture);
 
@@ -356,7 +357,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
             mesh.uv = uv;
 
             // Get the MeshRenderer component & assign the texture
-            piece.GetComponent<MeshRenderer>().material.SetTexture(MatTextureID, pieceTexture);
+            piece.materialDisplay.SetAlbedoMap(pieceTexture);
+            //piece.GetComponent<MeshRenderer>().material.SetTexture(MatTextureID, pieceTexture);
         }
 
         private Vector2 GetPositionAt(int col, int row)
