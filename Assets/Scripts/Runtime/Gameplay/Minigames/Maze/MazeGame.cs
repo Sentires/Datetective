@@ -82,12 +82,12 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             _isMoving = false;
             _desiredPosition = _player.position;
             miniGameManager.OnClickPosition += OnPointPosition;
-            miniGameManager.OnClickState += OnClick;
+            miniGameManager.OnLeftClickState += OnLeftClick;
         }
         
         private void OnDisabled() {
             miniGameManager.OnClickPosition -= OnPointPosition;
-            miniGameManager.OnClickState -= OnClick;
+            miniGameManager.OnLeftClickState -= OnLeftClick;
             _isMoving = false;
             _desiredPosition = _player.position;
             contentParent.gameObject.SetActive(false);
@@ -108,7 +108,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             return(end - start).normalized;
         }
 
-        private void OnClick(bool input) {
+        private void OnLeftClick(bool input) {
             _isMoving = input;
         }
 

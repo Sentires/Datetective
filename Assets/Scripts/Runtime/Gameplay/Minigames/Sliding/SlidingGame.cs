@@ -272,7 +272,8 @@ namespace TheDates
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }
         
-        private void OnClickTarget(RaycastHit2D input) {
+        private void OnClickTarget(RaycastHit2D input, MiniGameManager.ClickType clickType) {
+            if (clickType != MiniGameManager.ClickType.Left) return;
             //if (!MiniGameManager.isGamePointerValid) return; // Sends a warning
             tileBoards[_currentBoardIndex].TargetTile(input.collider);
             if (tileBoards[_currentBoardIndex].isAchieved)

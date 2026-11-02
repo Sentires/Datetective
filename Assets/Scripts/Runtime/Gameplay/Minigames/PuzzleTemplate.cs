@@ -27,10 +27,12 @@ namespace TheDates.Runtime.Gameplay.Minigames
         #endregion
         
         #region { Event Handlers }
-        private void OnClickState(bool input) {
+        private void OnLeftClickState(bool input) {
+        }
+        private void OnRightClickState(bool input) {
         }
 
-        private void OnClickTarget(RaycastHit2D hit) {
+        private void OnClickTarget(RaycastHit2D hit, MiniGameManager.ClickType clickType) {
         }
 
         private void OnClickPosition(Vector2 input) {
@@ -44,7 +46,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnEnabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnLeftClickState += OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition += OnClickPosition;
             MiniGameManager.Instance.OnClickTarget += OnClickTarget;
         }
@@ -52,7 +54,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnDisabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnLeftClickState -= OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }

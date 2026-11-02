@@ -748,7 +748,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8368672960755657548, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       propertyPath: m_text
-      value: Hold [Left Click] to drag pieces into the correct spots.
+      value: Use [Left Click] to target a tile, then [Left Click] any highlighted
+        (orange-outlined) tiles to move around. To deselect your current target,
+        [Right Click] any tile.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:

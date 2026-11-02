@@ -83,7 +83,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
             _draggedPiece = null;
         }
 
-        private void OnClickTarget(RaycastHit2D hit) {
+        private void OnClickTarget(RaycastHit2D hit, MiniGameManager.ClickType clickType) {
+            if (clickType != MiniGameManager.ClickType.Left) return;
             var tile = hit.transform?.GetComponent<GridTile>();
             if (!tile || !_tileGrid.HasTile(tile)) return;
             
@@ -115,7 +116,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnEnabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnLeftClickState += OnClickState;
             MiniGameManager.Instance.OnClickPosition += OnClickPosition;
             MiniGameManager.Instance.OnClickTarget += OnClickTarget;
         }
@@ -123,7 +124,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnDisabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnLeftClickState -= OnClickState;
             MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }

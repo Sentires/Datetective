@@ -194,7 +194,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     return;
                 }
                 Debug.Log($"Target {target.gameObject.name} is out of range.");
-                DeselectTile();
+                //DeselectTile();
 
 
             }
@@ -225,17 +225,17 @@ namespace TheDates.Runtime.Gameplay.Minigames
         #endregion
         
         #region { Event Handlers }
-        private void OnClickState(bool input) {
-            //if (input || !_draggedPiece) return;
-            //_currentSlidingPuzzleLevel.ClearTarget();
-        }
-
-        private void OnClickTarget(RaycastHit2D hit) {
-            var tile = hit.transform?.GetComponent<GridTile>();
-            slidingPuzzleLevels[_currentBoardIndex].ClickTarget(tile);
+        private void OnClickTarget(RaycastHit2D hit, MiniGameManager.ClickType clickType) {
+            if (clickType == MiniGameManager.ClickType.Left) {
+                var tile = hit.transform?.GetComponent<GridTile>();
+                slidingPuzzleLevels[_currentBoardIndex].ClickTarget(tile);
             
-            if (slidingPuzzleLevels[_currentBoardIndex].isAchieved) {
-                StartCoroutine(NextPuzzle());
+                if (slidingPuzzleLevels[_currentBoardIndex].isAchieved) {
+                    StartCoroutine(NextPuzzle());
+                }
+            }
+            else { // Right click
+                slidingPuzzleLevels[_currentBoardIndex].DeselectTile();
             }
         }
 
@@ -254,7 +254,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnEnabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState += OnClickState;
+            //MiniGameManager.Instance.OnLeftClickState += OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition += OnClickPosition;
             MiniGameManager.Instance.OnClickTarget += OnClickTarget;
         }
@@ -262,7 +262,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnDisabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState -= OnClickState;
+            //MiniGameManager.Instance.OnLeftClickState -= OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }

@@ -212,7 +212,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             //_guide = guide;
         }
 
-        private void OnClickState(bool input) {
+        private void OnLeftClickState(bool input) {
             if (input || !_draggedPiece) return;
             Debug.Log($"Put Down {_draggedPiece.name}");
             TryGridSnap();
@@ -279,7 +279,8 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             _draggedPiece.parent = pieceParent;
         }
 
-        private void OnClickTarget(RaycastHit2D hit) {
+        private void OnClickTarget(RaycastHit2D hit, MiniGameManager.ClickType type) {
+            if (type != MiniGameManager.ClickType.Left) return;
             if (!hit || !_pieceIds.Contains(hit.transform.GetInstanceID())) return;
             
             _draggedPiece = hit.transform;
@@ -320,7 +321,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             pieceParent.gameObject.SetActive(true);
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnLeftClickState += OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition += OnClickPosition;
             MiniGameManager.Instance.OnClickTarget += OnClickTarget;
         }
@@ -329,7 +330,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.eugh
             pieceParent.gameObject.SetActive(false);
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnLeftClickState -= OnLeftClickState;
             MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }

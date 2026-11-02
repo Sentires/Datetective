@@ -22,14 +22,15 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         [SerializeField] private Camera overlayCamera;
         public Dictionary<GameObject, MiniGame> miniGamesDict;
 
-        public event Action<bool> OnClickState = delegate { };
+        public event Action<bool> OnLeftClickState = delegate { };
+        public event Action<bool> OnRightClickState = delegate { };
         public event Action<Vector2> OnClickPosition = delegate { };
-        public event Action<RaycastHit2D> OnClickTarget = delegate { };
+        public event Action<RaycastHit2D, ClickType> OnClickTarget = delegate { };
         public event Action<MiniGameContext> OnMiniGameProcessed = delegate { };
         public Vector2 ScreenResolution;
         
         private bool _isActive;
-        private bool _isClicking;
+        //private bool _isClicking;
         private int _layerMask;
         
         // Only true if the UI says this is false/null. We only care about non-UI
@@ -139,7 +140,8 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         private void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.InputEvents.onLeftClick += OnClick;
+            GameEventsManager.Instance.InputEvents.onLeftClick += OnLeftClick;
+            GameEventsManager.Instance.InputEvents.onRightClick += OnRightClick;
             GameEventsManager.Instance.InputEvents.onPosition += OnPoint;
             //GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.UI);
         }
@@ -235,9 +237,15 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         private void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.InputEvents.onLeftClick -= OnClick;
+            GameEventsManager.Instance.InputEvents.onLeftClick -= OnLeftClick;
+            GameEventsManager.Instance.InputEvents.onRightClick -= OnRightClick;
             GameEventsManager.Instance.InputEvents.onPosition -= OnPoint;
             //GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.World);
+        }
+
+        public enum ClickType {
+            Left,
+            Right,
         }
         
         private void OnPoint(Vector2 input) {
@@ -246,25 +254,21 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             OnClickPosition.Invoke(input);
         }
 
-        private void OnClick(bool input) {
+        private void OnLeftClick(bool input) {
             if (!_isActive) return;
-            _isClicking = input;
-            OnClickState.Invoke(input);
+            //_isClicking = input;
+            OnLeftClickState.Invoke(input);
             
-            if (!_isClicking || !overlayCamera) return;
-            StartCoroutine(ClickPosition(mousePosition));
-            // var worldPos = overlayCamera.ScreenToWorldPoint(mousePosition);
-            // var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
-            // if (!hit) return;
-
-            // OnClickTarget.Invoke(hit);
-
-            //var target = hit.transform;
-            //Debug.Log($"Clicked On {hit.collider.name} at {worldPos}");
-
-            //if (target.TryGetComponent<IClickable>(out var clickable)) {
-            //    StartCoroutine(ProcessClick(clickable));
-            //}
+            if (!input || !overlayCamera) return;
+            StartCoroutine(ClickPosition(mousePosition, ClickType.Left));
+        }
+        private void OnRightClick(bool input) {
+            if (!_isActive) return;
+            //_isClicking = input;
+            OnRightClickState.Invoke(input);
+            
+            if (!input || !overlayCamera) return;
+            StartCoroutine(ClickPosition(mousePosition, ClickType.Right));
         }
         
         public Vector3 GetWorldSpacePosition(Vector2 input, float zPosition) {
@@ -276,13 +280,13 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             return Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, _layerMask);
         }
         
-        private IEnumerator ClickPosition(Vector3 position) {
+        private IEnumerator ClickPosition(Vector3 position, ClickType clickType) {
             yield return null; // Skip this frame
             if (!isGamePointerValid) yield break;
             
             var worldPos = overlayCamera.ScreenToWorldPoint(position);
             var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
-            if (hit) OnClickTarget.Invoke(hit);
+            if (hit) OnClickTarget.Invoke(hit, clickType);
         }
 
         /*private IEnumerator ProcessClick(IClickable clickable)
