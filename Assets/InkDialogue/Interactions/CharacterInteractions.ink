@@ -249,8 +249,7 @@ You haven't spoken with Dakota in three years. Not since that messy fight you'd 
     I'm fine. I was just analysing what you said or whatever. You're not off the hook yet, but what you said has given me a good lead so... thanks.
     ~ Speaker (-1)
     You leave before you can bring yourself to look at Dakota's expression. Now's not the time to be getting sentimenal over what could have been.
-    
-    -> END
+        -> END
 
 === Dakota_YachtClub ===
     ~ Speaker (0)
@@ -345,7 +344,7 @@ You haven't spoken with Dakota in three years. Not since that messy fight you'd 
     ~ Speaker (1)
     ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
     And you used to not reek of cigarette smoke.
-        ~ Speaker (0)
+    ~ Speaker (0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
     Fuck you.
     ~ Speaker (1)
@@ -355,6 +354,38 @@ You haven't spoken with Dakota in three years. Not since that messy fight you'd 
     You storm off, reminded of why you two broke u-
     ahem,
     stopped working together.
+        -> END
+    
+    //QUEST - if player has investigated === fence_locked === prior to ever interacting with Dakota, automatically trigger this dialogue upon ending conversation with him. 
+    // If player has not interacted with === fence_locked === prior, this dialogue does not trigger automatically, but rather is the dialogue that will play upon interacting with Dakota a second time after interacting with === fence_locked ===
+    
+    === Dakota_Key ===
+    ~ Speaker (-1)
+    Working yourself up over your conversation with Dakota, you realise there's a favour you need to ask him and begrudgingly turn to face him.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    GHH...
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    Dakota...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    What.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    Do you have the key for the fence in the alleyway? The one blocking off the breaker room.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Yeah. 
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    ...
+    If you let me borrow it and don't end up being a murderer I'll treat you to lunch at the old diner by the station. For old times sake or whatever...
+    ~ Speaker (-2)
+    He looks away from you, and ponders to himself for a moment.
+    He tosses you the keys without a word.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    ...
     
     -> END
     
@@ -542,7 +573,17 @@ Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
 She waves you goodbye with a bright smile before leaving out the back of the store.
 
 //QUEST - fade out to same scene without Briar in it.
+        -> END
 
 
--> END
+
+/* QUEST - The following prerequisites should be completed prior to Briar's sprite appearing in front of the cafe for the date segment.
+- Completed prior interaction with Briar
+- interacted with Dakota and obtained key
+- unlocked breaker area
+- activated lights in the aquarium*/
+
+=== Briar_Date ===
+    placeholder
+        -> END
 

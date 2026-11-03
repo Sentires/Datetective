@@ -127,13 +127,18 @@ Wait no it doesn't. What kind of aquarium has a clown??
 You fold up the costume again and take it with you. Returning it to it's presumed owner might give you an opening to ask some questions.
     -> END
     
+=== Wet_Footprints ===
+    ~ Speaker(-1)
+    You catch yourself nearly slipping on a puddle of water on the tiled floor. And then another puddle, and another puddle. 
+    It's a trail of watery footsteps leading from the stage in the direction of the other room, fading out as they get closer to the door.
+        -> END
 
 // Storage room
 
 === Flour ===
     ~ Speaker(-1)
 There's a faint white powder coating the door handle. No, it's not that sort of powder, it's much lamer. Flour.
-Flour?? Okay that's an odd one to find in an aquarium storage room.
+Flour?? Okay that's an odd one to find in an aquarium storage room of all places.
     -> END
     
 //BAKERY-----------------------------------------------------------------------------------------------------------------------------
@@ -163,7 +168,7 @@ It would be best to come back later to avoid raising suspicion.
     -> END
     
 // QUEST CONT. Lost and found box, Briar not in bakery
-=== Baker_Box_Alone ===
+=== Bakery_Box_Alone ===
     ~ Speaker(-1)
 Seemes like Briar finally went on a lunch break or something. You quickly fish out the phone from the lost and found box and switch it on to read the text message previews.
 2:57am - 'Hey baby, got us those tickets for that movie I...' 
@@ -176,7 +181,7 @@ This is definitely worth taking note of. These messages took place on the night 
     -> END
     
 // QUEST ALT. Lost and found box, Briar not in bakery, NOT investigated prior
-=== Baker_Box_Alone_New ===
+=== Bakery_Box_Alone_New ===
     ~ Speaker(-1)
 A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'. Inside are the typical items you would expect people to absentmindedly leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
 Upon closer inspection however, you notice a much more valuable item at the bottom of the box. A smartphone, a recent model as well. Trying not to draw attention to yourself, you sift through the box and push the other objects out of the way so you can turn it on.
@@ -198,20 +203,54 @@ This is definitely worth taking note of. These messages took place on the night 
 
 //ALLEYWAY---------------------------------------------------------------------------------------------------------------------------
 
-=== Locked_Fence ===
-~ Speaker (-1)
-You try to push open the wire fence door to the breaker area visible beyond it's mesh pattern. It rattles, the sound piercing your ears, but it doesn't budge.
-~ Speaker (0)
+=== Rubbish ===
+//Dialogue triggered after completing the rubbish bin puzzle
+    ~ Speaker (-1)
+    With little dignity, you rummage through the contents of the bin. Gross.
+After sifting through the usual filth one would expect from a dumpster, you come across some items that catch your eye.
+Most notably, a tissue covered in blood stains. It is cut up where the blood is concentrated.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+(They were probably trying to wipe off a blade of sorts.)
 
+    ~ Speaker (-2)
+Another notable item you find is a perfectly intact movie ticket. It's for a midnight showing of a romcom that took place on the same night the victim was murdered.
+
+        -> END
+        
+=== Fence_Locked ===
+//QUEST - fence remains locked until interacting with Dakota to obtain another key.
+    ~ Speaker (-1)
+You try to push open the wire fence door to the breaker area visible beyond it's mesh pattern. It rattles, the sound piercing your ears, but it doesn't budge. 
+If only you had a key to unlock it...
+You take out the key you had received for the aquarium's backdoor. It's the same colour as the padlock, it'd be worth a shut.
+...
+No luck.
  -> END
-
-
-//ANDRONE ST ------------------------------------------------------------------------------------------------------------------------
-
-=== YachtClub_Front ===
+=== Fence_Unlocked ===
+    ~ Speaker (-1)
+You take out the key you had wrangled from Dakota and hold it up to your eye. Just as you'd suspected, it's the same brand as the padlock and the aquarium key.
+It slides into the padlock with ease, and a faint click confirms it's unlocked the fence.
+    -> END
+    
+=== Delivery_Box ===
+    ~ Speaker (-1)
+Peering past the breaker, you notice something lying angled on the ground. 
+with some effort, you squeeze your arm in the gap between the breaker and the wall beside it and reach for the object.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    ..!
+    ~ Speaker (-2)
+It's a cardboard box, with blood seeping into its surface. 
+You open it, mindfully avoiding to touch the parts coated in red. It is empty inside, save for some crumbs along the bottom and specks of icing smeared on the sides.
+    ->  END
+    
+=== Yacht_Club_Front ===
+    ~ Speaker (-1)
 The elegant yacht club  looms over all the other buildings on the same street. It's much more modern than it's neighbours. Feels like it's flaunting it's wealth... Just like the individual who you know runs it.
     -> END
 
 === Cafe ===
+    ~ Speaker (-1)
 The dreamy aroma of coffee wafts through the front door of the humble cafe that sits before you. It looks like a nice spot to take someone for a first date.
     -> END
