@@ -376,25 +376,32 @@ Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
     -> Briar_Questions
 
 === Briar_Special ===
-    ~ Speaker(-1)
+    ~ Speaker(-2)
     You notice a board by the counter advertising today's special: A toasted croissant with hazelnut filling.
 
     ~ Speaker(0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
     I'll just get the daily special. Oh, and a black coffee, take away if it's possible.
 
-    ~ Speaker(-1)
+    ~ Speaker(-2)
     You intentionally gaze towards the taped off door as you speak.
 
     ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
     A lovely choice!
     Oh- ahaha, don't worry yourself too much about that dear, nothing to be scared of. We've been given the clear to stay open for business, I heard the crime- poor thing- happened on the opposite side of the building.
-    ~ Speaker(-1)
-    You pay for you your meal and wait for the baker to bring it to you. 
-     ~ Speaker(1)
-     ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
-    that's all ready for you, dear! Can I help you with anything else?
-        -> Briar_Questions
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Ah, I see. Seems to have affected business though, this street is usually far more lively, isn't it?
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    Siiigh, definitely is... we tend to rely on the aquarium for most of our customers here,
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    but it's okay! I'm sure it'll be up and running again in no time. People cant resist a sweet treat for too long!
+    ~ Speaker (-2)
+    You smile and nod reassuringly at her chipper attitude, perhaps she'd be willing to keep answering questions while she's in a good mood.
+    
+       -> Briar_Questions
 
 === Briar_Recommendations ===
     ~ Speaker(0)
@@ -405,7 +412,7 @@ Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
     ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
     Oh! Ehe, well I guess I know my way around here.
     I know it sounds like I'm taking the easy way out, but I'm serious when I say today's daily special is great.
-    ~ Speaker(-1)
+    ~ Speaker(-2)
     She leans in over the counter and whispers closer to you.
     ~ Speaker(1)
     ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
@@ -420,69 +427,121 @@ Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
     ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
     Of course dear! Just one moment.
     ~ Speaker (-1)
-    You wait for the baker to prepare your order, awkardly looking around the establishment to avoid pressuring her.
+    You wait for the baker to prepare your order, awkardly looking around the establishment to avoid pressuring her. She eventually brings it to the counter and you thank her with a nod.
     
     -> Briar_Questions
 
     
 === Briar_Questions ===
-~ Speaker(1)
-Cafe Worker: Oh? Me? Well, I can answer as best as I can I guess, so ask away.
-There was a flicker of surprise in her eyes, but she quickly regained her composure.
 
-~ Speaker(0)
-Juno: I'm surprised this place is open is all. Are you feeling okay working so close to a crime scene? I'd be a little on edge if it were me.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Actually, I was wondering if I could ask you something?
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    Oh? Me? Well, I'll answer as best as I can.
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Are you feeling okay working so close to a crime scene? I'd be a little on edge if it were me.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Aw, I appreciate your concern, dear.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    I guess business has to run as usual... my boss was very determined to stay open once permission was given, but you're right it's a bit of an... odd feeling. None of my coworkers wanted to step in, and I'd hate to upset the regulars, so it's just me here today actually. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    But I'll be just fine!
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Of course. I think you're brave for stepping up to the task, if it's any consolation.
+    ~ Speaker(-2)
+    She giggles and waves her hand dismisivelly.
+    Almost a bit too dismissively...
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    OH! I still need to pay, my bad. 
+    
+    ~ Speaker (-2)
+    You start to rummage through your pockets to pay with your 
+    * [Credit Card] 
+    -> Briar_Card
+    * [cash] 
+    -> Briar_Cash
+    * [Shit ton of loose coins] 
+    -> Briar_Coins
+    
+    
+    === Briar_Card ===
+    ~ Speaker (-2)
+    You fish out your credit card and swipe it across the pinpad. You select the option to tip as well when you do because you appreciate hospitality workers, and also this game takes place in a vaguely American setting so it's expected of you. 
+    -> Briar_Name
+    
+    
+    === Briar_Cash ===
+    ~ Speaker (-2)
+    You find your tattered leather wallet and pull out some notes. The baker takes them with a smile and begins to calculate your change.
+    
+    ~ Speaker (0) 
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Don't worry about it, keep the change. 
+    
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Aww, are you sure? Thank you!
+    
+    ~ Speaker (0) 
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    No worries. 
+    -> Briar_Name
+    
+    === Briar_Coins ===
+    ~ Speaker (-2)
+    You awkwardly keep rummaging for any notes in your pockets. There are none. You start to feebly pull out handfuls of loose change.
+    So much loose change... an egregious amount of it.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    ..................
+    ~ Speaker (-2)
+    You slowly push the pile of coins towards the baker. Why would you do this to a minimum wage worker.
+    
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    I'm so sorry...
+    
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    That's alright, dear.
+    -> Briar_Name
+    
+    
+    
 
-~ Speaker(1)
-Cafe Worker: Oh that... I guess business has to run as usual ahaha... my boss was very determined to stay open once permission was given, but you're right it's a bit of an... odd feeling. None of my coworkers wanted to step in, and I'd hate to upset the regulars, so it's just me here today actually. 
-Cafe Worker: Thank you for your concern though, that's sweet of you.
+=== Briar_Name ===
 
-~ Speaker(0)
-Juno: Of course. I think you're brave for stepping up to the task, if it's any consolation.
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Thank you. Oh by the way, a bit of an odd question, final one I swear, but could I get your name? I just wanted to put in a good review since you've been so nice to me.
+
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Aww you're too kind, you don't need to do all that. Still, the name's Briar.
+    ~ Alias(1, "")
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    And in exchange, could I get yours?
+
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    You can call me Juno.
+
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+
+    Well I hope you'll come visit again, Juno. I'd love to chat some more but you'd be surprised how much work needs to be done behind the scenes even on quiet days like this.
 
 ~ Speaker(-1)
-She giggles and waves her hand dismisivelly.
+She waves you goodbye with a bright smile before leaving out the back of the store.
 
-~ Speaker(1)
-Cafe Worker: Ah, it could be worse I guess... anyway! Could I get you anything today, dear?
-
-~ Speaker(0)
-Juno: Oh yes- my bad, I'll just get the...
-
-~ Speaker(-1)
-You frantically look around for somethin to order, and notice the daily special, a toasted croissant with hazelnut filling.
-
-~ Speaker(0)
-Juno: Just today's special and a black coffee, please.
-
-~ Speaker(1)
-Cafe Worker: Perfect! I'll get that ready right away for you, dear.
-
-~ Speaker(-1)
-You pay for you your meal and find a place to sit.
-* [Take a seat]
-    -> Table
-=== Table ===
-~ Speaker(-1)
-Eventually, the lady who had taken your order brings it to the table. She smiles warmly at you as she places it down with steady hands, not a stray crumb on the plate or any ripples on the coffee's surface.
-Despite knowing her name from the file you had received on her, it would still be polite (and far less suspicious) to ask.
-
-~ Speaker(0)
-Juno: Thank you. Oh by the way, a bit of an odd question but could I get your name? just wanted to put in a good review since you've been so nice to me.
-
-~ Speaker(1)
-Cafe Worker: Aww you're too kind, you don't need to do all that. Still, the name's Briar.
-~ Alias(1, "")
-Briar: And in exchange, could I get yours?
-
-~ Speaker(0)
-Juno: You can call me Juno.
-
-~ Speaker(1)
-Briar: Well I hope you'll come visit again, Juno. I'd love to chat some more but you'd be surprised how much work needs to be done behind the scenes even on quiet days like this.
-
-~ Speaker(-1)
-She waves you goodbye with a bright smile, leaving you to your meal.
+//QUEST - fade out to same scene without Briar in it.
 
 
 -> END

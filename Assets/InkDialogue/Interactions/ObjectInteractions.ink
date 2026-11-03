@@ -198,6 +198,13 @@ This is definitely worth taking note of. These messages took place on the night 
 
 //ALLEYWAY---------------------------------------------------------------------------------------------------------------------------
 
+=== Locked_Fence ===
+~ Speaker (-1)
+You try to push open the wire fence door to the breaker area visible beyond it's mesh pattern. It rattles, the sound piercing your ears, but it doesn't budge.
+~ Speaker (0)
+
+ -> END
+
 
 //ANDRONE ST ------------------------------------------------------------------------------------------------------------------------
 
