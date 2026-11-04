@@ -8,10 +8,11 @@
  'Further information can be found by logging into the database.'
  ~ Character(CHAR_DETECTIVE, 0)
  ~ Speaker(0)
- *sigh*, well at least they entertain my old-timey aesthetic just a little bit.
+ ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+ Well at least they entertain my old-timey aesthetic just a little bit.
     -> END
     
-    === PC_Locked ===
+=== PC_Locked ===
      ~ Speaker(-1)
 A standard desktop computer, one you bought purely because your manager kept pestering you to get over the 'classic' detective experience and get with the times. It does it's job well enough, but you still think paper files and corkboards with evidence tied together with red string are way cooler. 
 A shame no one is willing to comply with your methods, at least not fully.
@@ -23,7 +24,8 @@ A shame no one is willing to comply with your methods, at least not fully.
 You vaguely remember receiving a file with the login information back when you first began engaging with the local police.
 ...and promptly putting it in your paper shredder after confidently thinking you could remember all the information on it.
     -> END
-    
+
+// QUEST - Paper puzzle must be completed in order to get this dialogue
 === PC_Unlocked ===
     ~ Speaker(-1)
  You enter the password. 
@@ -40,8 +42,9 @@ You vaguely remember receiving a file with the login information back when you f
  - Baked Hearts Patisserie & Cafe - 64 Lafeyette Street'
  
  The Aquarium has been closed off from the public while the investigation takes place. Please enter via the backdoor entrance accessible through the alleyway next to Baked Hearts Patisserie. 
- 
-   ~ Speaker(0)
+    ~ Character(CHAR_DETECTIVE, 0)
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
  Huh, Lafayette isn't too far from here. Guess I can get right to work.    
     -> END
     
@@ -50,7 +53,7 @@ You vaguely remember receiving a file with the login information back when you f
 Your trusty corkboard looms before you, waiting for evidence to cover it's surface and be strung together with red string because that's like, a super cool visual.
     -> END
 
-//QUEST TRIGGER - Office scene is changed at the end of each route to include evidence minigame
+//QUEST - Office scene is changed at the end of each route to include evidence minigame
 === Corkboard_End ===
     ~ Speaker(-1)
 Finally, it's time to fulfil your classic detective fantasy and connect all the evidence with red string despite it being much more efficient to document it online like the Ondarion Police keep asking you to.  
@@ -69,7 +72,7 @@ You used to organise them alphabetically and give them elaborate names, but your
 A simple mesh bin filled with paper scraps...You cannot remember the last time you emptied it out.
     -> END
     
-// QUEST? No changes in the office assets but different dialogue is triggered once player has interacted with === case_file === 
+// QUEST - No changes in the office assets but different dialogue is triggered once player has interacted with === case_file === 
 
 === Bin_After_Files  ===
      ~ Speaker(-1)
@@ -113,17 +116,22 @@ Yellow and black caution tape outlines the lifeless body, a precaution you won't
     -> END
 === Corpse ===
     ~ Speaker(-1)
-The lifeless body of a young man lays before you. Deep crimson stains his plain collared shirt, and a pool of blood wets the tile below him. The killing blow, well, blows, appear to be an array of haphazard stab wounds aimed at the heart. Not all the stabs hit their target, this appears to be the work of an amateur. 
+The lifeless body of a young man lays before you. Deep crimson stains his plain collared shirt, and a pool of blood wets the tile below him. The killing blow, well, blows, appear to be an array of haphazard stab wounds aimed at the heart.
+Not all the stabs hit their target, this appears to be the work of an amateur. 
     -> END
     
 // Other room
 === Clown_Costume ===
     ~ Speaker(-1)
-You notice a colourful bundle of clothes folded up behind the stage. Unfolding it, you realise it is a clown costume. What in the world is a costume like that doing here..? As you question the costume's presence, you remember the frantic young man you met outside the aquarium.
+You notice a colourful bundle of clothes folded up behind the stage. Unfolding it, you realise it is a clown costume. What in the world is a costume like that doing here..?
+As you question the costume's presence, you remember the frantic young man you met outside the aquarium.
+    ~ Character(CHAR_DETECTIVE, 0)
     ~Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
 Ooohhhh! 'performance, comedy' okay yeah that makes a bit more sense.
+    ~Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
 Wait no it doesn't. What kind of aquarium has a clown?? 
-    ~ Speaker(-1)
+    ~ Speaker(-2)
 You fold up the costume again and take it with you. Returning it to it's presumed owner might give you an opening to ask some questions.
     -> END
     
@@ -147,6 +155,18 @@ Flour?? Okay that's an odd one to find in an aquarium storage room of all places
     ~ Speaker(-1)
 A simple but cute table setup. There are napkins, spare cutlery, and a copy of the menu tucked into a small organiser resting on it's wooden surface.
 Upon closer inspection of the wood, you can see telltale signs of use. Namely, small etchings absentmindedly made by customers past, and faint coffee stains that seeped too far into the grain to clean out.
+
+    * [Check under the table] 
+    -> Order_Form
+    * [Leave] 
+    -> END
+
+=== Order_Form ===
+You swing your head under the table to look for any other etchings underneath, an odd people-watching adjacent habit of yours.
+There's more of the usual you'd expect. Some more absent scratches, some names carved together inside a heart, a lot of gum... gross.
+Without thinking much, your gaze shifts to the floor as you begin to swing back up. There's a piece of paper neatly folded and stuck under one of the table legs. 
+You gently tilt the table to free the sheet and unfold it. It's a delivery form for the bakery, seems they deliver some of their stock to the cafe on the next street over.
+All the ordered items are ticked off except for one, a box of freshly made cupcakes. Guess they weren't delivered for one reason or another.
     -> END
     
 === Bakery_Cabinet ===
@@ -157,7 +177,8 @@ Right next to the counter, as if to lure you in to make a last minute additional
 //QUEST TRIGGER - Lost and found box, Briar behind counter
 === Bakery_Box_Briar ===
     ~ Speaker(-1)
-A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'. Inside are the typical items you would expect people to absentmindedly leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
+A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'.
+Inside are the typical items you would expect people to leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
 Upon closer inspection however, you notice a much more valuable item at the bottom of the box. A smartphone, a recent model as well. Trying not to draw attention to yourself, you sift through the box and push the other objects out of the way so you can turn it on.
 It lights up, revealing several unread messages from a contact named 'Antonio <3'.
 
@@ -183,13 +204,11 @@ This is definitely worth taking note of. These messages took place on the night 
 // QUEST ALT. Lost and found box, Briar not in bakery, NOT investigated prior
 === Bakery_Box_Alone_New ===
     ~ Speaker(-1)
-A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'. Inside are the typical items you would expect people to absentmindedly leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
+A small pink box sits on the side of the counter with a handwritten sign taped to the front reading 'Lost & Found'.
+Inside are the typical items you would expect people to leave behind, a hair bow, a kid's toy car, some lip gloss to name a few. It's a nice gesture from the establishment to hold onto them.
 Upon closer inspection however, you notice a much more valuable item at the bottom of the box. A smartphone, a recent model as well. Trying not to draw attention to yourself, you sift through the box and push the other objects out of the way so you can turn it on.
 It lights up, revealing several unread messages from a contact named 'Antonio <3'. 
-  ~ Character(CHAR_DETECTIVE, 0)
-    ~ Speaker(0)
  ..! That's the victim's name. It could be a coincidence, but...
-     ~ Speaker(-1)
 You fish out the phone and read what you can of the text message previews.
 
 2:57am - 'Hey baby, got us those tickets for that movie I...' 
@@ -209,11 +228,14 @@ This is definitely worth taking note of. These messages took place on the night 
     With little dignity, you rummage through the contents of the bin. Gross.
 After sifting through the usual filth one would expect from a dumpster, you come across some items that catch your eye.
 Most notably, a tissue covered in blood stains. It is cut up where the blood is concentrated.
+    ~ Character(CHAR_DETECTIVE, 0)
     ~ Speaker (0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
 (They were probably trying to wipe off a blade of sorts.)
 
     ~ Speaker (-2)
+There is also a faint flower pattern indented into the tissue, seems like a higher quality brand.
+
 Another notable item you find is a perfectly intact movie ticket. It's for a midnight showing of a romcom that took place on the same night the victim was murdered.
 
         -> END
@@ -223,7 +245,7 @@ Another notable item you find is a perfectly intact movie ticket. It's for a mid
     ~ Speaker (-1)
 You try to push open the wire fence door to the breaker area visible beyond it's mesh pattern. It rattles, the sound piercing your ears, but it doesn't budge. 
 If only you had a key to unlock it...
-You take out the key you had received for the aquarium's backdoor. It's the same colour as the padlock, it'd be worth a shut.
+You take out the key you had received for the aquarium's backdoor. Seems like it could be the same brand as the padlock, it'd be worth a shot.
 ...
 No luck.
  -> END
@@ -242,15 +264,30 @@ with some effort, you squeeze your arm in the gap between the breaker and the wa
     ..!
     ~ Speaker (-2)
 It's a cardboard box, with blood seeping into its surface. 
-You open it, mindfully avoiding to touch the parts coated in red. It is empty inside, save for some crumbs along the bottom and specks of icing smeared on the sides.
+You open it, mindfully avoiding to touch the parts coated in red. It's empty inside, save for some crumbs along the bottom and specks of icing smeared on the sides.
     ->  END
+    
+//ANDRONE ST ------------------------------------------------------------------------------------------------------------------------
     
 === Yacht_Club_Front ===
     ~ Speaker (-1)
-The elegant yacht club  looms over all the other buildings on the same street. It's much more modern than it's neighbours. Feels like it's flaunting it's wealth... Just like the individual who you know runs it.
+The elegant yacht club  looms over all the other buildings on the same street. It's much more modern than it's neighbours. Feels like it's flaunting it's wealth...
     -> END
 
 === Cafe ===
     ~ Speaker (-1)
 The dreamy aroma of coffee wafts through the front door of the humble cafe that sits before you. It looks like a nice spot to take someone for a first date.
     -> END
+    
+=== Box_Cutter ===
+    ~ Speaker (-1)
+There's something glistening on the ground near the cafe.
+You immediately squat down to grab it without thinking before reeling your hand back once you register the exposed blade you were reaching for. It had been reflecting the sunlight to cause the glimmer which had lured you in.
+    ~ Character(CHAR_DETECTIVE, 0)
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+Jeez, what's this doing out in the open?
+    ~ Speaker (-2)
+You pick up the box cutter with much more caution. It's clean. Very clean. 
+You retract the blade and pocket it. 
+        -> END

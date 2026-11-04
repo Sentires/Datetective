@@ -1,36 +1,38 @@
 //LAFAYETTE ST ---------------------------------------------------------------------------------------------------------------------
 
 === Jestar_Meet ===
-~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
 ~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
-     ~ Speaker(-1)
+     ~ Speaker(-2)
   You see a young man frantically looking around and repeatedly checking his pockets. He looks like an ordinary civilian at first, and perhaps he still is, but you realise they also looks similar to one of the suspects.
     ~ Speaker(1)
     ~ Alias(1, "Young Man")
   Crap- no no no- If I can't get back inside...
+  ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
   ~ Speaker(0)
   ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
    You alright there? Looking for something?
     ~ Speaker(1)
    Ah!
-    ~ Speaker(-1)
+    ~ Speaker(-2)
   He jolts back and flails his arms as if he's been caught doing something he wasn't meant to.
       ~ Speaker(1)
   I- um- my keys- work keys. Lost them, that's all. Not that I'll be able to go to work anytime soon...
     ~ Speaker(0)
   ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
   Oh? How come?
-    ~ Speaker (-1)
+    ~ Speaker (-2)
   The man stared in the direction of the aquarium.
     ~ Speaker(0)
-    ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_SAD)
   Ah... I see. 
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   Don't see why you'd need your uniform though.
     ~ Speaker (1)
   Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, comedy, a-anyway I needed it back in case I can get work elsewhere.
     ~ Speaker(0)
     ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   Mhmm... (don't see why he'd need an aquarium-specific uniform for a new job but...)
+      ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
   Well, best of luck with that. But I get the feeling the case will be solved sooner than you think, you'll be back to work in no time.
   (I'll keep an eye out for the uniform just in case it leads to something more sinister with this guy...)
     -> END
@@ -584,6 +586,20 @@ She waves you goodbye with a bright smile before leaving out the back of the sto
 - activated lights in the aquarium*/
 
 === Briar_Date ===
-    placeholder
+    Briar seems to be searching for something on the ground outside the cafe as you approach her.
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Fancy seeing you again so soon.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    Ah! Juno! Hello again dear.
+    ~ Speaker (-2)
+    She doesn't seem particularly ecstatic that you've interrupted her search.
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    You looking for something? I can help out if you'd like.
+    
+    // MORE TBA
+    
         -> END
 
