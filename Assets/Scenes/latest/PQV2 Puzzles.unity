@@ -382,6 +382,7 @@ Transform:
   - {fileID: 1957612448}
   - {fileID: 2112042976}
   - {fileID: 267352259}
+  - {fileID: 437170889}
   m_Father: {fileID: 2000619519}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -547,6 +548,146 @@ Transform:
   m_Father: {fileID: 2000619519}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &437170888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 271095981}
+    m_Modifications:
+    - target: {fileID: 1003452145120504417, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_Name
+      value: QEvidencePuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504417, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068110, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6179246
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068110, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6179246
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068110, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2095082432}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendCommandStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheDates.Runtime.Experimental.MinigameCore.MiniGameManager, TheDates
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5756951057870219306, guid: 2f7fe93f3477ba34eb3506535936bc6e, type: 3}
+    - target: {fileID: 1003452145860068111, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318766632775479438, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2095082432}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SendCommandStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TheDates.Runtime.Experimental.MinigameCore.MiniGameManager, TheDates
+      objectReference: {fileID: 0}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a60a556138c06745b117f3be2bab797, type: 2}
+    - target: {fileID: 8759123650349404513, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TheDates.MiniGameAssetReference, TheDates
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+--- !u!4 &437170889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1003452145120504418, guid: 6555db8dc8c9efe46b3ffb4715f78e64, type: 3}
+  m_PrefabInstance: {fileID: 437170888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &515429103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,6 +1504,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9378b4b6f64c1c746a4bbdd8543d4193, type: 2}
   - {fileID: 11400000, guid: 28d8259c2d2cd214c9719b2355b87bd9, type: 2}
   - {fileID: 11400000, guid: 267a95852a750264f93e67b4b71963ef, type: 2}
+  - {fileID: 11400000, guid: 7a60a556138c06745b117f3be2bab797, type: 2}
   overlayCamera: {fileID: 977539936}
   ScreenResolution: {x: 0, y: 0}
 --- !u!1001 &2112042975

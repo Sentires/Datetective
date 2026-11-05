@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _PaddingEnabled: 1
+    - _PaddingEnabled: 0
     - _PaddingThickness: 0.112
     - _Scale: 0.645
     m_Colors:

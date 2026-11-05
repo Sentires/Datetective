@@ -794,7 +794,7 @@ MonoBehaviour:
     <borderColour>k__BackingField: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}
     <gridConfig>k__BackingField:
       texture: {fileID: 2800000, guid: b52c04803ec941c44ba3babbf22e8a9c, type: 3}
-      tilePrefab: {fileID: 8806015167194675699, guid: a2bfe10324067874cbc3496904d99b66, type: 3}
+      tilePrefab: {fileID: 8806015167194675699, guid: 65da045a91e7f3b41b0196cf7bc228df, type: 3}
       tileGridPrefab: {fileID: 8129177453623259837, guid: 6210587b879cdb44996708608ea958c0, type: 3}
       tiling: {x: 3, y: 3}
       gridLineThickness: 0.01
@@ -811,7 +811,7 @@ MonoBehaviour:
     <borderColour>k__BackingField: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}
     <gridConfig>k__BackingField:
       texture: {fileID: 2800000, guid: 503e7218759c1ad4b9577aa3233f2669, type: 3}
-      tilePrefab: {fileID: 8806015167194675699, guid: a2bfe10324067874cbc3496904d99b66, type: 3}
+      tilePrefab: {fileID: 8806015167194675699, guid: 65da045a91e7f3b41b0196cf7bc228df, type: 3}
       tileGridPrefab: {fileID: 8129177453623259837, guid: 6210587b879cdb44996708608ea958c0, type: 3}
       tiling: {x: 3, y: 3}
       gridLineThickness: 0.01
