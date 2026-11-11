@@ -20,10 +20,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             public int suspectIndex;
         }
 
-        public class SuspectData {
-            
-        }
-
         public class PinData {
             public Transform transform { get; }
             public Collider2D collider { get; }
@@ -58,8 +54,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             public bool isResetting { get; private set; }
             
-            //private IEnumerator resetRoutine;
-            //private WaitForSeconds resetWait;
             private const float ResetDuration = 0.5f;
             
             public EvidenceData(PuzzlePiece source, EvidencePreset preset) {
@@ -68,7 +62,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 
                 colEvents = source.GetComponent<ObservableCollision>();
                 rb = source.GetComponent<Rigidbody2D>();
-                //resetWait = new WaitForSeconds(1f);
             }
 
             public void Init(Transform parent) {
@@ -256,8 +249,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
         [SerializeField, ReadOnly] private bool initialised;
         [SerializeField, ReadOnly] private GameObject prefab;
         [SerializeField, ReadOnly] private MiniGameState state;
-        
-        //[SerializeField, ReadOnly] private Transform[] pinLocations;
         #endregion
         
         #region [ Hidden Fields ]
@@ -298,15 +289,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 }
                 case Phase.Arranging: {
                     if (input || !_draggedPiece) return;
-                    //Debug.Log($"Put Down {_draggedPiece.name}");
-            
-                    //SetSiblingPriority(_draggedPiece, null); // It'll be drawn like its other siblings
-                    //TryGridSnap();
-            
-                    //UpdateScoreDisplay();
-                    //if (_tileGrid.score >= _tileGrid.maxScore) {
-                    //    SendCommand(MiniGameCommand.Win);
-                    //}
 
                     var data = _evidenceDataDictionary[_draggedPiece];
             
@@ -338,8 +320,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                         _currentStringData.RemovePoint(+_currentStringData.count - 2);
                     }
                     else {
-                        //_currentSuspectIndex = -1;
-                        //_currentStringData.Reset();
                         SetSuspectTarget(-1);
                     }
                     
@@ -368,11 +348,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                         for (var i = 0; i < _suspects.Length; i++) {
                             if (piece != _suspects[i]) continue;
                             SetSuspectTarget(i);
-                            //_currentSuspectIndex = i;
-                            //_currentStringData.Init(_suspectPins[i].transform);
-                            
-                            //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0);
-                            //_currentStringData.AddPoint(_currentStringPointer, 1);
                             break;
                         }
                     }
@@ -404,9 +379,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     else {
                         // If there's a pinned piece, right-clicking will release it to your pile
                         if (pin == null) return;
-
-                        //if (data.currentPin != null) _arrangeCount--;
-                        //data.SetPin(null);
+                        
                         ModifyArrangeScore(data, null);
                         ResetPiece(data);
                     }
@@ -424,14 +397,9 @@ namespace TheDates.Runtime.Gameplay.Minigames
             switch (_currentPhase) {
                 case Phase.Connecting: {
                     if (_currentSuspectIndex == -1) return;
-                    //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(input, 0);
+
                     _currentStringPointer.position = ClampToBounds(miniGameManager.GetWorldSpacePosition(input, 0), boardMain.bounds);
                     _currentStringData.UpdatePoint(_currentStringData.count - 1);
-                    //_currentStringData.Trail.SetPosition(_currentStringData.Trail.positionCount - 1, worldPos);
-                    //_currentStringData.Trail.SetPosition(_currentStringData.Trail.positionCount - 2, worldPos);
-                    //_pointerStringPoint.position = input;
-                    //_currentStringData.UpdatePosition(_currentStringData.Count - 1);
-                    //_currentStringData
                     return;
                 }
                 case Phase.Arranging: {
@@ -452,9 +420,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
             if (_currentPhase != Phase.Arranging) return;
             if (!_draggedPiece || origin.transform != _draggedPiece.transform) return;
             var targetPiece = target.GetComponent<PuzzlePiece>();
-            //var originPiece = origin.GetComponent<PuzzlePiece>();
             
-            if (!targetPiece || !_evidenceDataDictionary.TryGetValue(targetPiece, out var targetData) || targetData.currentPin == null) return; //|| !originPiece || !_evidenceDataDictionary.TryGetValue(originPiece, out var originData)) return;
+            if (!targetPiece || !_evidenceDataDictionary.TryGetValue(targetPiece, out var targetData) || targetData.currentPin == null) return;
             ApplyCollision(targetData, _evidenceDataDictionary[_draggedPiece]);
         }
 
@@ -486,8 +453,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             void ResetTarget() {
                 target.piece.materialDisplay.currentSortingOrder = 11;
                 target.piece.piecePosition = target.piece.piecePosition.With(z: 0);
-                //if (target.currentPin != null) _arrangeCount--;
-                //target.SetPin(null);
                 ModifyArrangeScore(target, null);
                 
                 ResetPiece(target);
@@ -504,8 +469,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                             _currentStringData.RemovePoint(_currentStringData.count - 1);
                             
                             StartCoroutine(DelayedWin());
-                            //SendCommand(MiniGameCommand.Win);
-                            //_currentPhase = Phase.Inactive;
                             return;
                         }
                         
@@ -513,7 +476,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                         foreach (var pair in _evidenceDataDictionary) {
                             if (pair.Value.preset.suspectIndex != suspectIndex) continue;
                             pair.Value.SetActive(false);
-                            //pair.Value.piece.gameObject.SetActive(false);
                         }
                     }
                     SetSuspectTarget(-1);
@@ -521,9 +483,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 }
                 case Phase.Arranging: {
                     _currentPhase = Phase.Connecting;
-                    //confirmButton.interactable = false;
                     SetSuspectTarget(-1);
-                    //_currentSuspectIndex = -1;
                     return;
                 }
                 case Phase.Inactive:
@@ -592,10 +552,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             _currentStringPointer.localPosition = Vector3.zero;
             
             SetSuspectTarget(-1);
-            
-            //confirmButton.interactable = false;
-            //_currentStringData.Reset();
-            //_currentSuspectIndex = -1;
         }
        
         public override void Init(GameObject sourcePrefab) {
@@ -607,8 +563,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
         }
 
         private void Init() {
-            //ToggleWin(false);
-            
             _suspectCount = suspects.Length;
             _currentPhase = Phase.Inactive;
                 
@@ -631,8 +585,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             confirmButton.onClick.AddListener(OnButtonSubmit);
             confirmButton.interactable = false;
             if (lineRenderer.AssertNull(this, "String LineRenderer")) _currentStringData = new StringData(lineRenderer);
-
-            //Debug.Log($"Init for {name}");
         }
 
         public override void AcceptCommand(MiniGameCommand command) {
@@ -706,7 +658,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 _currentStringData.Init(_suspectPins[index].transform);
 
                 _currentStringPointer.position = ClampToBounds(miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0), boardMain.bounds);
-                //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0);
                 _currentStringData.AddPoint(_currentStringPointer, 1);
                 
                 confirmButton.interactable = true;
@@ -725,7 +676,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
 
         private bool EvaluateScore() {
             if (_currentSuspectIndex == -1) return false;
-            //var chosenSuspect = _suspects[_currentSuspectIndex];
             
             foreach (var pair in _evidenceDataDictionary) {
                 var isRequired = pair.Value.preset.suspectIndex == _currentSuspectIndex;
@@ -745,12 +695,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
             if (evidenceData.currentPin != null && pinData == null) _arrangeCount--;
             else if (evidenceData.currentPin == null && pinData != null) _arrangeCount++;
             
-            //Debug.Log($"Arrange Count: {_arrangeCount}");
-            
             evidenceData.SetPin(pinData);
             confirmButton.interactable = _arrangeCount >= _evidenceDataDictionary.Count;
-            
-            //if (_arrangeCount >= evidencePresets.Length) confirmButton.interactable = true;
         }
 
         private void ResetPiece(EvidenceData target) {
@@ -786,12 +732,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             if (pin == null) return false;
             ModifyArrangeScore(_evidenceDataDictionary[piece], pin);
-            //_evidenceDataDictionary[piece].SetPin(pin);
-            //if (_evidenceDataDictionary[piece].currentPin == pin) _arrangeCount++;
-            
-            //SetPinnedOffset(piece, suspectPinOffset, pin.position);
-            //pin.SetAttached(piece);
-            //Debug.Log($"Closest {pin.transform.name}, child of {pin.transform.parent.name}");
             return true;
         }
 
@@ -859,7 +799,6 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             for (var i = 0; i < count; i++) {
                 pins[i] = new PinData(parent.GetChild(i));
-                //var hash = pins[i].transform.gameObject.GetHashCode();
                 _pinDataDictionary.Add(pins[i].transform, pins[i]);
             }
             
@@ -878,8 +817,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             var x = Random.Range(-rangeWidth, rangeWidth);
             var y = Random.Range(-rangeHeight, rangeHeight);
-
-            //piece.piecePosition = area.center + new Vector3(x, y, 0);
+            
             return area.center + new Vector3(x, y, 0);
         }
         
