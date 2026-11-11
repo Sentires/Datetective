@@ -80,6 +80,17 @@ If you're lucky, that old file with the password on it might still be in here...
     -> END
 // SLIDING PUZZLE ACTIVATE
 
+=== Door_No_Goal ===
+    ~ Speaker(-1)
+You should look around the office before you head off. There might be a new case for you to crack.
+    -> END
+
+=== Door_Complete ===
+    ~ Speaker(-1)
+With a starting point laid out for you, you hold your head up high and make your way out of your office to go and serve justice.
+-> END
+
+
 
 //LAFAYETTE ST ---------------------------------------------------------------------------------------------------------------------
 
@@ -93,6 +104,7 @@ You arrive on Lafayette Street. It's much quieter than it has been when you have
     ~ Speaker(-1)
 A small bakery fills the streets with the entrancing smell of warm baked goods. 'Baked Hearts Patisserie' is scrawled across the front of the store. 
 The building seems to be connected to the aquarium next door. An odd collaboration you would think at first, but it would make sense that visitors of the latter would like a place to rest and grab a bite after lots of walking.
+Notably, the opening hours listed on a little sign outside are oddly long for a local bakery. 8AM-11PM.
     -> END
 
 === Aquarium_Front ===
@@ -139,7 +151,12 @@ You fold up the costume again and take it with you. Returning it to it's presume
     ~ Speaker(-1)
     You catch yourself nearly slipping on a puddle of water on the tiled floor. And then another puddle, and another puddle. 
     It's a trail of watery footsteps leading from the stage in the direction of the other room, fading out as they get closer to the door.
-        -> END
+     -> END
+  
+=== Stage ===
+    ~ Speaker (-1)
+A small stage draws your attention. It's decorated with balloons, akin to something you would find at a birthday party.
+    -> END
 
 // Storage room
 
@@ -197,8 +214,6 @@ the text fades out, you'd need to unlock the phone to see the rest of it. Luckil
 2:59am - Use the back door so she doesn't see you, I left it unloc...'
 
 This is definitely worth taking note of. These messages took place on the night the victim was murdered.
-
-
     -> END
     
 // QUEST ALT. Lost and found box, Briar not in bakery, NOT investigated prior
@@ -222,6 +237,17 @@ This is definitely worth taking note of. These messages took place on the night 
 
 //ALLEYWAY---------------------------------------------------------------------------------------------------------------------------
 
+=== Bakery_Backdoor ===
+    ~ Speaker (-1)
+It's the back door to the bakery for staff to use. For curiousity's sake, you try unlocking it with the key you had been given for the aquarium's back door.
+The key inserts halfway through, but doesn't reach the end of the lock. Not the right key, but the same brand...
+    -> END
+    
+=== Aquarium_Backdoor ===
+    ~ Speaker (-1)
+The key you were given seamlessly slides into the lock on the back door of the aquarium. You push it open and enter the scene of the crime.
+    -> END
+    
 === Rubbish ===
 //Dialogue triggered after completing the rubbish bin puzzle
     ~ Speaker (-1)
@@ -237,9 +263,8 @@ Most notably, a tissue covered in blood stains. It is cut up where the blood is 
 There is also a faint flower pattern indented into the tissue, seems like a higher quality brand.
 
 Another notable item you find is a perfectly intact movie ticket. It's for a midnight showing of a romcom that took place on the same night the victim was murdered.
-
-        -> END
-        
+      -> END
+   
 === Fence_Locked ===
 //QUEST - fence remains locked until interacting with Dakota to obtain another key.
     ~ Speaker (-1)

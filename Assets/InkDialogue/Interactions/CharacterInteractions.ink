@@ -586,6 +586,9 @@ She waves you goodbye with a bright smile before leaving out the back of the sto
 - activated lights in the aquarium*/
 
 === Briar_Date ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_BAKER, SPEAKER_SECONDARY)
+    ~ Speaker (-1)
     Briar seems to be searching for something on the ground outside the cafe as you approach her.
     ~ Speaker(0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
@@ -598,8 +601,229 @@ She waves you goodbye with a bright smile before leaving out the back of the sto
     ~ Speaker(0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
     You looking for something? I can help out if you'd like.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    That's sweet of you. It's just a little hairclip I'm fond of, a pink heart with angel wings.
+    ~ Speaker (-2)
+    The two of you rummage around the area for a bit looking for the hairclip. At some point you both reach for the same scrap of pink paper on the ground and your hands briefly touch. Kya!
+    But there's no luck. 
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    Well, that's a shame.
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    At the very least, it's made me appreciate the area a little more. This really is a cute cafe.
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    I wouldn't mind going for a bite there with someone if you catch my drift.
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
+    ..!
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Ehehe, well with someone as lovely as you I wouldn't mind a quick bite.
+    ~ Speaker (-2)
+    The two of you enter the cafe together, like a normal pair of youths on a first date rather than a detective and a suspect.
+    //QUEST - fade black, fade in cafe 'smooth' background
+    You take a seat and order a drink and a slice of cake. You sit across from Briar and make awkward small talk until your food arrives.
+    Now, the time has come... You've successfully lured the suspect into a calm environment, it's time to get some answers out of her. Just remember to be subtle, this is just a date to her, after all.
+    ~ Speaker(0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Sooo....
     
-    // MORE TBA
+    * [Lovely weather we're having?] 
+    -> Date_Weather
+    * [How do you like working in this area?] 
+    -> Date_Area
+    * [What got you into baking?] 
+    -> Date_Baking
     
+    
+=== Date_Weather ===
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    Lovely weather we're having?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Ehehe~
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Wha= What's so funny?
+     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    It's just a bit of a bland conversation starter, you were speaking a lot more confidently before.
+    Are you nervous now?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_FLUSTER)
+    N-No! Not at all!
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    It really is quite nice in this area. I haven't been to a seaside cafe before, the sea breeze coming in it soothing. 
+    Is it a similar vibe at your bakery? y'know, when there isn't a crime scene right next door...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Oh yes, I love the atmosphere at Baked Hearts! I don't get the smell of the ocean as much though, it's overpowered by the aroma of freshly baked goods.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    It really is a dream job for me, I've been into baking ever since I was a little girl. I just love making things for others, the smiles on their faces when they take a bite makes my heart grow ten sizes!
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Like for friends and family? Or customers in general?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    I'd say both, but people you know closely are more rewarding to give gifts too. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    I used to bring a bunch to my old boyfriend... but things didn't work out sadly.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Oh! I'm sorry to hear that.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    It's nothing for you to apologise for dear.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Besides he... wasn't the most loyal of people. My efforts are better spent elsewhere.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Like on you, maybe! Heheh.
+    -> Date_Progress
+    
+    
+=== Date_Area ===
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    How do you like working in this area?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Oh it's lovely! Working by the ocean is always nice. It's not as strong at Baked Hearts as it is here, but the faint waft of the seas breeze is so refreshing.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Location aside, it really is a dream job for me! I've been into baking ever since I was a little girl. I just love making things for others, the smiles on their faces when they take a bite makes my heart grow ten sizes!
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Like for friends and family? Or customers in general?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    I'd say both, but people you know closely are more rewarding to give gifts too. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    I used to bring a bunch to my old boyfriend... but things didn't work out sadly.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Oh! I'm sorry to hear that.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    It's nothing for you to apologise for dear.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Besides he... wasn't the most loyal of people. My efforts are better spent elsewhere.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Like on you, maybe! Heheh.
+    -> Date_Progress
+    
+=== Date_Baking ===
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    What got you into baking? 
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    I've been into baking ever since I was a little girl. I just love making things for others, the smiles on their faces when they take a bite makes my heart grow ten sizes!
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Like for friends and family? Or customers in general?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    I'd say both, but people you know closely are more rewarding to give gifts too. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    I used to bring a bunch to my old boyfriend... but things didn't work out sadly.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Oh! I'm sorry to hear that.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    It's nothing for you to apologise for dear.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    Besides he... wasn't the most loyal of people. My efforts are better spent elsewhere.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Like on you, maybe! Heheh.
+    -> Date_Progress
+    
+    
+
+==== Date_Progress ====
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    (I need to figure out where she was on the night of the murder...)
+
+    * [What times do you usually work?] 
+    -> Date_Work
+    * [How does the collaboration with the aquarium work?] 
+    -> Date_Aquarium
+    * [You look sad, do you wanna talk about your ex?] 
+    -> Date_Antonio
+    
+    
+=== Date_Work ===
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    What times do you usually work? I noticed on the sign outside that the bakery's open pretty late.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Usually midday to close. I prefer closing shifts though, they're quieter. And then I can quickly run deliveries if needed. Like to this cafe!
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    I'll let you in on a little secret. We stock some of the pastry bases here. And occassionally cupcakes that we discontinued at Baked Hearts because they were harder to store alongside the pastries we keep warm all day in the cabinet.
+    
+    -> Date_Conclude
+    
+    
+=== Date_Aquarium ===
+    TBA
+    -> Date_Conclude
+    
+
+=== Date_Antonio ===
+    TBA
+    -> Date_Conclude
+    
+
+
+=== Date_Conclude ===
+    jkvfsbvfsnfnvnvfmn
+    -> END
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    -> END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         -> END
 
