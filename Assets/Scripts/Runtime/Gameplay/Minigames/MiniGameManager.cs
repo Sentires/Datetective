@@ -280,6 +280,11 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             return Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, _layerMask);
         }
         
+        public RaycastHit2D[] RaycastAll(Vector3 position, bool isWorldSpace = true) {
+            var pos = isWorldSpace ? position : overlayCamera.ScreenToWorldPoint(position);
+            return Physics2D.RaycastAll(pos, Vector2.zero, Mathf.Infinity, _layerMask);
+        }
+        
         private IEnumerator ClickPosition(Vector3 position, ClickType clickType) {
             yield return null; // Skip this frame
             if (!isGamePointerValid) yield break;

@@ -172,7 +172,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 // Since we only want to allow arbitrary movement if it doesnt exceed 1 'index' past its 2D neighbours, we just need to check for that.
                 // Zero counts as invalid for the same outcome in this case, at least for now.
                 var difference = _currentIndex - newIndex;
-                var absoluteDifference = new Vector2Int(Mathf.Abs(difference.x), Mathf.Abs(difference.y));
+                var absoluteDifference = new Vector2Int(Mathf.Abs(difference.x), Mathf.Abs(difference.y)); //
                 
                 // XOR is niche, but here we don't want players moving parallel. If only 1 is true, it passes the logic check.
                 if (absoluteDifference is { x: <= 1, y: <= 1 } 
