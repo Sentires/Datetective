@@ -245,7 +245,8 @@ namespace TheDates
         
         public float phaseDelay = 2f;
 
-        private int _currentBoardIndex;private WaitForSeconds _phaseTime;
+        private int _currentBoardIndex;
+        private WaitForSeconds _phaseTime;
 
         private void SetupGame() {
             HasWon = false;

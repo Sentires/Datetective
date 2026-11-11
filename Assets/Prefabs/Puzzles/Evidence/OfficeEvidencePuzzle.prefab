@@ -207,7 +207,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 10
     numCapVertices: 0
     alignment: 0
     textureMode: 0
@@ -2285,58 +2285,73 @@ MonoBehaviour:
     prefab: {fileID: 1947884431625375870, guid: 617dbc275c75afd4b8622f5f52c83c39, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 0
   - name: Clothes
     prefab: {fileID: 1947884431625375870, guid: aabd05b2ed4aaad42b5715177355b0e6, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 1
   - name: Flour
     prefab: {fileID: 1947884431625375870, guid: 1062692d9c7ee9a4aac4e3831cdbc306, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 0
   - name: Footprints
     prefab: {fileID: 1947884431625375870, guid: 0f9dc11d3348903438b342024ee8a3cc, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 1
   - name: Key
     prefab: {fileID: 1947884431625375870, guid: c3281b506e6f7b64abb817e4aae71c50, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 2
   - name: Knife
     prefab: {fileID: 1947884431625375870, guid: 8c7526bb74ba3df41ad9efb6d3fb7e96, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 0
   - name: Movie_Ticket
     prefab: {fileID: 1947884431625375870, guid: 600d8ee1b7f730e4e84d7e727b8f505b, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 0
   - name: Order_Form
     prefab: {fileID: 1947884431625375870, guid: 971c5a871ed08f84682ab4902055c3be, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 0
   - name: Phone
     prefab: {fileID: 1947884431625375870, guid: 0513bd6fdd5bd81459c7abe3b90155f6, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 0
   - name: Tissue
     prefab: {fileID: 1947884431625375870, guid: 832bfc2a0854d1041ba3d915e47bca8a, type: 3}
     pinOffset: 0.95
     weight: 2
+    suspectIndex: 0
   - name: Note_A
-    prefab: {fileID: 0}
+    prefab: {fileID: 1947884431625375870, guid: c8c2f0b0216980446909bf0a68a1a25e, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 0
   - name: Note_B
-    prefab: {fileID: 0}
+    prefab: {fileID: 1947884431625375870, guid: f15134c713699464eb6b9db2d1358b5e, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 2
   - name: Note_C
-    prefab: {fileID: 0}
+    prefab: {fileID: 1947884431625375870, guid: b7b2a39238c3dbd4d9d0c4b42faa59a6, type: 3}
     pinOffset: 0.95
     weight: 1
+    suspectIndex: 0
   suspects:
   - {fileID: 5285808485251052801, guid: a14301c7170ce0b4fb9213290f0e0352, type: 3}
   - {fileID: 5285808485251052801, guid: f784fa1f75af1da4898e841bafac3c2d, type: 3}
   - {fileID: 5285808485251052801, guid: 6d2452c94370ee64e9a76b2b09b192fe, type: 3}
+  correctSuspectIndex: 0
+  phaseDelay: 1
   miniGameManager: {fileID: 0}
   initialised: 0
   prefab: {fileID: 0}

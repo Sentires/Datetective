@@ -17,6 +17,11 @@ namespace TheDates.Runtime.Gameplay.Minigames
             public PuzzlePiece prefab = null;
             [Range(0, 1)] public float pinOffset = 0.95f;
             public int weight;
+            public int suspectIndex;
+        }
+
+        public class SuspectData {
+            
         }
 
         public class PinData {
@@ -125,88 +130,94 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 piece.clickableArea.enabled = true;
 
             }
+
+            public void SetActive(bool toggle) {
+                piece.gameObject.SetActive(toggle);
+                
+                if (toggle) return;
+                currentPin.SetAttached(null);
+                piece.transform.localPosition = Vector3.zero;
+            }
         }
 
         public class StringData
         {
             public LineRenderer Trail;
-            //public List<PinData> Points;
-            public LinkedList<Transform> Points;
+            public List<Transform> Points;
 
             public bool IsInitialised;
-            //public PinData startPin;
+            public int count => Points.Count;
+
+            private HashSet<Transform> _uniquePoints;
 
             public StringData(LineRenderer renderer) {
                 Trail = renderer;
                 
-                //Points = new List<PinData>();
-                Points = new LinkedList<Transform>();
+                Points = new List<Transform>();
+                _uniquePoints = new HashSet<Transform>();
+                
                 Trail.useWorldSpace = true;
                 Trail.positionCount = 0;
+                
                 IsInitialised = false;
             }
 
             public void Init(Transform startPoint) {
-                //startPin = startPoint;
                 Points.Clear();
                 Trail.transform.localPosition = Vector3.zero;
                 
-                Points.AddFirst(startPoint);
+                Points.Add(startPoint);
+                _uniquePoints.Add(startPoint);
                 Trail.positionCount = 1; //2;
-                var startPosition = startPoint.position;
-                Trail.SetPosition(0, startPosition);
-                //Trail.SetPosition(1, startPosition);
+                Trail.SetPosition(0, startPoint.position);
                 
                 IsInitialised = true;
             }
             
             public void Reset() {
                 Points.Clear();
+                _uniquePoints.Clear();
                 Trail.positionCount = 0;
                 
                 IsInitialised = false;
             }
 
-            public void AddPoint(Transform target) {
-                //var hasEntry = false;
-                for (var n = Points.First; n != null; n = n.Next) {
-                    if (n.Value == target) return;
-                }
-                
-                var node = Points.AddLast(target);
-                
-                Trail.positionCount++;
-                Trail.SetPosition(Trail.positionCount - 1, node.Value.position);
+            public enum LinkedOffset {
+                Before, After
             }
 
-            public void UpdatePoint(int point) {
-                
+            public void UpdatePoint(int index) {
+                if (!Points.IsWithinBounds(index)) return;
+                Trail.SetPosition(index, Points[index].position);
             }
 
-            public void RemovePoint(Transform target) {
-                var hasEntry = false;
-                var i = 0;
-                for (var n = Points.First; n != null; n = n.Next) {
-                    if (n.Value == target) {
-                        Points.Remove(n);
-                        hasEntry = true;
-                        i++;
-                        continue;
-                    }
-                    
-                    
-                    i++;
+            private void UpdateTrailPoints() {
+                for (var i = 0; i < count; i++) {
+                    Trail.SetPosition(i, Points[i].position);
                 }
-                //Points.RemoveAt(point);
-                //for (var i = 0; i < Points.Count -1; i++) {
-                //    
-                //}
-                //Trail.po
-                //for (var node = Points.First; node != null; node = node.Next) {
-                //}
             }
             
-            //private Vector3[] 
+            public void RemovePoint(int index) {
+                if (!Points.IsWithinBounds(index)) return;
+                
+                _uniquePoints.Remove(Points[index]);
+                Points.RemoveAt(index);
+                Trail.positionCount = count;
+                
+                UpdateTrailPoints();
+            }
+            
+            public void AddPoint(Transform pointSource, int index) {
+                if (!pointSource) return;
+                
+                if(!_uniquePoints.Add(pointSource)) return;
+                Points.Insert(index, pointSource);
+                Trail.positionCount = count;
+
+                UpdateTrailPoints();
+            }
+
+            public bool ContainsPoint(Transform pointSource) => _uniquePoints.Contains(pointSource);
         }
         
         // Inactive = not playing or completed cycle
@@ -237,6 +248,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
         [Header("Mechanic Config")]
         [SerializeField] private EvidencePreset[] evidencePresets;
         [SerializeField] private PuzzlePiece[] suspects = new PuzzlePiece[3];
+        [SerializeField] private int correctSuspectIndex;
+        [SerializeField] private float phaseDelay = 1f;
         
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
@@ -267,6 +280,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private int _arrangeCount;
         private StringData _currentStringData;
         private int _currentSuspectIndex;
+        private Transform _currentStringPointer;
+        private WaitForSeconds _phaseTime;
         
         // Negative is towards the camera
         private const float ZClickOffset = -0.5f;
@@ -275,6 +290,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         
         #region { Event Handlers }
         private void OnLeftClickState(bool input) {
+            if (!MiniGameManager.HasInstance) return;
             switch (_currentPhase) {
                 case Phase.Connecting: {
                     // TODO
@@ -313,35 +329,57 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     return;
             }
         }
-        //private void OnRightClickState(bool input) {
-        //}
+        private void OnRightClickState(bool input) {
+            if (!MiniGameManager.HasInstance) return;
+            switch (_currentPhase) {
+                case Phase.Connecting: {
+                    if (!input || _currentSuspectIndex == -1) return;
+                    if (_currentStringData.count >= 3) {
+                        _currentStringData.RemovePoint(+_currentStringData.count - 2);
+                    }
+                    else {
+                        //_currentSuspectIndex = -1;
+                        //_currentStringData.Reset();
+                        SetSuspectTarget(-1);
+                    }
+                    
+                    return;
+                }
+                case Phase.Arranging:
+                case Phase.Inactive:
+                default:
+                    return;
+            }
+        }
 
         
 
         private void OnClickTarget(RaycastHit2D hit, MiniGameManager.ClickType clickType) {
+            if (!MiniGameManager.HasInstance) return;
             switch (_currentPhase) {
                 case Phase.Connecting: {
+                    if (clickType != MiniGameManager.ClickType.Left) return;
+                    
                     var piece = hit.transform?.GetComponent<PuzzlePiece>();
                     if (!piece) return;
+                    
                     if (!_evidenceDataDictionary.TryGetValue(piece, out var data)) {
-                        Debug.Log("ello 1: " + _currentSuspectIndex);
                         if (_currentSuspectIndex != -1) return;
-                        Debug.Log("ello 2: " + _currentSuspectIndex);
                         for (var i = 0; i < _suspects.Length; i++) {
                             if (piece != _suspects[i]) continue;
-                            Debug.Log("ello 3: " + _currentSuspectIndex);
-                            _currentSuspectIndex = i;
-                            Debug.Log(_suspectPins[i].transform);
-                            _currentStringData.Init(_suspectPins[i].transform);
-                            //Debug.Log($"Suspect string attache to {_suspects[_currentSuspectIndex].name}]");
+                            SetSuspectTarget(i);
+                            //_currentSuspectIndex = i;
+                            //_currentStringData.Init(_suspectPins[i].transform);
+                            
+                            //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0);
+                            //_currentStringData.AddPoint(_currentStringPointer, 1);
+                            break;
                         }
                     }
                     else {
                         if (_currentSuspectIndex == -1) return;
-                        _currentStringData.AddPoint(data?.currentPin?.transform);
+                        _currentStringData.AddPoint(data.currentPin.transform, _currentStringData.count - 1);
                     }
-                    
-                    // TODO
                     return;
                 }
                 case Phase.Arranging: {
@@ -379,18 +417,27 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     return;
             }
         }
+       
         
         private void OnPointerPosition(Vector2 input) {
+            if (!MiniGameManager.HasInstance) return;
             switch (_currentPhase) {
                 case Phase.Connecting: {
                     if (_currentSuspectIndex == -1) return;
+                    //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(input, 0);
+                    _currentStringPointer.position = ClampToBounds(miniGameManager.GetWorldSpacePosition(input, 0), boardMain.bounds);
+                    _currentStringData.UpdatePoint(_currentStringData.count - 1);
+                    //_currentStringData.Trail.SetPosition(_currentStringData.Trail.positionCount - 1, worldPos);
+                    //_currentStringData.Trail.SetPosition(_currentStringData.Trail.positionCount - 2, worldPos);
+                    //_pointerStringPoint.position = input;
+                    //_currentStringData.UpdatePosition(_currentStringData.Count - 1);
                     //_currentStringData
                     return;
                 }
                 case Phase.Arranging: {
                     if (!_draggedPiece) return;
             
-                    var worldPos = MiniGameManager.Instance.GetWorldSpacePosition(input, ZClickOffset) + _clickOffset;
+                    var worldPos = miniGameManager.GetWorldSpacePosition(input, ZClickOffset) + _clickOffset;
                     _draggedPiece.piecePosition = worldPos;
                     
                     return;
@@ -449,14 +496,34 @@ namespace TheDates.Runtime.Gameplay.Minigames
 
         private void OnButtonSubmit() {
             switch (_currentPhase) {
-                case Phase.Connecting: {
-                    // TODO
+                case Phase.Connecting:
+                {
+                    var suspectIndex = _currentSuspectIndex;
+                    if (EvaluateScore()) {
+                        if (suspectIndex == correctSuspectIndex) {
+                            _currentStringData.RemovePoint(_currentStringData.count - 1);
+                            
+                            StartCoroutine(DelayedWin());
+                            //SendCommand(MiniGameCommand.Win);
+                            //_currentPhase = Phase.Inactive;
+                            return;
+                        }
+                        
+                        _suspects[suspectIndex].gameObject.SetActive(false);
+                        foreach (var pair in _evidenceDataDictionary) {
+                            if (pair.Value.preset.suspectIndex != suspectIndex) continue;
+                            pair.Value.SetActive(false);
+                            //pair.Value.piece.gameObject.SetActive(false);
+                        }
+                    }
+                    SetSuspectTarget(-1);
                     return;
                 }
                 case Phase.Arranging: {
                     _currentPhase = Phase.Connecting;
-                    confirmButton.interactable = false;
-                    _currentSuspectIndex = -1;
+                    //confirmButton.interactable = false;
+                    SetSuspectTarget(-1);
+                    //_currentSuspectIndex = -1;
                     return;
                 }
                 case Phase.Inactive:
@@ -475,22 +542,26 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void OnEnabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnLeftClickState += OnLeftClickState;
-            MiniGameManager.Instance.OnClickPosition += OnPointerPosition;
-            MiniGameManager.Instance.OnClickTarget += OnClickTarget;
+            miniGameManager.OnLeftClickState += OnLeftClickState;
+            miniGameManager.OnRightClickState += OnRightClickState;
+            miniGameManager.OnClickPosition += OnPointerPosition;
+            miniGameManager.OnClickTarget += OnClickTarget;
         }
         
         private void OnDisabled() {
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnLeftClickState -= OnLeftClickState;
-            MiniGameManager.Instance.OnClickPosition -= OnPointerPosition;
-            MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
+            miniGameManager.OnLeftClickState -= OnLeftClickState;
+            miniGameManager.OnRightClickState -= OnRightClickState;
+            miniGameManager.OnClickPosition -= OnPointerPosition;
+            miniGameManager.OnClickTarget -= OnClickTarget;
         }
         #endregion
         
         #region { MiniGame Lifecycle }
         private void PrepareGame() {
+            ToggleWin(false);
+            
             _currentPhase = Phase.Arranging;
             confirmButton.interactable = false;
             _arrangeCount = 0;
@@ -518,10 +589,13 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             _clickOffset = Vector3.zero;
             _draggedPiece = null;
+            _currentStringPointer.localPosition = Vector3.zero;
             
-            confirmButton.interactable = false;
-            _currentStringData.Reset();
-            _currentSuspectIndex = -1;
+            SetSuspectTarget(-1);
+            
+            //confirmButton.interactable = false;
+            //_currentStringData.Reset();
+            //_currentSuspectIndex = -1;
         }
        
         public override void Init(GameObject sourcePrefab) {
@@ -533,25 +607,29 @@ namespace TheDates.Runtime.Gameplay.Minigames
         }
 
         private void Init() {
+            //ToggleWin(false);
+            
             _suspectCount = suspects.Length;
             _currentPhase = Phase.Inactive;
                 
             _evidenceDataDictionary = new Dictionary<PuzzlePiece, EvidenceData>();
             _pinDataDictionary = new Dictionary<Transform, PinData>();
             _suspects = new PuzzlePiece[_suspectCount];
-
-            _suspectPins = GetPinData(suspectPinParent);
-            _evidencePins = GetPinData(evidencePinParent);
-
             _hits = new List<Collider2D>();
             _contactFilter = new ContactFilter2D() {
                 useLayerMask = true,
                 layerMask = LayerMask.GetMask("OverlayWorld"),
             };
+            _currentStringPointer = new GameObject("String Pointer").transform;
+            _currentStringPointer.parent = lineRenderer.transform;
+            _phaseTime = new WaitForSeconds(phaseDelay);
+            
+
+            _suspectPins = GetPinData(suspectPinParent);
+            _evidencePins = GetPinData(evidencePinParent);
             
             confirmButton.onClick.AddListener(OnButtonSubmit);
             confirmButton.interactable = false;
-
             if (lineRenderer.AssertNull(this, "String LineRenderer")) _currentStringData = new StringData(lineRenderer);
 
             //Debug.Log($"Init for {name}");
@@ -572,7 +650,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         private void SetState(MiniGameState newState, bool notifyManager = true) {
             if (state == newState) return;
             state = newState;
-            if (notifyManager) MiniGameManager.Instance.NotifyMiniGameState(source, state);
+            if (notifyManager) miniGameManager.NotifyMiniGameState(source, state);
         }
         
         private MiniGameState WinGame() {
@@ -609,7 +687,59 @@ namespace TheDates.Runtime.Gameplay.Minigames
 
             return MiniGameState.Inactive;
         }
+
+        private void ToggleWin(bool toggle) {
+            HasWon = toggle;
+            winScreen.SetActive(toggle);
+        }
         #endregion
+        
+        private void SetSuspectTarget(int index) {
+            if (index == -1) {
+                _currentSuspectIndex = -1;
+                _currentStringData.Reset();
+                
+                confirmButton.interactable = false;
+            }
+            else {
+                _currentSuspectIndex = index;
+                _currentStringData.Init(_suspectPins[index].transform);
+
+                _currentStringPointer.position = ClampToBounds(miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0), boardMain.bounds);
+                //_currentStringPointer.position = miniGameManager.GetWorldSpacePosition(miniGameManager.mousePosition, 0);
+                _currentStringData.AddPoint(_currentStringPointer, 1);
+                
+                confirmButton.interactable = true;
+            }
+        }
+
+        private Vector3 ClampToBounds(Vector3 input, Bounds bounds) {
+            var min = bounds.min;
+            var max = bounds.max;
+            
+            input.x = Mathf.Clamp(input.x, min.x, max.x);
+            input.y = Mathf.Clamp(input.y, min.y, max.y);
+            input.z = Mathf.Clamp(input.z, min.z, max.z);
+            return input;
+        }
+
+        private bool EvaluateScore() {
+            if (_currentSuspectIndex == -1) return false;
+            //var chosenSuspect = _suspects[_currentSuspectIndex];
+            
+            foreach (var pair in _evidenceDataDictionary) {
+                var isRequired = pair.Value.preset.suspectIndex == _currentSuspectIndex;
+                var isUsed = pair.Value.currentPin != null && _currentStringData.ContainsPoint(pair.Value.currentPin.transform);
+                
+                // Only continue if both true or both false
+                if ((isRequired && isUsed) || (!isRequired && !isUsed)) continue;
+                Debug.Log($"Evidence for suspect '{_currentSuspectIndex}' contains incorrect choices");
+                return false;
+            }
+            
+            Debug.Log($"Evidence for suspect '{_currentSuspectIndex}' is all correct");
+            return true;
+        }
 
         private void ModifyArrangeScore(EvidenceData evidenceData, PinData pinData) {
             if (evidenceData.currentPin != null && pinData == null) _arrangeCount--;
@@ -618,12 +748,13 @@ namespace TheDates.Runtime.Gameplay.Minigames
             //Debug.Log($"Arrange Count: {_arrangeCount}");
             
             evidenceData.SetPin(pinData);
-            confirmButton.interactable = true; // TODO - _arrangeCount >= _evidenceDataDictionary.Count;
+            confirmButton.interactable = _arrangeCount >= _evidenceDataDictionary.Count;
             
             //if (_arrangeCount >= evidencePresets.Length) confirmButton.interactable = true;
         }
 
         private void ResetPiece(EvidenceData target) {
+            if (!target.piece.gameObject.activeSelf) return;
             var pos = GetScatteredPosition(target.piece, GetEvidenceBounds(target.preset.weight));
             StartCoroutine(target.Reset(pos));
         }
@@ -766,6 +897,14 @@ namespace TheDates.Runtime.Gameplay.Minigames
             ResetTransform(t);
             
             return t;
+        }
+        
+        private IEnumerator DelayedWin() {
+            confirmButton.interactable = false;
+            
+            yield return _phaseTime;
+            SendCommand(MiniGameCommand.Win);
+            _currentPhase = Phase.Inactive;
         }
         // Move to helper class
         private static void ResetTransform(Transform t) {
