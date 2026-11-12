@@ -22,15 +22,21 @@ MonoBehaviour:
     - Sad
     - Angry
     - Flustered
+    - Civ_Neutral
+    - Civ_Shocked
     columnLabels:
     - Default
     columns:
     - rows:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-  CustomEmotionLabels: []
+      - {fileID: 21300000, guid: 9ed3a902b9eecc9479f53fa47e5c83d6, type: 3}
+      - {fileID: 21300000, guid: dc885682f5f04f44888b7591e873ca96, type: 3}
+      - {fileID: 21300000, guid: a6a9a58a8c5b8b84c808a2699d8f849b, type: 3}
+      - {fileID: 21300000, guid: fa190fa2937b64d499928ea99148dd04, type: 3}
+      - {fileID: 21300000, guid: 3660f9ec934ca3948ba3a44bab9ac7cf, type: 3}
+      - {fileID: 21300000, guid: 22e2db7a65b318a4d9941edaebf8e326, type: 3}
+      - {fileID: 21300000, guid: 1798ff568bf308a45a7e658d921c6141, type: 3}
+      - {fileID: 21300000, guid: 477bdc64d68325942a8b7921afc72e24, type: 3}
+  CustomEmotionLabels:
+  - Civ_Neutral
+  - Civ_Shocked
   CustomAppearanceLabels: []
