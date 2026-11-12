@@ -1,41 +1,90 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
     "activeFile": "Map Latest.tmx",
     "expandedProjectPaths": [
+        "Tilesets",
         "."
     ],
     "fileStates": {
         "Map Latest.tmx": {
-            "scale": 0.125,
-            "selectedLayer": 6,
+            "expandedGroupLayers": [
+                56,
+                41
+            ],
+            "scale": 1.5,
+            "selectedLayer": 45,
             "viewCenter": {
-                "x": 2180,
-                "y": 72
+                "x": 5535.666666666666,
+                "y": 133.99999999999997
             }
         },
         "Sources/Blocking.tsx": {
             "scaleInDock": 1
         },
+        "Tilesets/Back Alley.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Tilesets/Bakery.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Blocking.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Tilesets/Crime Scene.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Tilesets/Lafeyette Street.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Lobby.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
         },
         "Tilesets/Office.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Tilesets/Storage Room.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
+    "last.externalTilesetPath": "D:/Uni Folders/2026/CRE311/Unity Project/Datetective/Datetective/Assets/Prefabs/Map/Tilesets",
+    "last.imagePath": "D:/Uni Folders/2026/CRE311/Unity Project/Datetective/Datetective/Assets/Prefabs/Map/Sources",
+    "last.worldFilePath": "D:/Uni Folders/2026/CRE311/Unity Project/Datetective/Datetective/Assets/Prefabs/Map/Worlds",
+    "loadedWorlds": [
+    ],
+    "map.height": 32,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 32,
     "openFiles": [
+        "Tilesets/Back Alley.tsx",
         "Map Latest.tmx"
     ],
     "project": "Datetective.tiled-project",
     "recentFiles": [
-        "Map Latest.tmx"
-    ]
+        "Tilesets/Back Alley.tsx",
+        "Map Latest.tmx",
+        "Tilesets/Office.tsx",
+        "Tilesets/Lafeyette Street.tsx",
+        "Tilesets/Crime Scene.tsx",
+        "Tilesets/Bakery.tsx",
+        "Tilesets/Storage Room.tsx",
+        "Tilesets/Lobby.tsx",
+        "Tilesets/Blocking.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
 }
