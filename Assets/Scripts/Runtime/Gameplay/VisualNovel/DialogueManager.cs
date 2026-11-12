@@ -36,6 +36,7 @@ namespace TheDates.Runtime.Dialogue
             public readonly CharacterProfile Profile;
             public string Name => Profile?.CharacterName ?? string.Empty;
             public int MoodIndex;
+            public int VariantIndex;
             public string Alias;
 
             public bool isEmpty => !Profile;
@@ -44,11 +45,12 @@ namespace TheDates.Runtime.Dialogue
                 Profile = profile;
                 //Name = profile.CharacterName;
                 MoodIndex = 0;
+                VariantIndex = 0;
                 Alias = string.Empty;
             }
 
             public Sprite GetCurrentPortrait() {
-                return isEmpty ? null : Profile.GetPortrait(MoodIndex);
+                return isEmpty ? null : Profile.GetPortrait(MoodIndex, VariantIndex);
             }
 
             public string GetCurrentName() {
@@ -118,12 +120,13 @@ namespace TheDates.Runtime.Dialogue
                     : currentRoster[positionIndex];
         }
         
-        public void SetPortraitAt(int positionIndex, int moodIndex) {
+        public void SetPortraitAt(int positionIndex, int moodIndex, int variantIndex = 0) {
             if (currentRoster[positionIndex].isEmpty) return;
             
             if (!currentRoster.IsWithinBounds(positionIndex)) return;
             //currentRoster[positionIndex].MoodIndex == moodIndex
             currentRoster[positionIndex].MoodIndex = moodIndex;
+            currentRoster[positionIndex].VariantIndex = variantIndex;
             //currentCharacters[index] = character;
         }
 

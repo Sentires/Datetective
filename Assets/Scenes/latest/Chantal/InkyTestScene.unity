@@ -221,6 +221,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f54a6a675fff7f2498a8b3e866a8d04c, type: 2}
   - {fileID: 11400000, guid: 0e870e4215792724289cd220e7304dc6, type: 2}
   - {fileID: 11400000, guid: 6ce3e109a2d6a0e4d86b5d370a7a503f, type: 2}
+  - {fileID: 11400000, guid: 2fdfb6fcfc79f58488d1551e4059cc13, type: 2}
 --- !u!1 &795872462
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fa8f699bd4a9a45a40993c7431ad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueKnot: Briar_Meet
+  dialogueKnot: Jestar_Test_Talksprites
 --- !u!4 &1781386398
 Transform:
   m_ObjectHideFlags: 0

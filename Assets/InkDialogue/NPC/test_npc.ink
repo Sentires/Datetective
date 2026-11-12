@@ -4,6 +4,111 @@ VAR TestingQuestId = "TestingQuest"
 // questID + "State" for naming
 VAR TestingQuestState = QuestState_Unavailable
 
+
+=== Juno_Test_Talksprites ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Speaker(SPEAKER_PRIMARY)
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
+Mood = Neutral/{MOOD_NEUTRAL}
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
+Mood = Happy/{MOOD_HAPPY}
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_SHOCK)
+Mood = Shock/{MOOD_SHOCK}
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_SAD)
+Mood = Sad/{MOOD_SAD}
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_ANGRY)
+Mood = Angry/{MOOD_ANGRY}
+
+~ Portrait(SPEAKER_PRIMARY, MOOD_FLUSTER)
+Mood = Fluster/{MOOD_FLUSTER}
+ 
+-> END
+
+=== Briar_Test_Talksprites ===
+~ Character(CHAR_BAKER, SPEAKER_SECONDARY)
+~ Speaker(SPEAKER_SECONDARY)
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_NEUTRAL)
+Mood = Neutral/{MOOD_NEUTRAL}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_HAPPY)
+Mood = Happy/{MOOD_HAPPY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SHOCK)
+Mood = Shock/{MOOD_SHOCK}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SAD)
+Mood = Sad/{MOOD_SAD}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_ANGRY)
+Mood = Angry/{MOOD_ANGRY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_FLUSTER)
+Mood = Fluster/{MOOD_FLUSTER}
+ 
+-> END
+
+=== Ceasar_Test_Talksprites ===
+~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
+~ Speaker(SPEAKER_SECONDARY)
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_NEUTRAL)
+Mood = Neutral/{MOOD_NEUTRAL}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_HAPPY)
+Mood = Happy/{MOOD_HAPPY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SHOCK)
+Mood = Shock/{MOOD_SHOCK}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SAD)
+Mood = Sad/{MOOD_SAD}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_ANGRY)
+Mood = Angry/{MOOD_ANGRY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_FLUSTER)
+Mood = Fluster/{MOOD_FLUSTER}
+
+// Custom talksprites indices below
+~ Portrait(SPEAKER_SECONDARY, MOOD_SPECIAL_NEUTRAL)
+Mood = Custom Neutral/{MOOD_SPECIAL_NEUTRAL}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SPECIAL_SHOCK)
+Mood = Custom Shock/{MOOD_SPECIAL_SHOCK}
+ 
+-> END
+
+=== Dakota_Test_Talksprites ===
+~ Character(CHAR_LANDLORD, SPEAKER_SECONDARY)
+~ Speaker(SPEAKER_SECONDARY)
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_NEUTRAL)
+Mood = Neutral/{MOOD_NEUTRAL}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_HAPPY)
+Mood = Happy/{MOOD_HAPPY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SHOCK)
+Mood = Shock/{MOOD_SHOCK}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_SAD)
+Mood = Sad/{MOOD_SAD}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_ANGRY)
+Mood = Angry/{MOOD_ANGRY}
+
+~ Portrait(SPEAKER_SECONDARY, MOOD_FLUSTER)
+Mood = Fluster/{MOOD_FLUSTER}
+
+ 
+-> END
+
 // DIALOGUE //
 === TestingQuest ===
 { TestingQuestState :
