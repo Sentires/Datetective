@@ -1,0 +1,41 @@
+{
+    "activeFile": "Map Latest.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Map Latest.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 2180,
+                "y": 72
+            }
+        },
+        "Sources/Blocking.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Bakery.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Crime Scene.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Lafeyette Street.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Office.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/Storage Room.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "openFiles": [
+        "Map Latest.tmx"
+    ],
+    "project": "Datetective.tiled-project",
+    "recentFiles": [
+        "Map Latest.tmx"
+    ]
+}

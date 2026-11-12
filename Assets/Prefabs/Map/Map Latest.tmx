@@ -5,7 +5,7 @@
  <tileset firstgid="65" source="Tilesets/Bakery.tsx"/>
  <tileset firstgid="97" source="Tilesets/Office.tsx"/>
  <tileset firstgid="145" source="Tilesets/Lafeyette Street.tsx"/>
- <tileset firstgid="161" source="Json/Blocking.tsx"/>
+ <tileset firstgid="161" source="Sources/Blocking.tsx"/>
  <group id="5" name="Aquarium Storage">
   <layer id="4" name="Boundary" width="30" height="20">
    <data encoding="csv">
