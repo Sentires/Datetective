@@ -822,24 +822,49 @@ She waves you goodbye with a bright smile before leaving out the back of the sto
     ~ Speaker (0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
     Could I... ask about that ex of yours?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    ...
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    Goodness, it really isn't the most appealing of topics for a first date, don't you think?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    It seems to be weighing on your mind though.
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    I'd be happy to lend an ear.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    ...
+    It's just... I feel like I did everything for him... I brought him treats to work everyday, I planned fun dates, I made sure to balance my work life around HIS schedule. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    And then the bastard went and cheated on me!
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    Oh I should've listened to the others... my parents, my coworkers, even that clown who works in the aquarium said he was no good, and that was my only conversation with the guy! 
+    I gave him all my love and that's how he repays me... good riddance.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    ..!
+    (She could just be referring to breaking up with him but...)
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    Juno? You look like you've seen a ghost...
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    Ah, it's just I'm shocked someone could be so cruel...
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
+    But I'm glad you realised your own worth and left him once you found out.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Ehehe, yeah. That's what I did..!
     -> Date_Conclude
     
 
 
 === Date_Conclude ===
-    TBA
-    -> END
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+    ~ Speaker (-2)
+    The two of you continue to converse as time escapes from you. You learn more about Briar's passion and how she turned it into a career, some anecdotes from her childhood, gossip she's gathered from her coworkers, all mundanely delightful things if you ignore your roles in this case.
+    Eventually you part ways, as courtesy you pay the bill, the least you could do before you possibly put her behind bars...
+    You should make your way back to your office and go over all the evidence you have gathered.
     -> END
 
 
