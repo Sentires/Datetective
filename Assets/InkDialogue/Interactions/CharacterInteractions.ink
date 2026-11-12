@@ -762,23 +762,72 @@ She waves you goodbye with a bright smile before leaving out the back of the sto
     Usually midday to close. I prefer closing shifts though, they're quieter. And then I can quickly run deliveries if needed. Like to this cafe!
     ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
     I'll let you in on a little secret. We stock some of the pastry bases here. And occassionally cupcakes that we discontinued at Baked Hearts because they were harder to store alongside the pastries we keep warm all day in the cabinet.
-    
-    -> Date_Conclude
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
+    Oh really? That's cool! Is the stuff we're making right now part of one of your deliveries?
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Hmmm... not these ones, no. I was meant to deliver some things recently but got... held up. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Oh I guess I can tell you. I'm just such a clutz! I tripped on my way here and damaged the baked goods, ehe.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
+    The owner was very kind and understanding about it, said it's fine and they weren't surprised I could trip when walking alone in the dark. So much kinder about little blunders like that than... other people that I know.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    (She's probably referring to that ex again...)
+
+    -> Date_Antonio
     
     
 === Date_Aquarium ===
-    TBA
-    -> Date_Conclude
-    
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    How's the collaboration with the aquarium next door to you work? It's a bit of an odd combo.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    Tell me about it! I heard it's because the landlord for the bakery is the same one as the aquarium and that they didn't want to demolish the pathway betwee the two buildings. You'd think they'd try to sell it as one complex though.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    I can't deny that it's good for business though. We get many more kids dragging their parents in for a sweet treat than we would otherwise.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
+    Yeah I know the guy who runs this area, I'm not surprised he'd try to double his profits leasing them seperately. 
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    Area? It's not just those two buildings?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Mhmm, he owns the buildings on this street too. This cafe included.
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    Ooooh! That would explain why the keys are similar! 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
+    See, I was running a delivery last night- we stock some of the pastry bases here, and I mixed up the keys and tried unlocking the back door with the bakery key. For a moment I thought it was the right one since it went most of the way in, but it wouldn't turn. But I guess that makes sense if that friend of yours uses matching locks for all the buildings.
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    I wouldn't exactly call him a friend...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
+    An ex?
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
+    ...
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    Oh sweetie I can see it written all over your face. 
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
+    I get it... I've been there with the bitter feelings of it all. The less than savoury thoughts...
+    -> Date_Antonio
 
 === Date_Antonio ===
-    TBA
+    ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
+    Could I... ask about that ex of yours?
     -> Date_Conclude
     
 
 
 === Date_Conclude ===
-    jkvfsbvfsnfnvnvfmn
+    TBA
     -> END
     
     
