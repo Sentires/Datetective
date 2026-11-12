@@ -49,13 +49,13 @@ namespace TheDates.Runtime
             
         }
 
-        public Sprite GetPortrait(int index) {
+        public Sprite GetPortrait(int index, int variant = 0) {
             if (!TotalEmotionLabels.IsWithinBounds(index)) {
                 Debug.Log($"Portrait index {index} is invalid");
                 return null;
             }
             
-            return collection.columns[0].rows[index];
+            return collection.columns[variant].rows[index];
         }
         
         public TMP_FontAsset specialLabelFont => characterSpecialFont;

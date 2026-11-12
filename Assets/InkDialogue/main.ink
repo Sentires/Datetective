@@ -12,4 +12,8 @@ INCLUDE Concepts\Jestar_Characterisation.ink
 INCLUDE Concepts\Juno_Characterisation.ink
 INCLUDE Concepts\Datetective_Prologue.ink
 INCLUDE Concepts\Juno_Briar_Interaction.ink
-INCLUDE Concepts/ObjectInteractions.ink
+
+
+//Interactions
+INCLUDE Interactions/ObjectInteractions.ink
+INCLUDE Interactions/CharacterInteractions.ink

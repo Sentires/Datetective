@@ -1,4 +1,4 @@
-/*(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)*/
+/*(Im sorry this isnt coded properly, ive got no clue how you wanted done but i hope it helps with getting started)
 
 // I added this, it didn't have a knot before - Jack
 === interaction_enter ===
@@ -11,7 +11,7 @@ Behind the counter stands a young lady, one who's face aligns with one of the th
 ~ Character(CHAR_BAKER, 1)
 ~ Speaker(1)
 ~ Alias(1, "Baker")
-Cafe Worker: Hello dear! Welcome to Baked Hearts Patisserie & Cafe. How can I help you?
+Hello dear! Welcome to Baked Hearts Patisserie & Cafe. How can I help you?
 
 * [I'll get the daily special.] 
     -> special

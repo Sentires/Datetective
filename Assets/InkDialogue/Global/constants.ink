@@ -25,6 +25,7 @@ CONST CHAR_LANDLORD = "Dakota"
 CONST ALIAS_NONE = ""
 
 // Character Placement
+CONST SPEAKER_ISOLATION = -2
 CONST SPEAKER_NONE = -1
 CONST SPEAKER_PRIMARY = 0
 CONST SPEAKER_SECONDARY = 1
@@ -36,3 +37,10 @@ CONST MOOD_SHOCK = 2
 CONST MOOD_SAD = 3
 CONST MOOD_ANGRY = 4
 CONST MOOD_FLUSTER = 5
+
+// Note for all, Character Moods can extend past 0 to 5.
+// Currently only 'Jestar' has this feature.
+// The shorthand references below are simply for convenience,
+// but they won't work on characters without custom 'moods'.
+CONST MOOD_SPECIAL_NEUTRAL = 6 // Clown only
+CONST MOOD_SPECIAL_SHOCK = 7 // Clown only

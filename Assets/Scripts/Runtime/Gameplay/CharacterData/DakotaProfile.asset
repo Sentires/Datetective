@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5e1ba964acdb24ba0f1d502076f5ce, type: 3}
+  m_Name: DakotaProfile
+  m_EditorClassIdentifier: 
+  characterName: Dakota
+  characterSpecialFont: {fileID: 11400000, guid: d56629ee2d1305945a91fe49e099a554, type: 2}
+  collection:
+    rowLabels:
+    - Neutral
+    - Happy
+    - Shocked
+    - Sad
+    - Angry
+    - Flustered
+    columnLabels:
+    - Default
+    columns:
+    - rows:
+      - {fileID: 21300000, guid: 9ed3a902b9eecc9479f53fa47e5c83d6, type: 3}
+      - {fileID: 21300000, guid: dc885682f5f04f44888b7591e873ca96, type: 3}
+      - {fileID: 21300000, guid: a6a9a58a8c5b8b84c808a2699d8f849b, type: 3}
+      - {fileID: 21300000, guid: fa190fa2937b64d499928ea99148dd04, type: 3}
+      - {fileID: 21300000, guid: 3660f9ec934ca3948ba3a44bab9ac7cf, type: 3}
+      - {fileID: 21300000, guid: 22e2db7a65b318a4d9941edaebf8e326, type: 3}
+  CustomEmotionLabels: []
+  CustomAppearanceLabels: []

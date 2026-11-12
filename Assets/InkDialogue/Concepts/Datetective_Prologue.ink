@@ -5,12 +5,12 @@ This wasn't the first time they turned to your humble little detective firm for 
 
 === Office ===
  + [Interact with case file] -> Case_file
- +[Interact with PC] -> PC
- +[Interact with corkboard] -> Corkboard
- +[Interact with filing cabinet] -> Filing_cabinet
- +[Interact with bin (before PC) ] -> Bin1
- +[Interact with bin (after PC) ] -> Bin2
- === Case_file ===
+ //+[Interact with PC] -> PC
+ //+[Interact with corkboard] -> Corkboard
+ //+[Interact with filing cabinet] -> Filing_cabinet
+ //+[Interact with bin (before PC) ] -> Bin1
+ //+[Interact with bin (after PC) ] -> Bin2
+ === Case_file_scrapped ===
      ~ Speaker(-1)
  A standard case file with your detective agency's emblem printed on the front. Inside you find small silver key, and three suspect profiles, with photographs attached. 
  A fourth sheet of paper slips out.
@@ -18,7 +18,7 @@ This wasn't the first time they turned to your humble little detective firm for 
  Juno: *sigh*, well at least they entertain my old-timey aesthetic just a little bit.
 -> Office 
  
- === PC ===
+ /*=== PC ===*/
      ~ Speaker(-1)
 A standard desktop computer, one you bought purely because your manager kept pestering you to get over the 'classic' detective experience and get with the times. It does it's job well enough, but you still think paper files and corkboards with evidence tied together with red string are way cooler. 
 A shame no one is willing to comply with your methods, at least not fully.
@@ -32,12 +32,12 @@ You vaguely remember receiving a file with the login information back when you f
 ...and promptly putting it in your paper shredder after confidently thinking you could remember all the information on it.
  -> Office
  
- === Corkboard ===
+ ?*=== Corkboard ===
     ~ Speaker(-1)
 A corkboard covered in photographs and notes from your last major case. Everything is connected with a piece of red string, creating a mesmerising web. 
 -> Office
  
- === Filing_cabinet ===
+ //=== Filing_cabinet ===
     ~ Speaker(-1)
  You open the cabinet to rows of neatly organised files documenting your past cases.
  
@@ -194,7 +194,6 @@ A bustling street in Lower Manhatten. Despite now being the scene of a crime, pe
     === Tank ===
     text
     -> CrimeScene
-    
    
    
 END SCENE
