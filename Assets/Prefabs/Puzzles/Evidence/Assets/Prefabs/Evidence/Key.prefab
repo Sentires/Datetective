@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 6303325376580299561, guid: 15c243dea3c82a94b91dadf10b5f3dc3, type: 3}
       propertyPath: presetTexture
       value: 
-      objectReference: {fileID: 2800000, guid: 8e7f87e48762bed4d90aea8fc21ac4ee, type: 3}
+      objectReference: {fileID: 2800000, guid: 5e6a908e1b0502445bd57fc1b5dc9333, type: 3}
     - target: {fileID: 6303325376580299561, guid: 15c243dea3c82a94b91dadf10b5f3dc3, type: 3}
       propertyPath: sizeModifier.x
       value: 1.4
