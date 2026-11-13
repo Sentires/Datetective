@@ -1009,6 +1009,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Lafayette St_43
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aaf9103bfa4b6540b3564adbe8b9faa
+      internalID: 2079785394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lafayette St_44
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a412b680532e95f4aac60c9f16f438d5
+      internalID: -1977036084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1051,8 +1093,10 @@ TextureImporter:
       Lafayette St_7: 526090205
       Lafayette St_42: 1416177735
       Lafayette St_13: 1432335555
+      Lafayette St_43: 2079785394
       Lafayette St_17: -94906283
       Lafayette St_36: -1058020510
+      Lafayette St_44: -1977036084
       Lafayette St_33: 1702783217
       Lafayette St_31: -1523770627
       Lafayette St_40: -1118494497
