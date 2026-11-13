@@ -13,6 +13,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
     {
         [Header("Config")]
         [SerializeField] private float moveSpeed = 2f;
+        [SerializeField] private Vector2 playerSize = new Vector2(.6f, .6f);
         
         [Header("Scene Dependencies")]
         [SerializeField] private Transform contentParent;
@@ -21,7 +22,6 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
         
         [Header("Prefab Dependencies")]
         [SerializeField] private GameObject mazePrefab;
-        [SerializeField] private Vector3 expectedLocalScale = Vector3.one;
         
         [Header("Exposed Fields")]
         [SerializeField, ReadOnly] private MiniGameManager miniGameManager;
@@ -82,12 +82,12 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             _isMoving = false;
             _desiredPosition = _player.position;
             miniGameManager.OnClickPosition += OnPointPosition;
-            miniGameManager.OnClickState += OnClick;
+            miniGameManager.OnLeftClickState += OnLeftClick;
         }
         
         private void OnDisabled() {
             miniGameManager.OnClickPosition -= OnPointPosition;
-            miniGameManager.OnClickState -= OnClick;
+            miniGameManager.OnLeftClickState -= OnLeftClick;
             _isMoving = false;
             _desiredPosition = _player.position;
             contentParent.gameObject.SetActive(false);
@@ -108,7 +108,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             return(end - start).normalized;
         }
 
-        private void OnClick(bool input) {
+        private void OnLeftClick(bool input) {
             _isMoving = input;
         }
 
@@ -128,7 +128,7 @@ namespace TheDates.Runtime.Experimental.Puzzle.Maze
             pos.z = -2;
             var tr = _player.transform;
             tr.position = pos;
-            tr.localScale = new Vector3(.8f, .8f, 1);
+            tr.localScale = playerSize;
             tr.rotation = Quaternion.identity;
             
         }

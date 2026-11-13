@@ -46,7 +46,7 @@ namespace TheDates
             //contentParent.gameObject.SetActive(true);
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState += OnClickState;
+            MiniGameManager.Instance.OnLeftClickState += OnClickState;
             MiniGameManager.Instance.OnClickPosition += OnClickPosition;
             MiniGameManager.Instance.OnClickTarget += OnClickTarget;
         }
@@ -55,7 +55,7 @@ namespace TheDates
             //contentParent.gameObject.SetActive(false);
             if (!MiniGameManager.HasInstance) return;
             
-            MiniGameManager.Instance.OnClickState -= OnClickState;
+            MiniGameManager.Instance.OnLeftClickState -= OnClickState;
             MiniGameManager.Instance.OnClickPosition -= OnClickPosition;
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }
@@ -113,7 +113,8 @@ namespace TheDates
             if (notifyManager) MiniGameManager.Instance.NotifyMiniGameState(source, state);
         }
 
-        private void OnClickTarget(RaycastHit2D input) {
+        private void OnClickTarget(RaycastHit2D input, MiniGameManager.ClickType clickType) {
+            if (clickType != MiniGameManager.ClickType.Left) return;
             if (!_collidables.TryGetValue(input.collider.GetInstanceID(), out var wire)) return;
             if (wire.clickPoint != input.collider) return;
             _currentWire = wire;

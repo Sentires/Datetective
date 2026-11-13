@@ -245,7 +245,8 @@ namespace TheDates
         
         public float phaseDelay = 2f;
 
-        private int _currentBoardIndex;private WaitForSeconds _phaseTime;
+        private int _currentBoardIndex;
+        private WaitForSeconds _phaseTime;
 
         private void SetupGame() {
             HasWon = false;
@@ -272,7 +273,8 @@ namespace TheDates
             MiniGameManager.Instance.OnClickTarget -= OnClickTarget;
         }
         
-        private void OnClickTarget(RaycastHit2D input) {
+        private void OnClickTarget(RaycastHit2D input, MiniGameManager.ClickType clickType) {
+            if (clickType != MiniGameManager.ClickType.Left) return;
             //if (!MiniGameManager.isGamePointerValid) return; // Sends a warning
             tileBoards[_currentBoardIndex].TargetTile(input.collider);
             if (tileBoards[_currentBoardIndex].isAchieved)

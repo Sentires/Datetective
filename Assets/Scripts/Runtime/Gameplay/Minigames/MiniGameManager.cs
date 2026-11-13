@@ -18,18 +18,19 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public static bool IsCheatingEnabled = true;
 
         public Vector2 mousePosition { get; private set; }
-        public List<GameObject> miniGamePrefabs = new();
+        public List<MiniGameAssetReference> miniGameAssets = new();
         [SerializeField] private Camera overlayCamera;
         public Dictionary<GameObject, MiniGame> miniGamesDict;
 
-        public event Action<bool> OnClickState = delegate { };
+        public event Action<bool> OnLeftClickState = delegate { };
+        public event Action<bool> OnRightClickState = delegate { };
         public event Action<Vector2> OnClickPosition = delegate { };
-        public event Action<RaycastHit2D> OnClickTarget = delegate { };
+        public event Action<RaycastHit2D, ClickType> OnClickTarget = delegate { };
         public event Action<MiniGameContext> OnMiniGameProcessed = delegate { };
         public Vector2 ScreenResolution;
         
         private bool _isActive;
-        private bool _isClicking;
+        //private bool _isClicking;
         private int _layerMask;
         
         // Only true if the UI says this is false/null. We only care about non-UI
@@ -56,9 +57,9 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             
             miniGamesDict = new Dictionary<GameObject, MiniGame>();
             var gameParent = transform.Find("Games");
-            for (var i = miniGamePrefabs.Count - 1; i >= 0; i--)
+            for (var i = miniGameAssets.Count - 1; i >= 0; i--)
             {
-                var prefab = miniGamePrefabs[i];
+                var prefab = miniGameAssets[i]?.miniGamePrefab;
                 if (!prefab) continue;
                 var gameObj = Instantiate(prefab, gameParent);
                 if (gameObj.TryGetComponent<MiniGame>(out var game)) {
@@ -69,7 +70,7 @@ namespace TheDates.Runtime.Experimental.MinigameCore
                 }
                 
                 Debug.Log("Removed MiniGame: " + prefab.name + ", this does not contain an IMiniGame inheritor component!");
-                miniGamePrefabs.RemoveAt(i);
+                miniGameAssets.RemoveAt(i);
                 Destroy(gameObj);
             }
             
@@ -139,7 +140,8 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         private void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.InputEvents.onLeftClick += OnClick;
+            GameEventsManager.Instance.InputEvents.onLeftClick += OnLeftClick;
+            GameEventsManager.Instance.InputEvents.onRightClick += OnRightClick;
             GameEventsManager.Instance.InputEvents.onPosition += OnPoint;
             //GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.UI);
         }
@@ -155,6 +157,12 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public void SendCommandWin(GameObject target) => SendCommand(target, MiniGameCommand.Win);
         public void SendCommandLose(GameObject target) => SendCommand(target, MiniGameCommand.Lose);
         public void SendCommandForceQuit(GameObject target) => SendCommand(target, MiniGameCommand.ForceQuit);
+        
+        public void SendCommandStart(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Start);
+        public void SendCommandReset(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Reset);
+        public void SendCommandWin(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Win);
+        public void SendCommandLose(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.Lose);
+        public void SendCommandForceQuit(MiniGameAssetReference target) => SendCommand(target.miniGamePrefab, MiniGameCommand.ForceQuit);
         
         /*
         public void StartGame(GameObject target) {
@@ -229,9 +237,15 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 
         private void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
-            GameEventsManager.Instance.InputEvents.onLeftClick -= OnClick;
+            GameEventsManager.Instance.InputEvents.onLeftClick -= OnLeftClick;
+            GameEventsManager.Instance.InputEvents.onRightClick -= OnRightClick;
             GameEventsManager.Instance.InputEvents.onPosition -= OnPoint;
             //GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.World);
+        }
+
+        public enum ClickType {
+            Left,
+            Right,
         }
         
         private void OnPoint(Vector2 input) {
@@ -240,25 +254,21 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             OnClickPosition.Invoke(input);
         }
 
-        private void OnClick(bool input) {
+        private void OnLeftClick(bool input) {
             if (!_isActive) return;
-            _isClicking = input;
-            OnClickState.Invoke(input);
+            //_isClicking = input;
+            OnLeftClickState.Invoke(input);
             
-            if (!_isClicking || !overlayCamera) return;
-            StartCoroutine(ClickPosition(mousePosition));
-            // var worldPos = overlayCamera.ScreenToWorldPoint(mousePosition);
-            // var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
-            // if (!hit) return;
-
-            // OnClickTarget.Invoke(hit);
-
-            //var target = hit.transform;
-            //Debug.Log($"Clicked On {hit.collider.name} at {worldPos}");
-
-            //if (target.TryGetComponent<IClickable>(out var clickable)) {
-            //    StartCoroutine(ProcessClick(clickable));
-            //}
+            if (!input || !overlayCamera) return;
+            StartCoroutine(ClickPosition(mousePosition, ClickType.Left));
+        }
+        private void OnRightClick(bool input) {
+            if (!_isActive) return;
+            //_isClicking = input;
+            OnRightClickState.Invoke(input);
+            
+            if (!input || !overlayCamera) return;
+            StartCoroutine(ClickPosition(mousePosition, ClickType.Right));
         }
         
         public Vector3 GetWorldSpacePosition(Vector2 input, float zPosition) {
@@ -270,13 +280,18 @@ namespace TheDates.Runtime.Experimental.MinigameCore
             return Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, _layerMask);
         }
         
-        private IEnumerator ClickPosition(Vector3 position) {
+        public RaycastHit2D[] RaycastAll(Vector3 position, bool isWorldSpace = true) {
+            var pos = isWorldSpace ? position : overlayCamera.ScreenToWorldPoint(position);
+            return Physics2D.RaycastAll(pos, Vector2.zero, Mathf.Infinity, _layerMask);
+        }
+        
+        private IEnumerator ClickPosition(Vector3 position, ClickType clickType) {
             yield return null; // Skip this frame
             if (!isGamePointerValid) yield break;
             
             var worldPos = overlayCamera.ScreenToWorldPoint(position);
             var hit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, _layerMask);
-            if (hit) OnClickTarget.Invoke(hit);
+            if (hit) OnClickTarget.Invoke(hit, clickType);
         }
 
         /*private IEnumerator ProcessClick(IClickable clickable)
@@ -351,9 +366,9 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public abstract MiniGameState gameState { get; }
         protected bool HasWon;
 
-        [SerializeField] protected GameObject winScreen;
-        [SerializeField] protected Button winButton;
-        [SerializeField] protected Button cheatSuccessButton;
+        protected GameObject winScreen;
+        protected Button winButton;
+        protected Button cheatSuccessButton;
         //[SerializeField] protected Button cheatFailButton;
         
         public abstract void Init(GameObject prefab);
