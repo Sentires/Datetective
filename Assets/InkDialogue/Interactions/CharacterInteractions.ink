@@ -6,16 +6,20 @@
   You see a young man frantically looking around and repeatedly checking his pockets. He looks like an ordinary civilian at first, and perhaps he still is, but you realise they also looks similar to one of the suspects.
     ~ Speaker(1)
     ~ Alias(1, "Young Man")
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_NEUTRAL)
   Crap- no no no- If I can't get back inside...
   ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
   ~ Speaker(0)
   ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
    You alright there? Looking for something?
     ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_SHOCK)
+
    Ah!
     ~ Speaker(-2)
   He jolts back and flails his arms as if he's been caught doing something he wasn't meant to.
-      ~ Speaker(1)
+    ~ Speaker(1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_SHOCK)
   I- um- my keys- work keys. Lost them, that's all. Not that I'll be able to go to work anytime soon...
     ~ Speaker(0)
   ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
@@ -28,6 +32,8 @@
     ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   Don't see why you'd need your uniform though.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_NEUTRAL)
+
   Um... it's a long story... I work there but technically I don't? A side gig of sorts- performance stuff, comedy, a-anyway I needed it back in case I can get work elsewhere.
     ~ Speaker(0)
     ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
@@ -38,23 +44,24 @@
     -> END
     
 === Jestar_Uniform ===
-~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
-~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
-    ~ Speaker(-1)
+    ~ Speaker(-2)
 The young man you spoke to earlier is still hanging around outside the aquarium looking defeated.
+    ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
     ~ Speaker (0)
+    Hey you, you still need that uniform?
+    ~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
     ~ Alias(1, "Young Man")
-    ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
-Hey you, you still need that uniform?
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_NEUTRAL)
 Me- yes, yeah...
-    ~ Speaker(-1)
+    ~ Speaker(-2)
 You hand them the clown costume. He takes it with confusion at first, seemingly listening to you without actually registering what he was being handed, but once the dots connect his eyes light up immediately.
     ~ Speaker (1)
-    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SPECIAL_NEUTRAL)
 This... thank you! You're a lifesaver, really!
 // QUEST - fade screen to black and then fade back in with Jestar's civilian sprite switched out for his clown costume
     ~ Alias(1, "")
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 Jestar is back in business!
     ~ Speaker(-1)
     ~ Portrait(SPEAKER_PRIMARY, MOOD_SHOCK)

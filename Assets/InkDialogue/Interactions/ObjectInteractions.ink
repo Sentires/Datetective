@@ -116,6 +116,12 @@ There's a lack of caution tape or cop cars surrounding the premise. It seems tha
     
 //AQUARIUM -------------------------------------------------------------------------------------------------------------------------
 
+// triggered after completing the maze puzzle and appearing in the storage room between the outside and the crime scene.
+=== No_Lights ===
+You enter through the backdoor expecting to be faced with aquatic life, instead you witness the lights flicker and cut to black in what looks like a dingy storage room. Great.
+You pat down the walls to find a light switch. You find one! But switching it on and off a few times proves pointless as the power isn't coming back on. 
+Wasn't there a circuit breaker outside? It would be worth trying to get the power running again before entering the crime scene. Wouldn't want to trip on any evidence.
+    -> END
 // Crime scene room
 === Fish_Tank ===
     ~ Speaker(-1)
@@ -280,6 +286,11 @@ You take out the key you had wrangled from Dakota and hold it up to your eye. Ju
 It slides into the padlock with ease, and a faint click confirms it's unlocked the fence.
     -> END
     
+=== Breaker ===
+    ~ Speaker (-1)
+You open the panel to the breaker. As expected, all the switches for the aquarium have been flipped to 'off'. You flick them all back up. That should do it, but best to go back to the aquarium to see for yourself.
+    -> END
+
 === Delivery_Box ===
     ~ Speaker (-1)
 Peering past the breaker, you notice something lying angled on the ground. 
