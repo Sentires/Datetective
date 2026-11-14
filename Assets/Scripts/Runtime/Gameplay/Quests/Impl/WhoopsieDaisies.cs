@@ -12,6 +12,7 @@ using TheDates.Runtime.General;
 using TheDates.Runtime.Input;
 using TheDates.Runtime.PlayerCore;
 using TheDates.Runtime.Quests;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -26,6 +27,7 @@ namespace TheDates
         
         // Serialised Private
         //public Test<Transform> thang = new Test<Transform>();
+        [SerializeField] private TextMeshProUGUI helpText;
         [SerializeField] private PlayerController player;
         [SerializeField] private Transform[] playerWarps; // 0 will be spawnpoint
         [SerializeField] private GameObject winScreen;
@@ -124,7 +126,7 @@ namespace TheDates
         }*/
         
         void Start() {
-            
+            helpText.text = "Use [W][A][S][D]/Arrows to move around. [Space] will continue active dialogue and interact with clipboard-marked locations.";
         }
         
         private void DialogueStarted() => _dialogueActive = true;
@@ -217,6 +219,7 @@ namespace TheDates
                 case "CaseFile": {
                     TriggerDialogue("Case_file");
                     checkCaseFile = true;
+                    helpText.text = "When encountering a puzzle, a MiniGame will overlay on your screen. These primarily use [Left/Right Click], but check their help-box for more details.";
                     break;
                 }
                 case "CorkBoard": {
@@ -240,6 +243,7 @@ namespace TheDates
                         checkPCUnlocked = true;
                         ToggleObservers(false, reference);
                         ToggleObservers(true, "CorkBoard");
+                        helpText.text = "Follow the red triangles to move between locations. Your office connects to Lafayette Street via the bus stop.";
                     }
                     else TriggerDialogue("PC_Locked");
                     break;
@@ -264,6 +268,7 @@ namespace TheDates
                         TriggerDialogue("Door_Complete");
                         ToggleObjects(true, reference);
                         ToggleObservers(false, reference);
+                        helpText.text = "You're tasked to investigate the assigned case. Find evidence, solve puzzles and speak to characters!";
                         // TODO - enable door
                     }
                     else TriggerDialogue("Door_No_Goal");
@@ -541,6 +546,8 @@ namespace TheDates
                     ToggleObjects(true, "BakerDate");
                     ToggleObservers(true, "BakerDate");
                     Debug.Log("Player can now rizz Briar");
+
+                    helpText.text = "Meet Briar to ask further questions. She owns a Cafe on Androne Street.";
                 }
             }
             else {
@@ -554,6 +561,8 @@ namespace TheDates
                     //ToggleObservers(true, "CorkBoard");
                     checkEvidenceReady = true;
                     Debug.Log("Player can now do the evidence puzzle");
+                    
+                    helpText.text = "You've got enough evidence for today. Head back to the office!";
                 }
             }
         }

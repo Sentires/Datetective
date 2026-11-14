@@ -15,7 +15,7 @@ namespace TheDates.Runtime.Experimental.MinigameCore
 {
     public class MiniGameManager : BasicSingleton<MiniGameManager>
     {
-        public static bool IsCheatingEnabled = true;
+        public static bool IsCheatingEnabled = false;
 
         public Vector2 mousePosition { get; private set; }
         public List<MiniGameAssetReference> miniGameAssets = new();
