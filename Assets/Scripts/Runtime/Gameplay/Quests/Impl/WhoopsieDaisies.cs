@@ -6,20 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using TheDates.Runtime;
 using TheDates.Runtime.Dialogue;
+using TheDates.Runtime.Experimental;
 using TheDates.Runtime.Experimental.MinigameCore;
 using TheDates.Runtime.General;
 using TheDates.Runtime.Input;
+using TheDates.Runtime.PlayerCore;
 using TheDates.Runtime.Quests;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using static TheDates.WhoopsieDaisies;
+using Object = UnityEngine.Object;
 
 namespace TheDates
 {
     public class WhoopsieDaisies : MonoBehaviour
     {
         // Serialised Private
+        public Test<Transform> thang = new Test<Transform>();
+        [SerializeField] private PlayerController player;
+        [SerializeField] private List<PlayerWarp> playerWarps = new();
         [SerializeField] private List<QuestObject> questObjects = new();
         [SerializeField] private List<QuestInteractionObserver> interactionObservers = new();
 
@@ -36,11 +42,11 @@ namespace TheDates
         private static readonly string[] QuestKeysArray = {
             "CaseFile", "CorkBoard", "PC", "Bin", "Cabinet", "ExitDoor", 
             "Clown", "BakeryFront", "AquariumFront",
-            "Counter", "Shelf", "Table", "Baker",
+            "Counter", "Shelf", "Table", "BakerInitial",
             "Fence", "Breaker", "Dumpster", "CardboardBox", "BakeryAlley", "AquariumAlley",
             "Locker", "Flour", "MazePuzzle",
             "Corpse", "PoliceTape", "FishTank", "Stage", "ClownCostume", "WetFootprints",
-            "BoxCutter", "Landlord", "YachtClubFront", "CafeFront"
+            "BoxCutter", "Landlord", "YachtClubFront", "CafeFront", "BriarDate"
         };
         // Discards
         //, "LostAndFound"
@@ -56,6 +62,7 @@ namespace TheDates
         private void Awake() {
             _questKeys = new HashSet<string>(QuestKeysArray);
 
+            player.AssertNull(this, name);
             puzzleOfficePaper.AssertNull(this, name);
             puzzleStorageMaze.AssertNull(this, name);
             puzzleAquariumSliding.AssertNull(this, name);
@@ -252,6 +259,22 @@ namespace TheDates
                     //ToggleObservers(false, reference);
                     break;
                 }
+                case "Clown": {
+                    if (fetchClownOutfit && meetClown) {
+                        if (!checkClownRequest) {
+                            checkClownRequest = true;
+                            TriggerDialogue("Jestar_Uniform");
+                        }
+                        else {
+                            TriggerDialogue("Jestar_Ask");
+                        }
+                    }
+                    else {
+                        meetClown = true;
+                        TriggerDialogue("Jestar_Meet");
+                    }
+                    break;
+                }
                 #endregion
                 #region { Bakery }
                 case "Counter": {
@@ -260,40 +283,56 @@ namespace TheDates
                         TriggerDialogue("Bakery_Box_Briar");
                     }
                     else {
-                        if (checkLostAndFound) {
-                            TriggerDialogue("Bakery_Box_Alone");
-                        }
-                        else {
-                            TriggerDialogue("Bakery_Box_Alone_New");
-                        }
+                        TriggerDialogue(checkLostAndFound ? "Bakery_Box_Alone" : "Bakery_Box_Alone_New");
                     }
                     break;
                 }
-                //case "LostAndFound": {
-                //    break;
-                //}
                 case "Shelf": {
                     TriggerDialogue("Bakery_Cabinet");
                     break;
                 }
                 case "Table": {
                     TriggerDialogue("Bakery_Table");
-                    // TODO - spawn order form
+                    // TODO - spawn order form?
+                    break;
+                }
+                case "BakerInitial": {
+                    // date segment, a lot of prereq
+                    //if (meetLandlord && fetchGateKey && meetBaker && checkFixBreaker) {
+                    //    TriggerDialogue("Briar_Date");
+                    //}
+                    meetBaker = true;
+                    TriggerDialogue("Briar_Meet");
+                    ToggleObservers(false, "BakerInitial");
+                    ToggleObjects(false, "BakerInitial");
                     break;
                 }
                 #endregion
                 #region { Alley }
                 case "BakeryAlley": {
-                    TriggerDialogue("Bakery_Backdoor");
+                    TriggerDialogue("Bakery_Backdoor"); // Need to enable elsewhere
                     break;
                 }
                 case "AquariumAlley": {
-                    TriggerDialogue("Aquarium_Backdoor");
+                    if (puzzleStorageMaze) {
+                        ToggleObservers(false, "AquariumAlley");
+                        ToggleObjects(true, "AquariumAlley");
+                    }
+                    else {
+                        TriggerDialogue("Aquarium_Backdoor");
+                        action += () => miniGameManager.SendCommandStart(puzzleStorageMaze);
+                        StartCoroutine(AwaitDialogue(action));
+                    }
+                    
                     break;
                 }
                 case "Fence": {
                     if (fetchGateKey) {
                         TriggerDialogue("Fence_Unlocked");
+                        ToggleObservers(false, reference);
+                        ToggleObjects(false, reference);
+                        
+                        ToggleObservers(true, "Breaker");
                     }
                     else {
                         TriggerDialogue("Fence_Locked");
@@ -302,11 +341,20 @@ namespace TheDates
                     break;
                 }
                 case "Breaker": {
+                    ToggleObservers(false, reference);
+                    ToggleObjects(false, reference);
+                    checkFixBreaker = true;
+                    
+                    //ToggleObservers(true, "AquariumAlley");
                     break;
                 }
                 case "Dumpster": {
                     if (puzzleWinAquariumSliding) {
                         TriggerDialogue("Rubbish");
+                        ToggleObservers(false, reference);
+                    }
+                    else {
+                        miniGameManager.SendCommandStart(puzzleAquariumSliding);
                     }
                     break;
                 }
@@ -333,7 +381,8 @@ namespace TheDates
                 #endregion
                 #region { Androne }
                 case "BoxCutter": {
-                    TriggerDialogue("BoxCutter");
+                    TriggerDialogue("Box_Cutter");
+                    fetchBoxCutter = true;
                     // TODO - hide the object after
                     break;
                 }
@@ -346,6 +395,33 @@ namespace TheDates
                     TriggerDialogue("Cafe");
                     break;
                 }
+                case "Landlord": {
+                    if (meetLandlord) {
+                        if (checkFence && !fetchGateKey) {
+                            TriggerDialogue("Dakota_Key");
+                            fetchGateKey = true;
+                        }
+                        else TriggerDialogue("Dakota_Ask");
+                    }
+                    else {
+                        TriggerDialogue("Dakota_Meet");
+                        meetLandlord = true;
+                        if (checkFence && !fetchGateKey) {
+                            action += () => TriggerDialogue("Dakota_Key");
+                            action += () => fetchGateKey = true;
+                            StartCoroutine(AwaitDialogue(action));
+                        }
+                        
+                    }
+                    
+                    break;
+                }
+                case "BriarDate": { // this one will need heavy testing
+                    TriggerDialogue("Briar_Date");
+                    checkDateSegment = true;
+                    break;
+                }
+
                 #endregion
                 #region { Crime }
                 case "Corpse": {
@@ -378,28 +454,9 @@ namespace TheDates
                     break;
                 }
                 #endregion
-                case "Baker": {
-                    break;
-                }
-                case "Landlord": {
-                    break;
-                }
-                case "Clown": {
-                    if (fetchClownOutfit && meetClown) {
-                        if (!checkClownRequest) {
-                            checkClownRequest = true;
-                            TriggerDialogue("Jestar_Uniform");
-                        }
-                        else {
-                            TriggerDialogue("Jestar_Satisfied");
-                        }
-                    }
-                    else {
-                        meetClown = true;
-                        TriggerDialogue("Jestar_Meet");
-                    }
-                    break;
-                }
+                
+                
+                
                 default:
                     Debug.LogWarning("Tried using undefined key: " + reference);
                     break;
@@ -419,6 +476,7 @@ namespace TheDates
         [SerializeField, ReadOnly] private bool checkOutage;
         [SerializeField, ReadOnly] private bool checkCorpse;
         [SerializeField, ReadOnly] private bool checkDateSegment;
+        [SerializeField, ReadOnly] private bool checkFixBreaker;
         
         [SerializeField, ReadOnly] private bool meetClown;
         [SerializeField, ReadOnly] private bool meetBaker;
@@ -444,11 +502,35 @@ namespace TheDates
             [SerializeField] private bool invertActivity;
 
             public void Init() {
-                questObject.SetActive(activeOnInit);
+                SetActive(activeOnInit);
             }
 
-            public void SetActive(bool toggle) {
-                questObject.SetActive(invertActivity ? !toggle : toggle);
+            public void SetActive(bool toggle) => questObject.SetActive(invertActivity ? !toggle : toggle);
+        }
+        
+        // Shoulda done smth like this for QuestObject, maybe later
+        [Serializable]
+        public class Test<T> where T : Component {
+            public GameObject questObject => questComponent.gameObject;
+            public T questComponent;
+            
+            public string reference;
+            
+            [SerializeField] private bool activeOnInit = true;
+            [SerializeField] private bool invertActivity;
+            
+            public void Init() {
+                questComponent.AssertNull(this, nameof(Test<T>));
+                SetActive(activeOnInit);
+            }
+
+            public void SetActive(bool toggle) => questObject.SetActive(invertActivity ? !toggle : toggle);
+
+            public static Test<T> Convert(QuestObject old) {
+                var result = new Test<T>();
+                result.questComponent = old.questObject.GetComponent<T>();
+                result.reference = old.reference;
+                return result;
             }
         }
         
@@ -478,7 +560,7 @@ namespace TheDates
         [Serializable]
         public class QuestInteractionObserver {
             [SerializeField] private InteractionObserver observer;
-            [field: SerializeField, StringDropdown(nameof(QuestKeysArray))] public string questKey {get; private set;}
+            [field: SerializeField] public string questKey {get; private set;} //, StringDropdown(nameof(QuestKeysArray))
             [SerializeField] private bool activeOnInit = true;
             [SerializeField] private bool invertActivity;
             

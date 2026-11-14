@@ -82,7 +82,7 @@ And maybe I can find a new gig....
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
 Oh yeah, I wanted to ask about that.
 
--> Jestar_Satisfied
+-> Jestar_Ask
     
     
     === Jestar_Truth ===
@@ -102,15 +102,16 @@ How did you get inside...? It's meant to be closed for repairs.
 ...A key, just like what you were looking for to get in. I was asked to get some supplies from the back by a friend who works there.
     ~ Speaker (-1)
 You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a playful smirk, you prod them further while their guard is down.
-
--> Jestar_Satisfied
+-> Jestar_Ask
 
 // I made this repeatable
-=== Jestar_Satisfied ===
+=== Jestar_Ask ===
   ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+  ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
   ~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
+  ~ Portrait(SPEAKER_SECONDARY, MOOD_NEUTRAL)
   ~ Speaker(0)
-  
+  So...
 * [How does the whole clown thing work?] 
     -> Jestar_Work
     * [How'd you get a gig in an aquarium?] 
@@ -210,7 +211,14 @@ You haven't spoken with Dakota in three years. Not since that messy fight you'd 
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
     Tch, they're the ones who come running to me for help now. Not that it matters.
     I'm not gonna beat around the bush, you know my methods already. You're a suspect, answer my questions and we won't have any trouble.
-     ~ Speaker (1)
+    
+    -> Dakota_Ask // moved to here
+    
+// Loops once you meet Dakota
+=== Dakota_Ask ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_LANDLORD, SPEAKER_SECONDARY)
+    ~ Speaker (1)
     ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
     Oh and aren't you so giddy to get up and personal in my business again.
      ~ Speaker (0)
@@ -362,8 +370,9 @@ You haven't spoken with Dakota in three years. Not since that messy fight you'd 
     
     //QUEST - if player has investigated === fence_locked === prior to ever interacting with Dakota, automatically trigger this dialogue upon ending conversation with him. 
     // If player has not interacted with === fence_locked === prior, this dialogue does not trigger automatically, but rather is the dialogue that will play upon interacting with Dakota a second time after interacting with === fence_locked ===
-    
     === Dakota_Key ===
+~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+~ Character(CHAR_LANDLORD, SPEAKER_SECONDARY)
     ~ Speaker (-1)
     Working yourself up over your conversation with Dakota, you realise there's a favour you need to ask him and begrudgingly turn to face him.
     ~ Speaker (0)
