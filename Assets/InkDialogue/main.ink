@@ -17,3 +17,4 @@ INCLUDE Concepts\Juno_Briar_Interaction.ink
 //Interactions
 INCLUDE Interactions/ObjectInteractions.ink
 INCLUDE Interactions/CharacterInteractions.ink
+INCLUDE Interactions/Scripted.ink

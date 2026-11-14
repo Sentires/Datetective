@@ -82,12 +82,7 @@ And maybe I can find a new gig....
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
 Oh yeah, I wanted to ask about that.
 
-* [How does the whole clown thing work?] 
-    -> Jestar_Work
-    * [How'd you get a gig in an aquarium?] 
-    -> Jestar_Aquarium
-* [Do you know Antonio?] 
-    -> Jestar_Antonio
+-> Jestar_Satisfied
     
     
     === Jestar_Truth ===
@@ -107,14 +102,21 @@ How did you get inside...? It's meant to be closed for repairs.
 ...A key, just like what you were looking for to get in. I was asked to get some supplies from the back by a friend who works there.
     ~ Speaker (-1)
 You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a playful smirk, you prod them further while their guard is down.
+
+-> Jestar_Satisfied
+
+// I made this repeatable
+=== Jestar_Satisfied ===
+  ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
+  ~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
+  ~ Speaker(0)
+  
 * [How does the whole clown thing work?] 
     -> Jestar_Work
     * [How'd you get a gig in an aquarium?] 
     -> Jestar_Aquarium
 * [Do you know Antonio?] 
     -> Jestar_Antonio
-
-
     
 === Jestar_Work ===
     ~ Speaker (0)

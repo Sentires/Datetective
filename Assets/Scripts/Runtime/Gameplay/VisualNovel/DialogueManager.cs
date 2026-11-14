@@ -31,6 +31,8 @@ namespace TheDates.Runtime.Dialogue
         private static CharacterData _characterEmpty = new();
         private CharacterData _characterFallback;
 
+        private bool hasCooldown;
+
         public struct CharacterData
         {
             public readonly CharacterProfile Profile;
@@ -77,7 +79,7 @@ namespace TheDates.Runtime.Dialogue
             
             currentRoster = new CharacterData[2];
             _characterFallback = characters.IsNullOrEmpty() ? _characterEmpty : new CharacterData(characters[0]);
-
+            hasCooldown = false;
         }
 
         private void OnDestroy() {
@@ -142,16 +144,6 @@ namespace TheDates.Runtime.Dialogue
             currentRoster[positionIndex].Alias = string.IsNullOrEmpty(alias) ? string.Empty : alias;
         }
 
-        //public CharacterProfile FindCharacter(string characterName) {
-        //    return _characterDictionary.TryGetValue(characterName, out var index) ? characters[index] : null;
-        //}
-        
-        //public CharacterProfile GetCharacterAt(int index) {
-        //    return currentRoster.IsWithinBounds(index) ? currentRoster[index].Profile : null;
-        //}
-        
-        //public void UpdateCharacterPortrait()
-
         private void QuestStateChange(Quest quest) {
             GameEventsManager.Instance.DialogueEvents.UpdateInkVariable(quest.namedID + "State", new StringValue(quest.state.ToString())
                 
@@ -168,11 +160,13 @@ namespace TheDates.Runtime.Dialogue
         }
 
         public void ProcessDialogue() {
+            if (hasCooldown) return;
             if (!isRunning) return;
             RunStory();
         }
 
         private void EnterDialogue(string knotName) {
+            if (hasCooldown) return;
             if (isRunning) return;
             
             if (!string.IsNullOrEmpty(knotName)) {
@@ -217,6 +211,7 @@ namespace TheDates.Runtime.Dialogue
                 }
                 
                 GameEventsManager.Instance.DialogueEvents.DisplayDialogue(dialogueLine, _story.currentChoices);
+                StartCoroutine(ProcessingCooldown());
             }
             else if (_story.currentChoices.Count == 0)
             {
@@ -237,6 +232,25 @@ namespace TheDates.Runtime.Dialogue
             GameEventsManager.Instance.DialogueEvents.DialogueFinished();
             
             _story.ResetState();
+            hasCooldown = false;
+        }
+
+        private const float InternalCooldown = 0.25f;
+        
+        public IEnumerator ProcessingCooldown() {
+            if (hasCooldown) yield break;
+                
+            hasCooldown = true;
+            var elapsed = 0f;
+                
+            while (elapsed < InternalCooldown)
+            {
+                if (!hasCooldown) yield break; // Finish up
+                elapsed += Time.deltaTime;
+                yield return null; // Skip next frame
+            }
+
+            hasCooldown = false;
         }
         
         private void ExitDialogue2() {

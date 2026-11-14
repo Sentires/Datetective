@@ -11,9 +11,9 @@ using UnityEngine.InputSystem.LowLevel;
 namespace TheDates
 {
     public class InteractionObserver : MonoBehaviour {
-        [SerializeField] private UnityEvent<bool> onInteract = new();
-        [SerializeField] private UnityEvent onActivate = new();
-        [SerializeField] private UnityEvent onDeactivate = new();
+        [SerializeField] public UnityEvent<bool> onInteract = new();
+        [SerializeField] public UnityEvent onActivate = new();
+        [SerializeField] public UnityEvent onDeactivate = new();
         
         //[SerializeField] private GameObject indicator;
         

@@ -175,8 +175,8 @@ Upon closer inspection of the wood, you can see telltale signs of use. Namely, s
 
     * [Check under the table] 
     -> Order_Form
-    * [Leave] 
-    -> END
+    //* [Leave] 
+    //-> END
 
 === Order_Form ===
 You swing your head under the table to look for any other etchings underneath, an odd people-watching adjacent habit of yours.

@@ -28,6 +28,8 @@ namespace TheDates.Runtime.Experimental.MinigameCore
         public event Action<RaycastHit2D, ClickType> OnClickTarget = delegate { };
         public event Action<MiniGameContext> OnMiniGameProcessed = delegate { };
         public Vector2 ScreenResolution;
+
+        public bool isPuzzleActive => _currentMiniGame;
         
         private bool _isActive;
         //private bool _isClicking;
