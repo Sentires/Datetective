@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TheDates.Runtime.Experimental.MinigameCore;
 using TheDates.Runtime.General;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -233,6 +234,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         [SerializeField] private MeshRenderer boardSegmentB;
         [SerializeField] private Button confirmButton;
         [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private TextMeshProUGUI helpText;
         
         [Header("Visual Config")]
         [SerializeField] private Vector2 gameScale = new(4, 4);
@@ -288,8 +290,10 @@ namespace TheDates.Runtime.Gameplay.Minigames
                     return;
                 }
                 case Phase.Arranging: {
-                    if (input || !_draggedPiece) return;
-
+                    if (input) return;
+                    if (!confirmButton.interactable) helpText.text = "Hold [Left Click] to drag pieces onto the red pins, then release them.";
+                    if (!_draggedPiece) return;
+                    
                     var data = _evidenceDataDictionary[_draggedPiece];
             
                     if (!TrySnapToPin(_draggedPiece)) {
@@ -375,6 +379,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
                         _draggedPiece.materialDisplay.currentSortingOrder = 12;
                         _draggedPiece.piecePosition = _draggedPiece.piecePosition.With(z: ZClickOffset);
                         _draggedPiece.transform.SetAsLastSibling();
+                        
+                        helpText.text = "Evidence will drop and reset when releasing [Left Click] on an invalid spot, colliding with other evidence, or [Right Clicking] pinned pieces.";
                     }
                     else {
                         // If there's a pinned piece, right-clicking will release it to your pile
@@ -464,7 +470,9 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 case Phase.Connecting:
                 {
                     var suspectIndex = _currentSuspectIndex;
+                    var isLinked = false;
                     if (EvaluateScore()) {
+                        isLinked = true;
                         if (suspectIndex == correctSuspectIndex) {
                             _currentStringData.RemovePoint(_currentStringData.count - 1);
                             
@@ -478,7 +486,9 @@ namespace TheDates.Runtime.Gameplay.Minigames
                             pair.Value.SetActive(false);
                         }
                     }
+                    
                     SetSuspectTarget(-1);
+                    helpText.text = !isLinked ? "Your answer doesn't make sense. Try a different combination and try again!" : "Close! Evidence will disappear if you correctly link the suspect's evidence, now find the murderer!.";
                     return;
                 }
                 case Phase.Arranging: {
@@ -530,11 +540,23 @@ namespace TheDates.Runtime.Gameplay.Minigames
             CreateEvidence();
             
             contentParent.localScale = new Vector3(gameScale.x, gameScale.y, 1);
+            helpText.text = "Hold [Left Click] to drag pieces onto the red pins, then release them.";
+            //helpText.text = "Hold [Left Click] to drag pieces onto the red pins, then release them.";
+            //helpText.text = "Evidence will drop and reset when releasing [Left Click] on an invalid spot, colliding with other evidence, or [Right Clicking] pinned pieces.";
+            //helpText.text = "Use [Left Click] on the confirm button to start the next phase!";
+            //helpText.text = "Use [Left Click] on a suspect card to guess which evidence they're linked to.";
+            //helpText.text = "Use [Left Click] to link the red string onto evidence. [Right Click] to undo a choice. Click 'confirm' to check your answer.";
+            //helpText.text = "Close! Evidence will disappear if you correctly link the suspect's evidence, now find the murderer!.";
+            //helpText.text = "You're unable to correctly link this suspect to one of these cards.";
             
+            
+            //helpText.text = "Use [Left Click] on a suspect card, repeating it to link the red string onto evidence. [Right Click] to undo string. Click 'confirm' to check your answer.";
+
         }
         
         
         private void ClearProgress() {
+            helpText.text = "";
             _currentPhase = Phase.Inactive;
             
             Destroy(_suspectParent.gameObject);
@@ -652,6 +674,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 _currentStringData.Reset();
                 
                 confirmButton.interactable = false;
+                helpText.text = "Use [Left Click] on a suspect card to guess which evidence they're linked to.";
             }
             else {
                 _currentSuspectIndex = index;
@@ -661,6 +684,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
                 _currentStringData.AddPoint(_currentStringPointer, 1);
                 
                 confirmButton.interactable = true;
+                helpText.text = "Use [Left Click] to link the red string onto evidence. [Right Click] to undo a choice. Click 'confirm' to check your answer.";
             }
         }
 
@@ -696,7 +720,9 @@ namespace TheDates.Runtime.Gameplay.Minigames
             else if (evidenceData.currentPin == null && pinData != null) _arrangeCount++;
             
             evidenceData.SetPin(pinData);
-            confirmButton.interactable = _arrangeCount >= _evidenceDataDictionary.Count;
+            var isSuccessful = _arrangeCount >= _evidenceDataDictionary.Count;
+            confirmButton.interactable = isSuccessful;
+            if (isSuccessful) helpText.text = "Use [Left Click] on the confirm button to start the next phase!";
         }
 
         private void ResetPiece(EvidenceData target) {

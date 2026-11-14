@@ -2248,6 +2248,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3360661857520871916}
   m_SourcePrefab: {fileID: 100100000, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
+--- !u!114 &532290520869685745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8368672960755657548, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
+  m_PrefabInstance: {fileID: 8304757419766915773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5756951057243656505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4369794161649283972, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
@@ -2278,6 +2289,7 @@ MonoBehaviour:
   boardSegmentB: {fileID: 1503577720653575276}
   confirmButton: {fileID: 2964786156019212102}
   lineRenderer: {fileID: 1161218546242881894}
+  helpText: {fileID: 532290520869685745}
   gameScale: {x: 2, y: 2}
   suspectPinOffset: 0.95
   evidencePresets:
