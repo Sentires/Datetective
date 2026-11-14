@@ -20,8 +20,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/latest/PrototypeQuest V2.unity
     guid: 87523001dc7949e449f28cab1603afb0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/latest/PQV2 Puzzles.unity
     guid: 9043de1957c79154caf5d9e0c7cd4863
+  - enabled: 1
+    path: Assets/Scenes/latest/Map Rework/PrototypeQuest V3.unity
+    guid: 38ef6083ab91e3941a0358267bab89a6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 3128d4b10f7b18a49b76a2a062c9a761, type: 2}

@@ -16,5 +16,5 @@ MonoBehaviour:
     asset: {fileID: 102900000, guid: df56222b1b6ca414189313a5fd16ff64, type: 3}
     guid: df56222b1b6ca414189313a5fd16ff64
   gameScene:
-    asset: {fileID: 102900000, guid: 9043de1957c79154caf5d9e0c7cd4863, type: 3}
-    guid: 9043de1957c79154caf5d9e0c7cd4863
+    asset: {fileID: 102900000, guid: 38ef6083ab91e3941a0358267bab89a6, type: 3}
+    guid: 38ef6083ab91e3941a0358267bab89a6

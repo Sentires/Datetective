@@ -3685,6 +3685,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2071073258, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7464164136427039113, guid: 5dfc4db6f03e96c48a5f657b34586884, type: 3}
       propertyPath: m_Name
       value: DialogueImpl
