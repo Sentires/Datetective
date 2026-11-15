@@ -311,7 +311,7 @@ MeshCollider:
   m_GameObject: {fileID: 1654231626570368531}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -409,7 +409,7 @@ MeshCollider:
   m_GameObject: {fileID: 1802973946725969699}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -1198,7 +1198,7 @@ MeshCollider:
   m_GameObject: {fileID: 9005925498956455237}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -2288,6 +2288,7 @@ MonoBehaviour:
   boardSegmentA: {fileID: 6608853465942006848}
   boardSegmentB: {fileID: 1503577720653575276}
   confirmButton: {fileID: 2964786156019212102}
+  worldCanvas: {fileID: 8619826697398237494}
   lineRenderer: {fileID: 1161218546242881894}
   helpText: {fileID: 532290520869685745}
   gameScale: {x: 2, y: 2}

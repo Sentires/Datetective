@@ -233,6 +233,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
         [SerializeField] private MeshRenderer boardSegmentA;
         [SerializeField] private MeshRenderer boardSegmentB;
         [SerializeField] private Button confirmButton;
+        [SerializeField] private Canvas worldCanvas;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private TextMeshProUGUI helpText;
         
@@ -516,6 +517,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
             miniGameManager.OnRightClickState += OnRightClickState;
             miniGameManager.OnClickPosition += OnPointerPosition;
             miniGameManager.OnClickTarget += OnClickTarget;
+            worldCanvas.worldCamera = targetCamera;
         }
         
         private void OnDisabled() {
@@ -525,6 +527,7 @@ namespace TheDates.Runtime.Gameplay.Minigames
             miniGameManager.OnRightClickState -= OnRightClickState;
             miniGameManager.OnClickPosition -= OnPointerPosition;
             miniGameManager.OnClickTarget -= OnClickTarget;
+            worldCanvas.worldCamera = null;
         }
         #endregion
         
@@ -606,6 +609,8 @@ namespace TheDates.Runtime.Gameplay.Minigames
             
             confirmButton.onClick.AddListener(OnButtonSubmit);
             confirmButton.interactable = false;
+            
+            
             if (lineRenderer.AssertNull(this, "String LineRenderer")) _currentStringData = new StringData(lineRenderer);
         }
 

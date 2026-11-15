@@ -172,6 +172,14 @@ namespace TheDates
                 else if (context.Source.Equals(puzzleOfficeEvidence.miniGamePrefab)) {
                     puzzleWinOfficeEvidence = true;
                     winScreen.SetActive(puzzleWinOfficeEvidence);
+                    player.enabled = false;
+                    // Essentially disable this script
+
+                    miniGameManager.OnMiniGameProcessed -= MiniGameProcess;
+                    inputEvents.onInteract -= InteractionInput;
+                    dialogueEvents.onDialogueStarted -= DialogueStarted;
+                    dialogueEvents.onDialogueFinished -= DialogueEnded;
+                    gameObject.SetActive(false);
                 }
             }
         }
@@ -476,6 +484,7 @@ namespace TheDates
                         if (checkFence && !findGateKey) {
                             action += () => TriggerDialogue("Dakota_Key");
                             action += () => findGateKey = true;
+                            action += () => ToggleObjects(false, reference);
                             StartCoroutine(AwaitDialogue(action));
                         }
                         
@@ -487,6 +496,7 @@ namespace TheDates
                     TriggerDialogue("Briar_Date");
                     checkDateSegment = true;
                     ToggleObservers(false, reference);
+                    helpText.text = "You're tasked to investigate the assigned case. Find evidence, solve puzzles and speak to characters!";
                     break;
                 }
 
