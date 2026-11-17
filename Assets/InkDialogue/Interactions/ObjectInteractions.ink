@@ -178,13 +178,6 @@ Flour?? Okay that's an odd one to find in an aquarium storage room of all places
     ~ Speaker(-1)
 A simple but cute table setup. There are napkins, spare cutlery, and a copy of the menu tucked into a small organiser resting on it's wooden surface.
 Upon closer inspection of the wood, you can see telltale signs of use. Namely, small etchings absentmindedly made by customers past, and faint coffee stains that seeped too far into the grain to clean out.
-
-    * [Check under the table] 
-    -> Order_Form
-    //* [Leave] 
-    //-> END
-
-=== Order_Form ===
 You swing your head under the table to look for any other etchings underneath, an odd people-watching adjacent habit of yours.
 There's more of the usual you'd expect. Some more absent scratches, some names carved together inside a heart, a lot of gum... gross.
 Without thinking much, your gaze shifts to the floor as you begin to swing back up. There's a piece of paper neatly folded and stuck under one of the table legs. 

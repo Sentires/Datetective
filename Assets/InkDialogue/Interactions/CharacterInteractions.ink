@@ -82,7 +82,9 @@ I found it in the dumpster in the alleyway behind the aquarium. Terrible that so
     ~ Speaker (1)
     ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
 The dumpster?! How could they?! Ooooh and I just KNOW which bastard would've done it too...
+~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 Nevermind that, thank you again for finding it for me! Now the the Jestar can shine in the night sky again!
+~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
 And maybe I can find a new gig....
 
     ~ Speaker (0)
@@ -94,27 +96,33 @@ Oh yeah, I wanted to ask about that.
     
     === Jestar_Truth ===
     ~ Speaker (0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
+
 It was in the aquarium like you said it would be.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
 ...?
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
 ...!
     ~ Speaker (-1)
     ~ Portrait(SPEAKER_PRIMARY, MOOD_SHOCK)
 
 WHY DID YOU SAY THAT? So much for being discrete about your position here. You try to act like nothing you said was suspicious but they definitely caught on.
-        ~ Speaker (1)
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SHOCK)
 How did you get inside...? It's meant to be closed for repairs.
     ~ Speaker (0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_SAD)
 ...A key, just like what you were looking for to get in. I was asked to get some supplies from the back by a friend who works there.
-    ~ Speaker (-1)
+    ~ Speaker (-2)
 You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a playful smirk, you prod them further while their guard is down.
 -> Jestar_Ask
 
 // I made this repeatable
 === Jestar_Ask ===
   ~ Character(CHAR_DETECTIVE, SPEAKER_PRIMARY)
-  ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
+  ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
   ~ Character(CHAR_CLOWN, SPEAKER_SECONDARY)
   ~ Portrait(SPEAKER_SECONDARY, MOOD_NEUTRAL)
   ~ Speaker(0)
@@ -128,66 +136,90 @@ You watch Jestar squirm as you call him out on his hypocrisy, nice save. With a 
     
 === Jestar_Work ===
     ~ Speaker (0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_HAPPY)
 How does this whole clown thing work? I think it sounds fun.
-    ~ Speaker (-1)
+    ~ Speaker (-2)
 Jestar's face lights up at the slightest semblance of interest in what he does.
-     ~ Speaker (1)
+    ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 Hehe, well at the moment I just run any odd jobs that people want some entertainment at, usually kid's birthdays or pop up carnivals, but someday I wanna make it big and join a circus troupe! 
 I do the usual comedy routine you'd expect from a clown, but I also throw in some magic tricks to bring the audience into it. The excitement on kids faces when you pull off a trick makes it worthwhile, even if it's... not the most profitable career path.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
 Oh! Look at me rambling- that's probably not what you meant with your question- well the plain and simple is I look for gigs on forums and Facebook groups... and I guess make connections through that.
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
 The aquarium actually- that gig I got through a lady who had hired me for her kid's birthday party a while back. She knew someone who works here and suggested adding some interactive shows to keep kids more engaged over school break.
     ~ Speaker (0)
+    ~ Portrait(SPEAKER_PRIMARY, MOOD_NEUTRAL)
 Heh, that's cool. I've always been more fond of freelance work. Means you can follow your own rules, and your own passions.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 Y-yeah!
     -> Jestar_Conclude
 
 
 === Jestar_Aquarium ===
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
 How'd you end up with a gig at an aquarium of all places? It's not where I'd usually expect to see a clown is all.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
 Ahaha yeah... a bit of a new thing they were trying out is what I was told. See, a lady who'd hired me for her kid's birthday party let me know that she was friend's with one of the managers here and that they wanted to find new ways to engage kids with the exhibits since they can get a little boring for them, and she suggested me for the job!
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_HAPPY)
 I had to change up my routine a little to include some more fish facts than I'm used to but I think I made it work!
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
 Definitely not my favourite environment to work in though... There's always a bit of a looming smell- not a fishy one surprisingly, a more...sterile one? And the workers I have to interact with....
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
 Oh? Not a fan of them?
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
 It's- they're fine- most of them... well there's this one guy- he's always a bit of an ass for no reason, treating me like my presence is a nuisance, acting like he runs the place... and a womaniser at that! I've seen him flirting with every other woman working at Oceanarium and then acting like it never happened.
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_ANGRY)
 Ugh, I hate guys like that. He sounds like someone I know, what did you say his name was?
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_NEUTRAL)
 I'm... not sure... see he never even bothered to introduce himself! Acting like he's too good to even give me a name... I think I heard some other workers call him... Anthony was it? No- Antonio.
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
 !
 (The murder victim. To talk so casually about someone who just died... Is Jestar unaware, too bold for his own good, or trying to throw me off?)
     -> Jestar_Conclude
     
 === Jestar_Antonio ===
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
 Do you know a guy who works at Oceanarium called Antonio? Figured you might have crossed paths.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
 Wh-why do you want to know about him? Is he talking behind my back again?!
     ~ Speaker (0)
+        ~ Portrait (SPEAKER_PRIMARY, MOOD_SHOCK)
 No no, nothing like that, I just know one of the higher ups in HR- it's why I've been around the area, and... I heard he was causing some trouble. I wanted to get some first hand accounts.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_SAD)
 Oh I'll give you some firsthand accounts...
-    ~ Speaker (-1)
+    ~ Speaker (-2)
 Wow, he believed that story without hesitation, seems like they're looking for a reason to cuss out this guy.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_ANGRY)
 Such a prick! Treating me and his coworkers like our presence is a nuisance, acting like he runs the place... Oh! but only the men of course. The women? I've seen him flirting with every other woman working at Oceanarium and then acting like it never happened when they catch on that they aren't the only one he treats nicely. Heartbreaking bastard...
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_SAD)
     Jeez, sounds like a real piece of work... I'll look into it further.
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_NEUTRAL)
     (To talk so casually about someone who just died... Is Jestar unaware, too bold for his own good, or trying to throw me off?)
     
     -> Jestar_Conclude
 
 === Jestar_Conclude ===
     ~ Speaker (0)
+    ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
 Thanks for entertaining my questioning, and I hope you get yourself another gig soon. And let me know if I can help in any way, I'll be around the area.
-    ~ Speaker (-1)
+    ~ Speaker (-2)
 You shoot Jestar a little wink as you wave goodbye.
     ~ Speaker (1)
+    ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
 Y-yeah! No worrries- and thanks.
     -> END
     
@@ -458,6 +490,7 @@ Hello dear! Welcome to Baked Hearts Patisserie! How can I help you?
     ~ Speaker(0)
     ~ Portrait (SPEAKER_PRIMARY, MOOD_HAPPY)
     Hmm, what would you recommend? I think I can trust your judgement, you seem like you have good taste.
+    ~ Speaker (-2)
     You shoot her a grin as you speak. Seriously not the time for flirting but okay.
     ~ Speaker(1)
     ~ Portrait (SPEAKER_SECONDARY, MOOD_FLUSTER)
