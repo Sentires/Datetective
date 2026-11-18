@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "[BUG]"
 labels: bug
-assignees: Sentires, porkflossbun, Dinomite-Bone, spacewildcat
+assignees: ''
 type: Bug
 
 ---
