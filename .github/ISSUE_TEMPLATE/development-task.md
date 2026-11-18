@@ -3,7 +3,7 @@ name: Development Task
 about: GitHub-assigned tasks for the development team to track progress.
 title: "[TASK]"
 labels: help wanted
-assignees: ''
+assignees: Sentires, porkflossbun, Dinomite-Bone, spacewildcat
 type: Task
 
 ---
