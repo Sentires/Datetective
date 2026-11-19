@@ -11,8 +11,10 @@ namespace TheDates.Runtime.UI
 {
     public class DialoguePanelUI : MonoBehaviour
     {
+        [FormerlySerializedAs("contentParent")]
         [Header("Components")]
-        [SerializeField] private GameObject contentParent;
+        [SerializeField] private GameObject dialogueParent;
+        [SerializeField] private GameObject displayParent;
         [SerializeField] private GameObject dialogueBoxPrimary;
         [SerializeField] private GameObject dialogueBoxSecondary;
         [SerializeField] private TextMeshProUGUI dialogueTextPrimary;
@@ -32,7 +34,8 @@ namespace TheDates.Runtime.UI
         private DialogueEvents dialogueEvents => GameEventsManager.Instance?.DialogueEvents;
 
         private void Awake() {
-            contentParent.SetActive(false);
+            dialogueParent.SetActive(false);
+            displayParent.SetActive(false);
             ResetPanel();
 
             defaultTextFontAsset = dialogueTextPrimary.font;
@@ -56,11 +59,13 @@ namespace TheDates.Runtime.UI
         }
 
         private void DialogueStarted() {
-            contentParent.SetActive(true);
+            dialogueParent.SetActive(true);
+            displayParent.SetActive(false);
         }
 
         private void DialogueFinished() {
-            contentParent.SetActive(false);
+            dialogueParent.SetActive(false);
+            displayParent.SetActive(false);
             ResetPanel();
         }
 
