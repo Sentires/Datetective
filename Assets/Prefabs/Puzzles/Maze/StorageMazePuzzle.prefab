@@ -158,10 +158,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8368672960755657548, guid: 6296acd11a7585f4ea8f9fa1d366bb35, type: 3}
       propertyPath: m_text
-      value: 'Hold [Left Click] to guide the circle towards your cursor.
-
-        Avoid
-        red hazards and navigate towards the maze exit.'
+      value: Hold [Left Click] to guide the circle towards your cursor. Avoid potential
+        hazards and navigate towards the maze exit. Hazards reset you to the start.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
