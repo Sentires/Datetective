@@ -35,6 +35,7 @@ namespace TheDates
         private void OnEnable() {
             if (!GameEventsManager.HasInstance) return;
             dialogueEvents.onInteract += OnInteraction;
+            dialogueEvents.onSubmit += OnInteraction;
         }
 
         private void OnInteraction(bool input) {
@@ -45,6 +46,7 @@ namespace TheDates
         private void OnDisable() {
             if (!GameEventsManager.HasInstance) return;
             dialogueEvents.onInteract -= OnInteraction;
+            dialogueEvents.onSubmit -= OnInteraction;
         }
 
         public void SetInteractionEnter(Collider2D target, Collider2D source) {

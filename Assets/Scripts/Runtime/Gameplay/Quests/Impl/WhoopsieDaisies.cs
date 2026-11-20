@@ -101,6 +101,7 @@ namespace TheDates
             
             miniGameManager.OnMiniGameProcessed += MiniGameProcess;
             inputEvents.onInteract += InteractionInput;
+            inputEvents.onSubmit += InteractionInput;
             dialogueEvents.onDialogueStarted += DialogueStarted;
             dialogueEvents.onDialogueFinished += DialogueEnded;
 
@@ -127,11 +128,20 @@ namespace TheDates
         
         void Start() {
             helpText.text = "Use [W][A][S][D]/Arrows to move around. [Space] will continue active dialogue and interact with clipboard-marked locations.";
+            GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.World);
+            CameraManager.Instance.SetState(CameraManager.RenderState.PixelWorld);
         }
-        
-        private void DialogueStarted() => _dialogueActive = true;
 
-        private void DialogueEnded() => _dialogueActive = false;
+        private void DialogueStarted() {
+            _dialogueActive = true;
+            GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.UI);
+        }
+
+        private void DialogueEnded() {
+            _dialogueActive = false;
+            if (_puzzleActive) return;
+            GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.World);
+        }
 
         private void InteractionInput(bool input) {
             if (!input) return;

@@ -255,15 +255,6 @@ namespace TheDates.Runtime.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Submit"",
-                    ""type"": ""Button"",
-                    ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
@@ -312,6 +303,15 @@ namespace TheDates.Runtime.Input
                     ""name"": ""RightClick"",
                     ""type"": ""PassThrough"",
                     ""id"": ""44b200b1-1557-4083-816c-b22cbdf77ddf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""249a6546-c212-4f7e-9591-00616c97c740"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -420,17 +420,6 @@ namespace TheDates.Runtime.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9e92bb26-7e3b-4ec4-b06b-3c8f8e498ddc"",
-                    ""path"": ""*/{Submit}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""82627dcc-3b13-4ba9-841d-e4b746d6553e"",
                     ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
@@ -492,6 +481,17 @@ namespace TheDates.Runtime.Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d52b6723-5bc6-4488-a210-4a94935ff79e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -572,13 +572,13 @@ namespace TheDates.Runtime.Input
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
-            m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
             m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
             m_UI_Position = m_UI.FindAction("Position", throwIfNotFound: true);
             m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+            m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -712,25 +712,25 @@ namespace TheDates.Runtime.Input
         private readonly InputActionMap m_UI;
         private IUIActions m_UIActionsCallbackInterface;
         private readonly InputAction m_UI_Navigate;
-        private readonly InputAction m_UI_Submit;
         private readonly InputAction m_UI_Cancel;
         private readonly InputAction m_UI_Position;
         private readonly InputAction m_UI_LeftClick;
         private readonly InputAction m_UI_ScrollWheel;
         private readonly InputAction m_UI_MiddleClick;
         private readonly InputAction m_UI_RightClick;
+        private readonly InputAction m_UI_Submit;
         public struct UIActions
         {
             private @TestInputs m_Wrapper;
             public UIActions(@TestInputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
-            public InputAction @Submit => m_Wrapper.m_UI_Submit;
             public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
             public InputAction @Position => m_Wrapper.m_UI_Position;
             public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
             public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
             public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
             public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+            public InputAction @Submit => m_Wrapper.m_UI_Submit;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -743,9 +743,6 @@ namespace TheDates.Runtime.Input
                     @Navigate.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
                     @Navigate.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
                     @Navigate.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
-                    @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                    @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                    @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
                     @Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
@@ -764,6 +761,9 @@ namespace TheDates.Runtime.Input
                     @RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                     @RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                     @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
+                    @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                    @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                    @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
                 }
                 m_Wrapper.m_UIActionsCallbackInterface = instance;
                 if (instance != null)
@@ -771,9 +771,6 @@ namespace TheDates.Runtime.Input
                     @Navigate.started += instance.OnNavigate;
                     @Navigate.performed += instance.OnNavigate;
                     @Navigate.canceled += instance.OnNavigate;
-                    @Submit.started += instance.OnSubmit;
-                    @Submit.performed += instance.OnSubmit;
-                    @Submit.canceled += instance.OnSubmit;
                     @Cancel.started += instance.OnCancel;
                     @Cancel.performed += instance.OnCancel;
                     @Cancel.canceled += instance.OnCancel;
@@ -792,6 +789,9 @@ namespace TheDates.Runtime.Input
                     @RightClick.started += instance.OnRightClick;
                     @RightClick.performed += instance.OnRightClick;
                     @RightClick.canceled += instance.OnRightClick;
+                    @Submit.started += instance.OnSubmit;
+                    @Submit.performed += instance.OnSubmit;
+                    @Submit.canceled += instance.OnSubmit;
                 }
             }
         }
@@ -853,13 +853,13 @@ namespace TheDates.Runtime.Input
         public interface IUIActions
         {
             void OnNavigate(InputAction.CallbackContext context);
-            void OnSubmit(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
             void OnPosition(InputAction.CallbackContext context);
             void OnLeftClick(InputAction.CallbackContext context);
             void OnScrollWheel(InputAction.CallbackContext context);
             void OnMiddleClick(InputAction.CallbackContext context);
             void OnRightClick(InputAction.CallbackContext context);
+            void OnSubmit(InputAction.CallbackContext context);
         }
     }
 }
