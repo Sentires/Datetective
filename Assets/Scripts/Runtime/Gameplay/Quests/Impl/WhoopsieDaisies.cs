@@ -41,6 +41,8 @@ namespace TheDates
         // Private
         private readonly Dictionary<string, List<QuestObject>> _questObjectDict = new();
         private readonly Dictionary<string, List<QuestInteractionObserver>> _questInteractionDict = new();
+
+        public GameObject tempPopup;
         
         
         // Other
@@ -106,6 +108,11 @@ namespace TheDates
             dialogueEvents.onDialogueFinished += DialogueEnded;
 
         }
+
+        public void SetTempPopup(bool toggle) {
+            tempPopup.SetActive(toggle);
+            GameEventsManager.Instance.InputEvents.ChangeInputEventContext(toggle ? InputEvents.Context.UI : InputEvents.Context.World);
+        }
         
         /*
         public void OnEnable() {
@@ -130,6 +137,7 @@ namespace TheDates
             helpText.text = "Use [W][A][S][D]/Arrows to move around. [Space] will continue active dialogue and interact with clipboard-marked locations.";
             GameEventsManager.Instance.InputEvents.ChangeInputEventContext(InputEvents.Context.World);
             CameraManager.Instance.SetState(CameraManager.RenderState.PixelWorld);
+            SetTempPopup(false);
         }
 
         private void DialogueStarted() {
@@ -238,6 +246,8 @@ namespace TheDates
                     TriggerDialogue("Case_file");
                     checkCaseFile = true;
                     helpText.text = "When encountering a puzzle, a MiniGame will overlay on your screen. These primarily use [Left/Right Click], but check their help-box for more details.";
+                    action += () => SetTempPopup(true);
+                    StartCoroutine(AwaitDialogue(action));
                     break;
                 }
                 case "CorkBoard": {
